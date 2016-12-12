@@ -113,3 +113,10 @@ MySQL, Oracle, SQL Server 전용서비스
 5. 프로비저닝된IOPS
 6. 미리 구성된 매개변수
 7. CloudWatch를 이용한 모니터링(무료)
+
+Work Banck 다운로드 후 AWS RDS를 MySQL Work Banch로 연결 완료!
+
+
+End point 가 URL
+
+Reflica에서 부터 시작.
