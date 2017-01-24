@@ -392,9 +392,104 @@ map() 기존의 배열에 특정 규칙을 적용해 새로운 배열을 만듬
       alert(output);
   **8.8.4 조건 메서드**
 
+forEach() 메서드의 매개변수로 입력되는 함수의 형태는 filter()메서드를 비롯해 every(), some()메서드에서도 사용된다.
+
+filter() -> 특정 조건을 만족하는 요소를 추출해 새로운 배열을 만든다.
+every() -> 배열의 요소가 특정 조건을 모두 만족하는지 확인합니다.
+some() -> 배열의 요소가 특정 조건을 적어도 하나 만족하는지 확인
+
+    <script>
+      var array = [1,2,3,4,5,6,7,8,9,10]
+
+      array= array.filter(function (element, index, array) {
+        return element <= 5;
+        })
+    </script>
+
+filter()메서드는 매개변수로 입력한 함수는 불 리턴해야합니다. 이때 리턴하는 값이 true인 배열의 요소만을 골라 새로운 배열을 만듭니다.
+
+    <script>
+      var array = [1,2,3,4,5,6,7,8,9,10]
+
+      function lessThanFive(element, index, array) {
+        return element < 5;
+      }
+
+
+      function lessThanTwenty(element, index, array) {
+        return element < 20;
+      }
+
+      var output1 = array.every(lessThanFive);
+      var output2 = array.every(lessThanTwenty);
+      var output3 = array.some(lessThanFive);
+      var output4 = array.some(lessThanTwenty);
+    </script>
+
+    false : true
+    true : true
+
+이렇게 나오는데, 이유는 every는 모든 조건에 만족해야 true
+반면 some()은 배열의 요소중 적어도 하나 이상의 함수에서 true를 리턴할 경우에 true를 리턴
+
+**8.8.5 연산 메서드**
+
+reduce() -> 배열의 요소가 하나가 될 때까지 요소를 왼쪽부터 두 개씩 묶는 함수를 실행합니다.
+reduceRight() -> 배열의 요소가 하나가 될 떄까지 요소를 오른쪽부터 두 개씩 묶는 함수를 실행합니다.
+
+ reduce()
+
+    <script>
+      //변수를 선언
+      var reduce = [1,2,3,4,5];
+
+      //출력
+      var output = '';
+      array.reduce(function(previousValue, currentValue, index, array) {
+      output += previousValue + ' : ' currentValue + ' : ' + index + '\n';
+      } );
+      alert(output);
+
+      var result = array.reduce(function (previousValue, currentValue) {
+        return previousValue + currentValue;
+        });
+      //결과는 15가 나옴.
+      reduce-> 하나가 될때까지 계속 줄여나가는 함수.
+    </script>
 
 ## 8.9 ECMAScript 5 JSON 객체
+JSON 객의 메서드.
+JSON.stringify() -> 자바스크립트 객체를 JSON 문자열로 반환
+JSON.parse() -> JSON문자열을 자바 스크립트 객체로 변환
+
+    <script>
+      var object = {
+        name : '윤인성',
+        region: '서울 특별시'
+      }
+
+      //출력
+      alert(JSON.stringify(object));
+    </script>
+
+     결과는 {"name":'윤인성', "region":'서울특별시'}
+
+     <script>
+     var object = {
+       name : '윤인성',
+       region: '서울 특별시'
+     }
+
+     var copy = JSON.parse(JSON.stringify(object));
+
+     alert(copy.name + ' : ' + copy.region);
+     </script>
+
 
 ## 8.10 ECMAScript 5 String 객체
 
+  trim -> 문자열 양쪽 끝의 공백을 제거.
+
 ## 8.11 ECMAScript 5 Object 객체
+
+(생략)
