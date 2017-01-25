@@ -408,5 +408,245 @@ OPTIONS | 사용 가능한 요청 방식 조회
 TRACE | 테스트 목적의 데이터 조회
 CONNECT | 연결 요청
 
+일단 아래와 같이 작업을 할 예정
+ - GET 요청: 127.0.0.1:52273/products 제품 전체 조회
+ - GET 요청: 127.0.0.1:52273/products/273 (273번 제품 조회)
+ - POST 요청: 127.0.0.1:52273/products (제품 추가)
+ - PUT 요청: 127.0.0.1:52273/products/273 (273번 제품 수정)
+ - DELETE 요청: 127.0.0.1:52273/products/273 273번 제품 제거
+**19.14.1 데이터 조회**
+
+GET 요청의 /products 는 다음과 같이 작성합니다.
+
+    app.get('/products', function (request, response) {
+      response.send(items);
+      });
+
+이렇게 하면 전체 전송
+
+  app.get('/products/:id', function (request, response) {
+
+    var id = Number(request.param('id'));
+
+    response.send(item[id]);
+    });
+
+request.param()메서드로 데이터를 추출하면 문자열이 나오므로 숫자로 변환하고자 Number()함수를 사용했음.
+
+ 그러나 데이터를 하나만 출력할 경우에는 다음과 같은 문제 발생
+  1. 클라이언트가 숫자가 아닌 값을 입력했을 경우
+  2. 숫자를 입력했는데, 데이터가 없는 경우.
+
+>개별 데이터 조회 보완 코드
+
+    app.get('/products/:id', function(request, response) {
+      var id = Number(request.param('id'));
+
+      if(isNaN(id)) {
+        //오류 잘못된 경우
+        response.send({
+          error: 'plz put the number'
+          });
+      } else if(item[id]) {
+        response.send(items[id]);
+      } else {
+        //No item
+        response.send({
+          error: '존재하지 않는 데이터입니다!'
+          });
+      }
+      });
+
+----
+
+ **19.14.5 클라이언트 페이지**
+
+     <!DOCTYPE html>
+     <html>
+       <head>
+         <meta charset="utf-8">
+         <title>node.js express</title>
+       </head>
+       <body>
+         <form action="/products" method="get"></form>
+         <form action="/products" method="post"></form>
+       </body>
+     </html>
+
+
+HTML5부터는 form태그로 PUT요청과 DELETE 요청을 보낼스 없습니다. 따라서 PUT요청과 DELETE요청은 XMLHttpRequest객채로 함
+
+>GET 요청 방식
+
+      <form action="/products" method="get">
+      <input type = "submit" />
+      </form>
+
+>POST 요청 입력 방식
+
+    <form action="/products" method="post">
+      <input name="name" />
+      <input name="price" />
+      <input type="submit" />
 
 ### 19.15 서버 정리
+
+    var http = require('http');
+    var express = require('express');
+
+    //변수 선언
+    var items = [{
+      name: '우유',
+      price: '20000'
+    },{
+      name: '홍차',
+      price: '5000'
+    },{
+      name: '커피',
+      price: '4000'
+    } ];
+
+    var app = express();
+
+    app.use(express.static('public'));
+    app.use(express.bodyParser());
+    app.use(app.router);
+
+    app.all('/data.html', function(request, response) {
+      var output = '';
+      output += '<!DOCTYPE html>';
+      output += '<HTML>';
+      output += '<head>';
+      output += '   <title>Date HTML</title>';
+      output += '</head>';
+      output += '<body>';
+
+      items.forEach(function (item) {
+        output += '<div>';
+        output += ' <h1>' + item.name + '<h1>';
+        output += ' <h2>' + item.price + '<h2>';
+        output += '</div>';
+      });
+
+      output += '</body>';
+      output += '</html>';
+      response.send(output);
+      //원래는 템플릿 엔진을 활용하는데, 조금 어려움
+
+    });
+    app.all('/data.json', function(request, response) {
+      response.send(items);
+    });
+
+    app.all('/data.xml', function(request, response) {
+      var output = '';
+      output += '<?xml version="1.0" encoding="UTF-8" ?>';
+      output += '<products>';
+      items.forEach(function (item) {
+        output += '<product>';
+        output += '<name>' + item.name + '</name>';
+        output += '<price>'+ item.price + '</price>';
+        output += '</product>';
+      });
+      output += '</products>';
+      response.type('text/xml');
+      response.send(output);
+    });
+
+    app.get('/products', function (request, response) {
+
+      response.send(items);
+      });
+
+    app.get('/products/:id', function(request, response) {
+
+      var id = Number(request.param('id'));
+
+      if(isNaN(id)) {
+        //오류 잘못된 경우
+        response.send({
+          error : 'plz put the number'
+          });
+      } else if(items[id]) {
+        response.send(items[id]);
+      } else {
+        //No item
+        response.send({
+          error : '존재하지 않는 데이터입니다!'
+          });
+      }
+    });
+
+    app.post('/products', function (request, response) {
+      //데이터 추가 post
+      var name = request.param('name');
+      var price = request.param('price');
+
+      var item = {
+        name: name,
+        price: price
+      };
+
+      //데이터를 추가
+      items.push(item);
+
+      //응답
+      response.send({
+        message: '데이터를 추가했습니다.',
+        data:item
+      });
+    });
+
+    app.put('/products/:id', function (request, response) {
+
+      var id = Number(request.param('id'));
+      var name = request.param('name');
+      var price = request.param('price');
+
+      if (items[id]) {
+        //데이터를 수정
+        if (name) {
+          items[id].name = name;
+        }
+        if (price) {
+          items[id].price = price;
+        }
+
+        response.send({
+          message: '데이터를 수정했습니다.',
+          data: items[id]
+        });
+      } else {
+        //오류: 요소가 없는 경우
+        response.send({
+          error: '존재하지 않는 데이터입니다!'
+        });
+      }
+    });
+
+    app.del('/products/:id', function (request, response) {
+      //변수 선언
+      var id = Number(request.param('id'));
+
+      if (isNaN(id)) {
+        //오류 잘못된 경로
+        response.send({
+          error : 'put the numbers'
+        });
+      }else if (items[id]) {
+        //정상: 데이터 삭제
+        items.splice(id, 1);
+        response.send({
+          message : '데이터를 삭제함 '
+        });
+      } else {
+        //요소가 없을경우
+        response.send({
+          error: '존재하지 않는 데이터'
+        })
+      }
+    });
+
+    http.createServer(app).listen(52273, function(){
+     console.log('Server Running at http://127.0.0.1:52273');
+    });

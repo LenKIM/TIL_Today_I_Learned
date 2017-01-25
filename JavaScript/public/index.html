@@ -1,15 +1,70 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>node.js express</title>
   </head>
   <body>
-    <h1>index.html</h1>
-    <p>Lorem ipsum sit amet.</p>
-    <p>dd</p>
-    <p>dd</p>
-    <p>dd</p>
-    <p>asdasfassssssasdasdasdsg</p>
+    <form action="/products" method="get">
+      <fieldset>
+        <legend>GET</legend>
+    <input type = "submit" />
+      </fieldset>
+    </form>
+    <form action="/products" method="post">
+      <fieldset>
+        <legend>POST<legend>
+      <input name="name" />
+      <input name="price" />
+      <input type="submit" />
+    </fieldset>
+    </form>
+  </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>XMLHttpRequest</title>
+  </head>
+  <body>
+      <script>
+
+      function createRequest() {
+
+        var request;
+
+        try {
+          request = new XMLHttpRequest();
+
+        } catch(exception) {
+          try{
+            request = new ActiveXObject('Msxm12.XMLHTTP');
+          }catch(innerException) {
+            request = new ActiveXObject('Microsoft.XMLHTTP');
+          }
+        }
+        return request;
+
+      }
+
+        var request = new createRequest();
+
+        equest.onreadystatechange = function(event) {
+          //출력
+          alert(request.readyState);
+        };
+
+        request.open('GET', '/data.html', false);
+
+        //Ajax를 수행
+        request.send();
+
+        //출력
+        // alert(request.responseText);
+        document.body.innerHTML += request.responseText;
+      </script>
   </body>
 </html>

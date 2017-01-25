@@ -114,6 +114,45 @@
 // http.createServer(app).listen(52273, function(){
 //  console.log('Server Running at http://127.0.0.1:52273');
 // });
+//
+// var http = require('http');
+// var express = require('express');
+//
+// //변수 선언
+// var items = [{
+//   name: '우유',
+//   price: '20000'
+// },{
+//   name: '홍차',
+//   price: '5000'
+// },{
+//   name: '커피',
+//   price: '4000'
+// } ];
+//
+// var app = express();
+//
+// app.use(express.static('public'));
+// app.use(app.router);
+
+//GET POST PUT DELETE요청 방식은 나중에 알아보고
+
+// 라우트합니다.
+//
+// app.all('/parameter', function(request, response) {
+//   var name = request.param('name');
+//   var region = request.param('region');
+//
+// //응답
+// response.send('<h1>' + name + ':' + region + '</h1>');
+// });
+//
+// app.all('/parameter2/:id', function(request, response) {
+//   var id = request.param('id');
+// //:id 주의!
+// response.send('<h1>' + id + '</h1>');
+// });
+
 
 var http = require('http');
 var express = require('express');
@@ -133,11 +172,9 @@ var items = [{
 var app = express();
 
 app.use(express.static('public'));
+app.use(express.bodyParser());
 app.use(app.router);
 
-//GET POST PUT DELETE요청 방식은 나중에 알아보고
-
-//라우트합니다.
 app.all('/data.html', function(request, response) {
   var output = '';
   output += '<!DOCTYPE html>';
@@ -179,18 +216,98 @@ app.all('/data.xml', function(request, response) {
   response.send(output);
 });
 
-app.all('/parameter', function(request, response) {
-  var name = request.param('name');
-  var region = request.param('region');
+app.get('/products', function (request, response) {
 
-//응답
-response.send('<h1>' + name + ':' + region + '</h1>');
+  response.send(items);
+  });
+
+app.get('/products/:id', function(request, response) {
+
+  var id = Number(request.param('id'));
+
+  if(isNaN(id)) {
+    //오류 잘못된 경우
+    response.send({
+      error : 'plz put the number'
+      });
+  } else if(items[id]) {
+    response.send(items[id]);
+  } else {
+    //No item
+    response.send({
+      error : '존재하지 않는 데이터입니다!'
+      });
+  }
 });
 
-app.all('/parameter2/:id', function(request, response) {
-  var id = request.param('id');
-//:id 주의!
-response.send('<h1>' + id + '</h1>');
+app.post('/products', function (request, response) {
+  //데이터 추가 post
+  var name = request.param('name');
+  var price = request.param('price');
+
+  var item = {
+    name: name,
+    price: price
+  };
+
+  //데이터를 추가
+  items.push(item);
+
+  //응답
+  response.send({
+    message: '데이터를 추가했습니다.',
+    data:item
+  });
+});
+
+app.put('/products/:id', function (request, response) {
+
+  var id = Number(request.param('id'));
+  var name = request.param('name');
+  var price = request.param('price');
+
+  if (items[id]) {
+    //데이터를 수정
+    if (name) {
+      items[id].name = name;
+    }
+    if (price) {
+      items[id].price = price;
+    }
+
+    response.send({
+      message: '데이터를 수정했습니다.',
+      data: items[id]
+    });
+  } else {
+    //오류: 요소가 없는 경우
+    response.send({
+      error: '존재하지 않는 데이터입니다!'
+    });
+  }
+});
+
+app.del('/products/:id', function (request, response) {
+  //변수 선언
+  var id = Number(request.param('id'));
+
+  if (isNaN(id)) {
+    //오류 잘못된 경로
+    response.send({
+      error : 'put the numbers'
+    });
+  }else if (items[id]) {
+    //정상: 데이터 삭제
+    items.splice(id, 1);
+    response.send({
+      message : '데이터를 삭제함 '
+    });
+  } else {
+    //요소가 없을경우
+    response.send({
+      error: '존재하지 않는 데이터'
+    })
+  }
 });
 
 http.createServer(app).listen(52273, function(){
