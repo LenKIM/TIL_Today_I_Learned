@@ -202,6 +202,7 @@ app.all('/data.json', function(request, response) {
 });
 
 app.all('/data.xml', function(request, response) {
+
   var output = '';
   output += '<?xml version="1.0" encoding="UTF-8" ?>';
   output += '<products>';

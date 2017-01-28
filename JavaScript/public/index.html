@@ -22,8 +22,8 @@
   </body>
 </html> -->
 
-
-<!DOCTYPE html>
+<!-- JSON을 조작하는 방법임 나타냄! -->
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -39,6 +39,7 @@
         try {
           request = new XMLHttpRequest();
 
+
         } catch(exception) {
           try{
             request = new ActiveXObject('Msxm12.XMLHTTP');
@@ -47,24 +48,176 @@
           }
         }
         return request;
-
       }
 
         var request = new createRequest();
 
-        equest.onreadystatechange = function(event) {
-          //출력
-          alert(request.readyState);
+        request.onreadystatechange = function (event) {
+          if(request.readyState == 4) {
+            if(request.status == 200) {
+              //데이터를 가공합니다.
+              var json = eval('(' + request.responseText + ')');
+              var output = '';
+
+              for(var i = 0; i < json.length; i++) {
+                for(var key in json[i]) {
+                  output += '<h1>' + i + ':' + json[i][key] + '</h1>';
+                }
+              }
+
+              //출력합니다.
+              document.body.innerHTML += output;
+            };
+          };
         };
-
-        request.open('GET', '/data.html', false);
-
-        //Ajax를 수행
+        request.open('GET', '/data.json', true);
         request.send();
-
-        //출력
-        // alert(request.responseText);
-        document.body.innerHTML += request.responseText;
       </script>
+  </body>
+</html> -->
+<!-- XML조작 방법에 관한 html -->
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>XMLHttpRequest</title>
+  </head>
+  <body>
+      <script>
+
+      function createRequest() {
+
+        var request;
+
+        try {
+          request = new XMLHttpRequest();
+        } catch(exception) {
+          try{
+            request = new ActiveXObject('Msxm12.XMLHTTP');
+          }catch(innerException) {
+            request = new ActiveXObject('Microsoft.XMLHTTP');
+          }
+        }
+        return request;
+      }
+
+        var request = new createRequest();
+
+        request.onreadystatechange = function (event) {
+          if(request.readyState == 4) {
+              if(request.status == 200) {
+              //declear var
+              var xml = request.responseXML;
+              // alert(xml);
+              //데이터를 가공
+              var names = xml.getElementsByTagName('name');
+              var prices = xml.getElementsByTagName('price');
+
+              for(var i = 0; i < names.length; i++){
+                var name = names[i].childNodes[0].nodeValue;
+                var price = prices[i].childNodes[0].nodeValue;
+
+                document.body.innerHTML += '<h1>' + name + '<h1>';
+                document.body.innerHTML += '<h2>' + price + '<h2>';
+            }
+          }
+        };
+      };
+      request.open('GET', '/data.xml', true);
+      request.send();
+
+      </script>
+  </body>
+</html> -->
+<!-- 이번에는 GET, POST, PUT, DELETE 요청 방식으로 요청하는 방법 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>XMLHttpRequest</title>
+    <script>
+    //Xㅢ
+    function createRequest() {
+        try {
+          return new XMLHttpRequest();
+        } catch (exception) {
+          var versions = [
+            'Msxml2.XMLHTTP.6.0',
+            'Msxml2.XMLHTTP.5.0',
+            'Msxml2.XMLHTTP.4.0',
+            'Msxml2.XMLHTTP.3.0',
+            'Msxml2.XMLHTTP',
+            'Microsoft.XMLHttp'
+          ];
+          for (var i = 0; i < versions.length; i++) {
+            try{
+            return new ActiveXObject(versions[i]);
+          }catch (e) { }
+        }
+      }
+    }
+  </script>
+  <script>
+        window.onload = function() {
+          document.getElementById('get').onclick = function() {
+           //Ajax를 수행합니다.
+         var request = createRequest();
+       request.open('GET', '/products', false);
+       request.send();
+
+        document.getElementById('output').value = request.responseText;
+      };
+      // GET 요청 매개변수 request.open('GET', '/parameter?name=name&region=seoul', false)
+      // GET 캐싱 해결 방법
+      // var request = createRequest;
+      // request.open('GET','/products?dummy='+ new Date().getTime(), false);
+      // request.send();
+          document.getElementById('post').onclick = function() {
+          //변수 선언
+          var name = document.getElementById('name').value;
+          var price = document.getElementById('price').value;
+
+          //Ajax를 수행합니다.
+          var request = createRequest();
+          request.open('POST', '/products', false);
+          request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.send('name=' + name + '&price=' + price);
+          //출력
+          document.getElementById('output').value = request.responseText;
+         };
+          document.getElementById('put').onclick = function() {
+          //변수 선언
+          var name = document.getElementById('name').value;
+          var price = document.getElementById('price').value;
+
+          //Ajax 수행
+          var request = createRequest();
+          request.open('PUT', '/products/0', false);
+          request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.send('name=' + name + '&price=' + price);
+          document.getElementById('output').value = request.responseText;
+
+         };
+          document.getElementById('delete').onclick = function() {
+            //Ajax를 수행합니다.
+            var request = createRequest();
+            request.open('DELETE', '/products/0', false);
+            request.send();
+
+            document.getElementById('output').value = request.responseText;
+          };
+        };
+  </script>
+  </head>
+  <body>
+      <button id="get">GET</button>
+      <button id="post">POST</button>
+      <button id="put">PUT</button>
+      <button id="delete">DELETE</button>
+      <h1>input</h1>
+      <input id = "name" />
+      <input id = 'price' />
+      <h1>output</h1>
+      <textarea id = "output" disabled="disabled" cols= "40" rows = "5"></textarea>
   </body>
 </html>
