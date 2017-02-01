@@ -130,7 +130,7 @@
   </body>
 </html> -->
 <!-- 이번에는 GET, POST, PUT, DELETE 요청 방식으로 요청하는 방법 -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -219,5 +219,114 @@
       <input id = 'price' />
       <h1>output</h1>
       <textarea id = "output" disabled="disabled" cols= "40" rows = "5"></textarea>
+  </body>
+</html> -->
+ <!-- 22.5 Ajax를 사용한 데이터 추가와 삭제 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>XMLHttpRequest</title>
+    <script>
+    //Xㅢ
+    function createRequest() {
+        try {
+          return new XMLHttpRequest();
+        } catch (exception) {
+          var versions = [
+            'Msxml2.XMLHTTP.6.0',
+            'Msxml2.XMLHTTP.5.0',
+            'Msxml2.XMLHTTP.4.0',
+            'Msxml2.XMLHTTP.3.0',
+            'Msxml2.XMLHTTP',
+            'Microsoft.XMLHttp'
+          ];
+          for (var i = 0; i < versions.length; i++) {
+            try{
+            return new ActiveXObject(versions[i]);
+          }catch (e) { }
+        }
+      }
+    }
+  </script>
+  <script>
+        window.onload = function() {
+          document.getElementById('get').onclick = function() {
+           //Ajax를 수행합니다.
+         var request = createRequest();
+       request.open('GET', '/products', false);
+       request.send();
+
+        document.getElementById('output').value = request.responseText;
+      };
+      // GET 요청 매개변수 request.open('GET', '/parameter?name=name&region=seoul', false)
+      // GET 캐싱 해결 방법
+      // var request = createRequest;
+      // request.open('GET','/products?dummy='+ new Date().getTime(), false);
+      // request.send();
+          document.getElementById('post').onclick = function() {
+          //변수 선언
+          var name = document.getElementById('name').value;
+          var price = document.getElementById('price').value;
+
+          //Ajax를 수행합니다.
+          var request = createRequest();
+          request.open('POST', '/products', false);
+          request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.send('name=' + name + '&price=' + price);
+          //출력
+          document.getElementById('output').value = request.responseText;
+         };
+          document.getElementById('put').onclick = function() {
+          //변수 선언
+          var name = document.getElementById('name').value;
+          var price = document.getElementById('price').value;
+
+          //Ajax 수행
+          var request = createRequest();
+          request.open('PUT', '/products/0', false);
+          request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.send('name=' + name + '&price=' + price);
+          document.getElementById('output').value = request.responseText;
+
+         };
+          document.getElementById('delete').onclick = function() {
+            //Ajax를 수행합니다.
+            var request = createRequest();
+            request.open('DELETE', '/products/0', false);
+            request.send();
+
+            document.getElementById('output').value = request.responseText;
+          };
+        };
+  </script>
+  </head>
+  <body>
+    <div>
+      <form id="insert_form">
+        <fieldset>
+          <legend>데이터 추가</legend>
+          <table>
+              <tr>
+                <td><label>상품명</label></td>
+                <td><input type="text" name="name" /></td>
+              </tr>
+              <tr>
+                <td><label>모델 번호</label></td>
+                <td><input type="text" name="modelnumber" /></td>
+              </tr>
+              <tr>
+                <td><label>시리즈</label></td>
+                <td><input type="text" name="series" /></td>
+              </tr>
+            </table>
+            <input type="submit" value="추가" />
+          </fieldset>
+        </form>
+      </div>
+      <h1>Product</h1>
+      <table id="output" border="1">
+
+      </table>
   </body>
 </html>

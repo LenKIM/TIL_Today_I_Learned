@@ -135,4 +135,165 @@ query()메서드도 node.js의 다른 메서드와 마찬가지로 이벤트 기
 
 ## 22.4 데이터베이스 웹 서비스
 
+>기본 프레임.
+
+    var http = require('http');
+    var express = require('express');
+    var mysql = require('mysql');
+
+    //데이터베이스와 연결
+    var client = mysql.createConnection({
+      user: 'root',
+      password: 'root',
+      database: 'company'
+    });
+
+    //데이터베이스 퀴리 사용
+    // client.query('USE Company')
+    client.query('SELECT * FROM products', function(error, result, fields) {
+        if (error) {
+          console.log('쿼리문장에 오류가 있습니다.');
+        } else {
+          console.log(result);
+        }
+    });
+
+>규모를 조금 더 크게하면
+
+
+    var http = require('http');
+    var express = require('express');
+    var mysql = require('mysql');
+
+    //데이터베이스와 연결
+    var client = mysql.createConnection({
+      user: 'root',
+      password: 'root',
+      database: 'company'
+    });
+
+
+    //웹 서버를 생성
+    var app = express();
+    app.use(express.static('public'));
+    app.use(express.bodyParser());
+    app.use(app.router);
+    // 전체 데이터 조회
+    app.get('/products', function(request, response) {
+      //데이터베이스 요청을 수행
+      client.query('SELECT * FROM products', function(error, data) {
+        response.send(data);
+      });
+    });
+
+    //개별 데이터 조회
+    app.get('/products/:id', function(request, response) {
+      //변수를 선언
+      var id = Number(request.param('id'));
+
+      //데이터베이스 요청을 수행
+      client.query('SELECT * FROM products WHERE id=?', [ id
+      ], function(error, data) {
+        if (error) {
+          console.log('쿼리문장에 오류');
+        }
+        response.send(data);
+      })
+     });
+    app.post('/products', function(request, response) {
+        //변수를 선언
+        var name = request.param('name');
+        var modelnumber = request.param('modelnumber');
+        var series = request.param('series');
+
+        //데이터베이스 요청을 수행
+        client.query('INSERT INTO products (name, modelnumber, series) VALUES(?,?,?)', [
+          name, modelnumber, series
+        ], function (error, data) {
+          response.send(data);
+        });
+      });
+    app.put('/products/:id', function(request, response) {
+        //변수를 선언합니다.
+        var id = Number(request.param('id'));
+        var name = request.param('name');
+        var modelnumber = request.param('modelnumber');
+        var series = request.param('series');
+        var query = 'UPDATE products SET '
+
+        //쿼리를 생성합니다.
+        if(name) query += 'name="' + name + '" ';
+        if(modelnumber) query += 'modelnumber="' + modelnumber + '" ';
+        if(series) query += 'series="' + series + '" ';
+        query = 'WHERE id=' + id;
+
+        //데이터베이스 요청을 수행
+        client.query(query, function(error, data) {
+          response.send(data);
+        });
+    });
+    app.del('/products/:id', function(request, response) {
+      // 변수를 선언합니다.
+      var id = Number(request.param('id'));
+
+      //데이터베이스 요청을 수행
+      client.query('DELECT FROM products WHERE id=?', [
+        id
+      ], function (error, data) {
+        response.send(data);
+      });
+    });
+
+    http.createServer(app).listen(52237, function () {
+      console.log('Server Running at http://127.0.0.1:52273');
+    });
+
+위에 put / del / post / get 부분 외우기!
+
 ## 22.5 Ajax를 사용한 데이터 추가와 삭제
+
+    <head>
+    <meta charset="UTF-8">
+    <title>Ajax Sample</title>
+    <script
+    	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+    	type="text/javascript"></script>
+    <script>
+    	$(document).ready(function() {
+    		//데이터를 보여주는 함수
+    		function selectData() {
+    			//#output내부의 내용물 제거
+    			$('#output').empty();
+
+    			//Ajax 수행
+
+    			$getJSON('/products', function(data) {
+
+    				$(data).each(function(index, item) {
+    					var output = '';
+    					output += '<tr>';
+    					output += '	<td>' + item.id + '</td>';
+    					output += '	<td>' + item.name + '</td>';
+    					output += '	<td>' + item.modelnumber + '</td>';
+    					output += '	<td>' + item.series + '</td>';
+    					output += '</tr>';
+    					$('#output').append(output);
+
+    				});
+    			});
+    		}
+    		//데이터 추가
+    		$('#insert_form').submit(function(event) {
+    			//Ajax 수행
+    			var data = $(this).serialize();
+    			$.post('/products', data, selectData);
+    			//기본 이벤트 제거
+    			event.preventDefault();
+    		});
+
+    		//초기 화면에 데이터 표시
+    		selectData();
+    	});
+    </script>
+
+    </head>

@@ -214,13 +214,13 @@ Chapter 20 XMLHttpRequest
 20.4 데이터 요청과 조작
 20.5 데이터 요청 방식
 
-Chapter 21 jQuery Ajax
+~~Chapter 21 jQuery Ajax
 21.1 기본
 21.2 추가적인 jQuery Ajax 메서드
 21.3 XML 조작
 21.4 데이터 요청 방식
 21.5 보조 메서드
-21.6 이벤트 관리
+21.6 이벤트 관리~~
 
 Chapter 22 MySQL 데이터베이스
 22.1 설치
