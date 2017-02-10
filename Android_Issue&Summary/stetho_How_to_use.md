@@ -1,7 +1,7 @@
 
 ## stetho 사용법
 
-![스크린샷 2017-02-10 오후 4.58.08](</assets/스크린샷 2017-02-10 오후 4.58.08.png>)
+![스크린샷 2017-02-10 오후 4.58.08](http://i.imgur.com/rChMuQe.png)
 
 1. Network
 유틸성앱이 아닌이상 Retrofit이나 URLConnection을 사용해서 API서버와 네트워크 통신을 하고 계실겁니다.
@@ -34,7 +34,7 @@ UI방식이 아닌 커맨드라인 입력방식으로 동작을 수행할수 있
 
  일단 쓰기위해서는 앱 내에서의 Build.gradle
 
- ![스크린샷 2017-02-10 오후 4.59.36](</assets/스크린샷 2017-02-10 오후 4.59.36.png>)
+ ![스크린샷 2017-02-10 오후 4.59.36](http://i.imgur.com/9GacRbI.png)
 
     // Gradle dependency on Stetho
     dependencies {
@@ -43,14 +43,14 @@ UI방식이 아닌 커맨드라인 입력방식으로 동작을 수행할수 있
 
  위에 코드를 추가한다.
 
-![스크린샷 2017-02-10 오후 5.01.10](</assets/스크린샷 2017-02-10 오후 5.01.10.png>)
+![스크린샷 2017-02-10 오후 5.01.10](http://i.imgur.com/ZYqRtqe.png)
 
 Java => new File 후,
 MyApplication.java 만든 후,
 
 아래와 같이 코드 작성
 
-![스크린샷 2017-02-10 오후 5.03.48](</assets/스크린샷 2017-02-10 오후 5.03.48.png>)
+![스크린샷 2017-02-10 오후 5.03.48](http://i.imgur.com/u7Oh1bN.png)
 
 public class MyApplication extends Application {
         public void onCreate() {
@@ -64,12 +64,11 @@ chrome://inspect/#devices
 
 접속한 뒤에,
 
-![스크린샷 2017-02-10 오후 5.07.31](</assets/스크린샷 2017-02-10 오후 5.07.31.png>)
+![스크린샷 2017-02-10 오후 5.07.31](http://i.imgur.com/avc2n1v.png)
 
 inspect를 클릭하면, 아래와 같이 디바이스내에서 저장된 LocalDB를 브라우저 할 수 있다.
 
-![스크린샷 2017-02-10 오후 5.08.34](</assets/스크린샷 2017-02-10 오후 5.08.34.png>)
-
+![스크린샷 2017-02-10 오후 5.08.34](http://i.imgur.com/1PoxVdY.png)
 
 
 참고 : http://facebook.github.io/stetho/
