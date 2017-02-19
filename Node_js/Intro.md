@@ -2,14 +2,12 @@ PART I 소개
 CHAPTER 1 Node.js 개요
 
 __1.1 Node.js 배경사
-
 __1.2 이벤트 기반 비동기 방식
-
 __1.3 Node.js의 장단점
-
 __1.4 Node.js의 활용
 
 CHAPTER 2 Node.js 개발 환경 구축
+
 __2.1 LTS 버전과 Current 버전
 __2.2 윈도우 설치
 __2.3 우분투 설치
