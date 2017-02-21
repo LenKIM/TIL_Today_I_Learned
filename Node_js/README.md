@@ -52,7 +52,7 @@ __4.5 crypto 모듈[완료]
 __4.6 File System 모듈[완료]
 
 
-CHAPTER 5 이벤트
+CHAPTER 5 이벤트[완료]
 
 __5.1 이벤트 연결[완료]
 
@@ -67,26 +67,26 @@ __5.5 이벤트 생성[완료]
 
 PART III Node.js를 사용한 웹 개발
 
-CHAPTER 6 http 모듈
+CHAPTER 6 http 모듈[완료]
 
-__6.1 요청과 응답
+__6.1 요청과 응답[완료]
 
-__6.2 server 객체
+__6.2 server 객체[완료]
 
-__6.3 response 객체
+__6.3 response 객체[완료]
 
-__6.4 request 객체
+__6.4 request 객체[완료]
 
 
 CHAPTER 7 외부 모듈
 
-__7.1 ejs 모듈
+__7.1 ejs 모듈[완료]
 
-__7.2 jade 모듈
+__7.2 jade 모듈[완료]
 
-__7.3 서버 실행 모듈
+__7.3 서버 실행 모듈[완료]
 
-__7.4 기본적인 npm 명령어와 save 옵션
+__7.4 기본적인 npm 명령어와 save 옵션[완료]
 
 
 CHAPTER 8 express 모듈
