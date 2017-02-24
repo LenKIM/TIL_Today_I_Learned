@@ -91,31 +91,32 @@ __7.4 기본적인 npm 명령어와 save 옵션[완료]
 
 CHAPTER 8 express 모듈
 
-__8.1 기본 서버
+__8.1 기본 서버[완료]
 
-__8.2 기본 응답 메서드
+__8.2 기본 응답 메서드[완료]
 
-__8.3 기본 요청 메서드
+__8.3 기본 요청 메서드[완료]
 
-__8.4 미들웨어 개요
+__8.4 미들웨어 개요[완료]
 
-__8.5 router 미들웨어
+__8.5 router 미들웨어[완료]
 
-__8.6 static 미들웨어
+__8.6 static 미들웨어[완료]
 
-__8.7 morgan 미들웨어
+__8.7 morgan 미들웨어[완료]
 
-__8.8 cookie parser 미들웨어
+__8.8 cookie parser 미들웨어[완료]
 
-__8.9 body parser 미들웨어
+__8.9 body parser 미들웨어[완료]
 
-__8.10 connect-multiparty 미들웨어
+__8.10 connect-multiparty 미들웨어[완료]
 
-__8.11 express-session 미들웨어
+__8.11 express-session 미들웨어[완료]
 
-__8.12 RESTful 웹 서비스 개발
+__8.12 RESTful 웹 서비스 개발[완료]
 
 CHAPTER 9 MySQL 데이터베이스
+ MongoDB와 병행 실시.
 
 __9.1 MySQL 설치
 
@@ -282,13 +283,13 @@ __E.3 바이너리 모듈 빌드
 __E.4 바이너리 모듈 사용
 
 
-부록 F MongoDB
+부록 F MongoDB[완료]
 
-__F.1 설치
+__F.1 설치[완료]
 
-__F.2 기본 명령어
+__F.2 기본 명령어[완료]
 
-__F.3 mongojs 모듈
+__F.3 mongojs 모듈[완료]
 
 
 
