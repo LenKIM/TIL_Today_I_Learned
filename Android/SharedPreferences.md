@@ -1,13 +1,20 @@
 #SharedPreference란?
 
  안드로이드에서 코딩을 하다보면 앱이 종료되도 값을 저장해 유지해야 할때가 많다.
+
 만약 앞으로 설명해야 할 SharedPreference가 없다면, 파일입출력을 통해서 데이터를 저장을 해야하는 번거로움이 있습니다.
+
  *파일 입출력 없이 간단한 데이터를 Key,Value로 저장할 수 있다면 쓰기/읽기/가 수월할 것입니다.*
+
  사용 예로는 안드로이드에서 Setting값을 항상 내가 설정한 값으로 유지해야하는 경우가 있는데, 이때 SharedPreference를 사용하면 문제를 쉽게 해결 할 수 있습니다. 하지만 앱을 제거 후 새로 설치하면 SharedPreference의 값은 초기화 됩니다.
 
- ## 사용법
+## 사용법
+
  SharedPreference는 안드로이드에서만 제공하고 있으며, Context를 통해서 값을 가져올 수 있습니다.
-만약에 Activity에서 한다면 바로 getSharedPreferences를 통해서 가져올 수 있습니다. 첫번째 파라미터는 SharedPreference의 이름을 정해줍니다. 여기서 이름은 파일 입출력에서는 파일 이름이라고 생각하면 쉽습니다.
+만약에 Activity에서 한다면 바로 getSharedPreferences를 통해서 가져올 수 있습니다.
+
+첫번째 파라미터는 SharedPreference의 이름을 정해줍니다. 여기서 이름은 파일 입출력에서는 파일 이름이라고 생각하면 쉽습니다.
+
 두번째는 Mode 설정
 
  Mode는 총 3가지
@@ -33,7 +40,8 @@ HOW TO USE
   SharedPreferences prefs = Context.getSharedPreferences("PrefName", context.MODE_PRIVATE);
   SharedPreferences.Editor editor = prefs.edit();
   editor.putString(token, text);
-  editor.commit();
+//  editor.commit();
+editor.apply(); 변경됨
 
 ### 읽기
 
@@ -45,7 +53,8 @@ HOW TO USE
  SharedPreferences prefs = context.getSharedPreferences("prefName", Context.MODE_PRIVATE);
  SharedPreferences.Editor editor = prefs.edit();
  editor.remove("prefName");
- editor.commit();
+ //editor.commit();
+ editor.apply(); 변경됨
 
 
  추가 - 객체 저장하기
@@ -63,7 +72,8 @@ TO SAVE
  Gson gson = new Gson();
  String json = gson.toJson(Myobject);
  prefsEditor.putString("Myobject", json);
- prefsEditor.commit();
+ //prefsEditor.commit();
+ prefsEditor.apply();
 
 TO RETREIVE
  Gson gson = new Gson();
