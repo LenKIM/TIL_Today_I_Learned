@@ -1,6 +1,6 @@
-##Bundle
+## Bundle
 
-#문자열로 된 키와 여러가지의 타입의 값을 저장 하는 일종의 **Map 클래스** 이다.
+#### 문자열로 된 키와 여러가지의 타입의 값을 저장 하는 일종의 **Map 클래스** 이다.
 Android에서 Activity간에 데이터를 주고 받을 때 Bundle 클래스를 사용하여 여러 가지의 데이터를 전송한다.
 기본타입인 int, double, long, String 부터 FloatArray, StringArrayList Serializable, Parcelable 구현한 객체를 전송한다.
 
@@ -28,3 +28,7 @@ Android에서 Activity간에 데이터를 주고 받을 때 Bundle 클래스를 
    *즉, 포장이사를 하면 박스(Bundle)에 물건을 담고, 트럭(Intent)에 싣고 옮기는 것이라 생각하면된다.*
 
    ***Intent, Bundle, Parcelable 이 3가지는 모두 Parcelable 을 inherited 한 것이므로 근본적으로는 3가지 모두 공통된 기능을 수행할 수 있습니다.***
+
+ ### 결론 :
+***bundle은 상태/값 등을 저장하기 위한 객체이고
+intent는 저장이 아닌 전달하는 수단으로의 객체***
