@@ -36,26 +36,27 @@ HOW TO USE
  - String
 
 ### 쓰기
-
+```java
   SharedPreferences prefs = Context.getSharedPreferences("PrefName", context.MODE_PRIVATE);
+
   SharedPreferences.Editor editor = prefs.edit();
-  editor.putString(token, text);
+    editor.putString(token, text);
 //  editor.commit();
 editor.apply(); 변경됨
-
+```
 ### 읽기
-
+```java
    SharedPreferences prefs = context.getSharedPreferences("Prefname", context.MODE_PRIVATE);
     String text = prefs.getString(token, "");
-
+```
 ### 데이터 삭제하기
-
+```java
  SharedPreferences prefs = context.getSharedPreferences("prefName", Context.MODE_PRIVATE);
  SharedPreferences.Editor editor = prefs.edit();
  editor.remove("prefName");
  //editor.commit();
  editor.apply(); 변경됨
-
+```
 
  추가 - 객체 저장하기
 
@@ -68,14 +69,19 @@ Gson을 사용하면 한번의 파싱을 통해 JSON에서 곧바로 자바 객�
 SharedPreferences mPrefs = getSharedPreferences(MODE_PRIVATE);
 
 TO SAVE
+
+```java
  Editor prefsEditor = mPrefs.edit();
  Gson gson = new Gson();
  String json = gson.toJson(Myobject);
  prefsEditor.putString("Myobject", json);
  //prefsEditor.commit();
  prefsEditor.apply();
-
+```
 TO RETREIVE
+
+```java
  Gson gson = new Gson();
  String json = mPrefs.getString("MyObject", "");
 MyObject obj = gson.fromJson(json, MyObject.class);
+```
