@@ -43,7 +43,9 @@ public class SimpleJsonParserActivity extends AppCompatActivity {
  일단 변수로 빈 JSONObject를 이니셜라이징해줍니다.[JSONObject mJSONObject] 물론 빈 String 로 만들어줍니다.(String strJSONvalue)
 
 다음에 내가 원하는 노드의 내용을 가져옵니다.
+
 **JSONObject object = mJSONObject.getJSONObject("FirstObject");**
+
 이런식으로 말이죠.
 
 FirstObject가 위에서 보면 Level 1에 해당하는 노드의 헤드인데, 위의같은 코드를 통해서 FirstObject의 자식노드들의 헤드를 가져옵니다.(죄송합니다만.. JSON의 각 부분의 이름을 몰라 노드라 칭하겠습니다.)
@@ -63,14 +65,13 @@ JSONArray subArray  = subObject.getJSONArray("sub1");**
 
 **for(int i=0; i<subArray.length(); i++)
 {
-    strParseValue+="\n"+ subArray.getJSONObject(i).getString("sub1_attr").toString();
+  strParseValue+="\n"+ subArray.getJSONObject(i).getString("sub1_attr").toString();
 }**
 
 이런식으로 해서 배열의 하나하나를 가져올 수 있습니다!
 
 JSON parse 끝!
 
-![enter image description here](http://hmkcode.com/wp-content/uploads/2013/07/gson-java-json.png)
 
 이번에는 조금 난이도 있는 JSON parser 법이다.
 
@@ -180,6 +181,9 @@ public class JsonSample {
 
 이번에는 GSON을 사용한 JSON조작법을 살펴보자.
 일단 Gson이란 무엇인가?
+
+![GSON](http://hmkcode.com/wp-content/uploads/2013/07/gson-java-json.png)
+
 
 https://github.com/google/gson
 
