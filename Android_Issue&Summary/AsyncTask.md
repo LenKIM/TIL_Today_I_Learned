@@ -12,3 +12,6 @@ Executor, ThreadPoolExecutor and FutureTask.
 An asynchronous task is defined by a computation that runs on a background thread and whose result is published on the UI thread.**
 
 http://itmining.tistory.com/7
+
+
+[여기를 클릭해주세요! 좀더 자세히 정리 했습니다.](https://github.com/LenKIM/android_study_Pushing_the_Limits/blob/master/6%EC%9E%A5_%EC%84%9C%EB%B9%84%EC%8A%A4_%EB%B0%8F_%EB%B0%B1%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C_%EC%9E%91%EC%97%85.md)
