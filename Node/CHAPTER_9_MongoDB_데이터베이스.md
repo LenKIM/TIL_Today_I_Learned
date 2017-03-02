@@ -291,11 +291,12 @@ WriteResult({ "nInserted" : 1 })
 **데이터의 정렬은 이렇게**
 
 > db.product.find({price: 500}, {_id:false}).sort({ name:1})
+```json
 { "name" : "eraser", "price" : 500 }
 { "name" : "knife", "price" : 500 }
 { "name" : "pencil", "price" : 500 }
 { "name" : "protractor", "price" : 500 }
-
+```
  오름차순은 1 내림차순은  -1
 
  **특정 위치에 있는 데이터를 선택하는 방법은??**
@@ -305,37 +306,46 @@ WriteResult({ "nInserted" : 1 })
   우선 Limit()메서드부터 살펴보면, 다음 코드는 sort()메서드를 사용해 price속성으로 오름차순 정렬하고 Limit()메서드를 사용해 상위 3개의 데이터만 추출
 
   > db.product.find().sort({ price: 1}).limit(3)
+  ```javascript
 { "_id" : ObjectId("58ae7a1410c5a92a9a51e071"), "name" : "pencil", "price" : 500 }
 { "_id" : ObjectId("58ae7c28d70088164b798ccc"), "name" : "eraser", "price" : 500 }
 { "_id" : ObjectId("58ae7ca1d70088164b798cd3"), "name" : "knife", "price" : 500 }
-
+```
 
 > db.product.find().sort({ price: 1}).skip(3).limit(3)
+```javascript
 { "_id" : ObjectId("58ae7cacd70088164b798cd4"), "name" : "protractor", "price" : 500 }
 { "_id" : ObjectId("58ae7c3ed70088164b798cce"), "name" : "glue", "price" : 700 }
 { "_id" : ObjectId("58ae7c8ed70088164b798cd1"), "name" : "pen", "price" : 1000 }
-
+```
 
 **자,이제 데이터를 수정해 봅시다.**
 
  MongoDB는 save()메서드를 사용해 _id속성이 일치하는 데이터를 저장하면 자동으로 원래 데이터를 수정합니다. 우선 이 내용을 바탕으로 데이터를 수정해봅시다. 우선 다음 명령을 사용해 name속성이 knife인 데이터를 추출하고 변수 temp에 저장합니다.
 
- > var temp = db.product.findOne({ name : 'knife'})
+> var temp = db.product.findOne({ name : 'knife'})
+
 > temp
+```javascript
 {
 	"_id" : ObjectId("58ae7ca1d70088164b798cd3"),
 	"name" : "knife",
 	"price" : 500
 }
+```
 >
 
  요런식으로 일단 접근 한 뒤,
 temp변수의 price속성으로 변경한 뒤에 save()메서드를 사용하면 데이터가 자동으로 수정됩니다.
 
 > temp.price = 700
-700
+
+```700```
+
 > db.product.save(temp)
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+```WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })```
+
 >
 
 
