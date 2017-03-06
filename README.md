@@ -4,6 +4,8 @@
 
 ## 1. 안드로이드
 - 안드로이드를 공부하며 습득한 지식들을 기록합니다.
+참고하면 좋은 사이트.
+https://disqus.com/home/forum/androidhive/
 
 ## 2. JavaScript
 - Node.js를 배우기 위한 기초 JavaScript 정리[완료]

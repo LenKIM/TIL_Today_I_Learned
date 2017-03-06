@@ -35,7 +35,7 @@ compile 'com.google.firebase:firebase-database:10.2.0'
   문서API에는 Authentication을 먼저 인증 한 후 사용해주기를 권장한다.
   그러나... 나는 인증을 나중에 일단 데이터베이스를 사용하는 걸 우선으로 진행해보자.
 
-  1-1 Write to your database
+### 1-1 Write to your database
 
   일단 데이터베이스의 사용을 가져오기위해서는 getInstance로 가져와야한다.
 
@@ -83,3 +83,169 @@ You can save a range of data types to the database this way, including Java obje
 ```
 
 해야지, 데이터베이스가 들어간다!
+
+ **규칙**에 대해서 조금더 이야기한다면,
+ ```
+ {
+    "rules": {
+        ".read": true,
+        ".write": true,
+        "users": {
+            "$user": {
+                "name": {
+                    ".validate": "newData.isString() && newData.val().length < 50"
+                },
+                "email": {
+                    ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+                }
+            }
+        }
+    }
+```
+
+이런 식으로 정규식 뿐만아니라, 글자 크기, 그리고 이메일인지 아닌지의 등등 validate시킬 수 있다.
+
+### 1-2 Read from your database
+
+To make your app data update in realtime, you should add a ValueEventListener to the reference you just created.
+
+The onDataChange() method in this class is triggered once when the listener is attached and again every time the data changes, including the children.
+
+DB를 업데이트하기 위해서는 ValueEventListener를 이용해야합니다.
+
+onDataChange()는 listener가 attached되면 딱 한번 동작되어지며, 데이터가 변경될때마다 다시한번 동작되어집니다.
+
+ 그리고 listener로 쓰이는 것이 3가지있는데,
+
+1.addValueEventListener(ValueEventListener)
+
+이를 어떻게 사용해야 될까??
+
+기본
+```java
+ // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("Mainactivity", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Mainactivity", "Failed to read value.", error.toException());
+            }
+        });
+```
+
+예를 들어 스테고사우르스보다 키가 작은 공룡의 이름을 검색할 수 있습니다.
+
+```java
+dinosaursRef.child("stegosaurus").child("height").addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot stegoHeightSnapshot) {
+        Integer favoriteDinoHeight = stegoHeightSnapshot.getValue(Integer.class);
+        Query query = dinosaursRef.orderByChild("height").endAt(favoriteDinoHeight).limitToLast(2);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Data is ordered by increasing height, so we want the first entry
+                DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
+                System.out.println("The dinosaur just shorter than the stegosaurus is: " + firstChild.getKey());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        // ...
+    }
+});
+```
+
+2.addListenerForSingleValueEvent(ValueEventListener)
+데이터를 오직 한번만 읽는 리스너
+한 번만 호출되고 즉시 삭제되는 콜백이 유용한 경우가 있습니다. 이때 이 리스너를 사용합니다.
+
+```
+myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               String value = dataSnapshot.getValue(String.class);
+               Log.d("addListenerForS", "Value is: " + value);
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               Log.w("Mainactivity", "Failed to read value.", databaseError.toException());
+
+           }
+       });
+```
+3.addChildEventListener(ChildEventListener)
+
+하위 추가할 떄 사용하는 리스너
+
+
+블로깅 앱에 추가되는 새 게시물 각각의 데이터만 검색하려면 child_added를 사용합니다.
+
+```java
+myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+child_added 이벤트는 일반적으로 데이터베이스에서 항목 목록을 검색하는 데 사용됩니다. 위치의 전체 내용을 반환하는 value와 달리 child_added는 기존 하위 항목마다 한 번씩 발생한 후 지정된 경로에 하위 항목이 새로 추가될 때마다 다시 발생합니다. 새 하위 항목의 데이터를 포함하는 스냅샷이 이벤트 콜백에 전달됩니다. 정렬을 위해 이전 하위 항목의 키를 포함하는 두 번째 인수도 전달됩니다.
+
+              Post newPost = dataSnapshot.getValue(Post.class);
+                     System.out.println("Author: " + newPost.author);
+                     System.out.println("Title: " + newPost.title);
+                     System.out.println("Previous Post ID: " + prevChildKey);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+              child_changed 이벤트는 하위 노드가 수정될 때마다 발생합니다. 여기에는 하위 노드의 하위에 대한 수정이 포함됩니다. 이 이벤트는 일반적으로 child_added 및 child_removed와 함께 항목 목록의 변경에 대응하는 데 사용됩니다. 이벤트 콜백에 전달되는 스냅샷에는 하위 항목의 업데이트된 데이터가 포함됩니다.
+
+              child_changed를 사용하여 블로그 게시물이 수정될 때 업데이트된 데이터를 읽을 수 있습니다.
+
+              Post changedPost = dataSnapshot.getValue(Post.class);
+       System.out.println("The updated post title is: " + changedPost.title);
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+              child_removed 이벤트는 바로 아래 하위 항목이 삭제될 때 발생합니다. 이 이벤트는 일반적으로 child_added 및 child_changed와 함께 사용됩니다. 이벤트 콜백에 전달되는 스냅샷에는 삭제된 하위 항목의 데이터가 포함됩니다.
+
+블로그 예제에서는 child_removed를 사용하여 삭제된 게시물에 대한 알림을 콘솔에 로깅합니다.
+
+Post removedPost = dataSnapshot.getValue(Post.class);
+       System.out.println("The blog post titled " + removedPost.title + " has been deleted");
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+```
+
+예제를 공부 할 수 있는 곳(Google 보다 휠씬 이해하기 쉬움) http://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/
+
+한국어 파이어베이스 API
+https://firebase.google.com/docs/database/server/retrieve-data?hl=ko
