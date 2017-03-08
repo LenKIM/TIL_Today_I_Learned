@@ -56,11 +56,13 @@ Password:
 
 ==> /usr/bin/sudo /usr/sbin/chown len /Users/len/Library/Caches/Homebrew
 
-==> Downloading and installing Homebrew... \br
+==> Downloading and installing Homebrew...
+
 remote: Counting objects: 870, done.
-remote: Compressing objects: 100% (552/552), done.
-remote: Total 870 (delta 551), reused 479 (delta 295), pack-reused 0
-Receiving objects: 100% (870/870), 202.94 KiB | 95.00 KiB/s, done.
+
+remote: Compressing objects: 100% (552/552), done.  
+remote: Total 870 (delta 551), reused 479 (delta 295), pack-reused 0  
+Receiving objects: 100% (870/870), 202.94 KiB | 95.00 KiB/s, done.  
 Resolving deltas: 100% (551/551), completed with 267 local objects.
 From https://github.com/Homebrew/brew
  + 6648ff1...76ca97b master     -> origin/master  (forced update)
