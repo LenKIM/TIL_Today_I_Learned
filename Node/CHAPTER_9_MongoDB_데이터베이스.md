@@ -10,171 +10,146 @@ __F.1 설치
 
   아래는 기록.
 
-  Lenui-MacBook-Pro:~ len$ /usr/bin/ruby -e "$(curl -fsSL http://raw.githubusercontent.com/Homebrew/install/master/install)"
+  Lenui-MacBook-Pro:~ len$ /usr/bin/ruby -e "$(curl -fsSL   http://raw.githubusercontent.com/Homebrew/install/master/install)"  
+==> This script will install:  
+/usr/local/bin/brew  
+/usr/local/share/doc/homebrew  
+/usr/local/share/man/man1/brew.1  
+/usr/local/share/zsh/site-functions/_brew  
+/usr/local/etc/bash_completion.d/brew  
+/usr/local/Homebrew  
+==> The following existing directories will be made group writable:  
+/usr/local/share/doc  
+==> The following existing directories will have their owner set to len:  
+/usr/local/share/doc  
+==> The following existing directories will have their group set to admin:  
+/usr/local/share/doc  
 
-==> This script will install:
-
-/usr/local/bin/brew
-
-/usr/local/share/doc/homebrew
-
-/usr/local/share/man/man1/brew.1
-
-/usr/local/share/zsh/site-functions/_brew
-
-/usr/local/etc/bash_completion.d/brew
-
-/usr/local/Homebrew
-
-==> The following existing directories will be made group writable:
-
-/usr/local/share/doc
-
-==> The following existing directories will have their owner set to len:
-
-/usr/local/share/doc
-
-==> The following existing directories will have their group set to admin:
-
-/usr/local/share/doc
-
-
-Press RETURN to continue or any other key to abort
-
-==> /usr/bin/sudo /bin/chmod u+rwx /usr/local/share/doc
-Password:
-
-==> /usr/bin/sudo /bin/chmod g+rwx /usr/local/share/doc
-
-==> /usr/bin/sudo /usr/sbin/chown len /usr/local/share/doc
-
-==> /usr/bin/sudo /usr/bin/chgrp admin /usr/local/share/doc
-
-==> /usr/bin/sudo /bin/mkdir -p /Users/len/Library/Caches/Homebrew
-
-==> /usr/bin/sudo /bin/chmod g+rwx /Users/len/Library/Caches/Homebrew
-
-==> /usr/bin/sudo /usr/sbin/chown len /Users/len/Library/Caches/Homebrew
-
-==> Downloading and installing Homebrew...
-
-remote: Counting objects: 870, done.
-
+Press RETURN to continue or any other key to abort  
+==> /usr/bin/sudo /bin/chmod u+rwx /usr/local/share/doc  
+Password:  
+==> /usr/bin/sudo /bin/chmod g+rwx /usr/local/share/doc  
+==> /usr/bin/sudo /usr/sbin/chown len /usr/local/share/doc  
+==> /usr/bin/sudo /usr/bin/chgrp admin /usr/local/share/doc  
+==> /usr/bin/sudo /bin/mkdir -p /Users/len/Library/Caches/Homebrew  
+==> /usr/bin/sudo /bin/chmod g+rwx /Users/len/Library/Caches/Homebrew  
+==> /usr/bin/sudo /usr/sbin/chown len /Users/len/Library/Caches/Homebrew  
+==> Downloading and installing Homebrew...  
+remote: Counting objects: 870, done.  
 remote: Compressing objects: 100% (552/552), done.  
 remote: Total 870 (delta 551), reused 479 (delta 295), pack-reused 0  
 Receiving objects: 100% (870/870), 202.94 KiB | 95.00 KiB/s, done.  
-Resolving deltas: 100% (551/551), completed with 267 local objects.
-From https://github.com/Homebrew/brew
- + 6648ff1...76ca97b master     -> origin/master  (forced update)
+Resolving deltas: 100% (551/551), completed with 267 local objects.  
+From https://github.com/Homebrew/brew  
+ + 6648ff1...76ca97b master     -> origin/master  (forced update)  
  * [new tag]         1.1.10     -> 1.1.10
  * [new tag]         1.1.6      -> 1.1.6
  * [new tag]         1.1.7      -> 1.1.7
  * [new tag]         1.1.8      -> 1.1.8
  * [new tag]         1.1.9      -> 1.1.9
-HEAD is now at 76ca97b Merge pull request #2082 from reitermarkus/spec-os_mac_language
-==> Tapping homebrew/core
-Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core'...
-remote: Counting objects: 4159, done.
-remote: Compressing objects: 100% (4013/4013), done.
-remote: Total 4159 (delta 30), reused 452 (delta 9), pack-reused 0
-Receiving objects: 100% (4159/4159), 3.32 MiB | 120.00 KiB/s, done.
-Resolving deltas: 100% (30/30), done.
-Tapped 4010 formulae (4,190 files, 10.4M)
-==> Cleaning up /Library/Caches/Homebrew...
-==> Migrating /Library/Caches/Homebrew to /Users/len/Library/Caches/Homebrew...
-==> Deleting /Library/Caches/Homebrew...
-Already up-to-date.
-==> Installation successful!
+HEAD is now at 76ca97b Merge pull request #2082 from reitermarkus/spec-os_mac_language  
+==> Tapping homebrew/core  
+Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core'...  
+remote: Counting objects: 4159, done.  
+remote: Compressing objects: 100% (4013/4013), done.  
+remote: Total 4159 (delta 30), reused 452 (delta 9), pack-reused 0  
+Receiving objects: 100% (4159/4159), 3.32 MiB | 120.00 KiB/s, done.  
+Resolving deltas: 100% (30/30), done.  
+Tapped 4010 formulae (4,190 files, 10.4M)  
+==> Cleaning up /Library/Caches/Homebrew...  
+==> Migrating /Library/Caches/Homebrew to /Users/len/Library/Caches/Homebrew...  
+==> Deleting /Library/Caches/Homebrew...  
+Already up-to-date.  
+==> Installation successful!  
 
-==> Homebrew has enabled anonymous aggregate user behaviour analytics.
+==> Homebrew has enabled anonymous aggregate user behaviour analytics.  
 
-Read the analytics documentation (and how to opt-out) here:
-  https://git.io/brew-analytics
+Read the analytics documentation (and how to opt-out) here:  
+  https://git.io/brew-analytics  
 
-==> Next steps:
-- Run `brew help` to get started
-- Further documentation:
-    https://git.io/brew-docs
-Lenui-MacBook-Pro:~ len$ brew install mongodb
-==> Installing dependencies for mongodb: openssl
-==> Installing mongodb dependency: openssl
-==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2k.sierra.bottl
-######################################################################## 100.0%
-==> Pouring openssl-1.0.2k.sierra.bottle.tar.gz
-==> Using the sandbox
-==> Caveats
-A CA file has been bootstrapped using certificates from the SystemRoots
-keychain. To add additional certificates (e.g. the certificates added in
-the System keychain), place .pem files in
-  /usr/local/etc/openssl/certs
+==> Next steps:  
+- Run `brew help` to get started  
+- Further documentation:  
+    https://git.io/brew-docs  
+Lenui-MacBook-Pro:~ len$ brew install mongodb  
+==> Installing dependencies for mongodb: openssl  
+==> Installing mongodb dependency: openssl  
+==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2k.sierra.bottl  
+######################################################################## 100.0%  
+==> Pouring openssl-1.0.2k.sierra.bottle.tar.gz  
+==> Using the sandbox  
+==> Caveats  
+A CA file has been bootstrapped using certificates from the SystemRoots  
+keychain. To add additional certificates (e.g. the certificates added in  
+the System keychain), place .pem files in  
+  /usr/local/etc/openssl/certs  
+and run  
+  /usr/local/opt/openssl/bin/c_rehash  
 
-and run
-  /usr/local/opt/openssl/bin/c_rehash
+This formula is keg-only, which means it was not symlinked into /usr/local.  
 
-This formula is keg-only, which means it was not symlinked into /usr/local.
+Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries  
 
-Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries
+If you need to have this software first in your PATH run:  
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile  
 
-If you need to have this software first in your PATH run:
-  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile
+For compilers to find this software you may need to set:  
+    LDFLAGS:  -L/usr/local/opt/openssl/lib  
+    CPPFLAGS: -I/usr/local/opt/openssl/include  
 
-For compilers to find this software you may need to set:
-    LDFLAGS:  -L/usr/local/opt/openssl/lib
-    CPPFLAGS: -I/usr/local/opt/openssl/include
-
-==> Summary
-🍺  /usr/local/Cellar/openssl/1.0.2k: 1,696 files, 12M
-==> Installing mongodb
-==> Downloading https://homebrew.bintray.com/bottles/mongodb-3.4.2.sierra.bottle
-######################################################################## 100.0%
-==> Pouring mongodb-3.4.2.sierra.bottle.tar.gz
-==> Caveats
-To have launchd start mongodb now and restart at login:
-  brew services start mongodb
-Or, if you don't want/need a background service you can just run:
-  mongod --config /usr/local/etc/mongod.conf
-==> Summary
-🍺  /usr/local/Cellar/mongodb/3.4.2: 17 files, 261.9M
-Lenui-MacBook-Pro:~ len$
+==> Summary  
+🍺  /usr/local/Cellar/openssl/1.0.2k: 1,696 files, 12M  
+==> Installing mongodb  
+==> Downloading https://homebrew.bintray.com/bottles/mongodb-3.4.2.sierra.bottle  
+######################################################################## 100.0%  
+==> Pouring mongodb-3.4.2.sierra.bottle.tar.gz  
+==> Caveats  
+To have launchd start mongodb now and restart at login:  
+  brew services start mongodb  
+Or, if you don't want/need a background service you can just run:  
+  mongod --config /usr/local/etc/mongod.conf  
+==> Summary  
+🍺  /usr/local/Cellar/mongodb/3.4.2: 17 files, 261.9M  
+Lenui-MacBook-Pro:~ len$  
 
 
-MongoDB 시작하면
+MongoDB 시작하면  
 
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] MongoDB starting : pid=43692 port=27017 dbpath=/data/db 64-bit host=Lenui-MacBook-Pro.local
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] db version v3.4.2
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] git version: 3f76e40c105fc223b3e5aac3e20dcd026b83b38b
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2k  26 Jan 2017
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] allocator: system
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] modules: none
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] build environment:
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten]     distarch: x86_64
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten]     target_arch: x86_64
-2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] options: {}
-2017-02-23T14:43:59.086+0900 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=7680M,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]
-2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000
-2017-02-23T14:43:59.859+0900 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
-2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] build index on: admin.system.version properties: { v: 2, key: { version: 1 }, name: "incompatible_with_version_32", ns: "admin.system.version" }
-2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
-2017-02-23T14:44:00.004+0900 I INDEX    [initandlisten] build index done.  scanned 0 total records. 0 secs
-2017-02-23T14:44:00.005+0900 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.4
-2017-02-23T14:44:00.006+0900 I NETWORK  [thread1] waiting for connections on port 27017
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] MongoDB starting : pid=43692   port=27017 dbpath=/data/db 64-bit host=Lenui-MacBook-Pro.local  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] db version v3.4.2  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] git version:   3f76e40c105fc223b3e5aac3e20dcd026b83b38b  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] OpenSSL version: OpenSSL   1.0.2k  26 Jan 2017  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] allocator: system  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] modules: none  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] build environment:  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten]     distarch: x86_64  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten]     target_arch: x86_64  
+2017-02-23T14:43:59.085+0900 I CONTROL  [initandlisten] options: {}  
+2017-02-23T14:43:59.086+0900 I STORAGE  [initandlisten] wiredtiger_open config:   create,cache_size=7680M,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten]  
+2017-02-23T14:43:59.650+0900 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000  
+2017-02-23T14:43:59.859+0900 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'  
+2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] build index on: admin.system.version properties: { v: 2, key: { version: 1 }, name: "incompatible_with_version_32", ns: "admin.system.version" }  
+2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM  
+2017-02-23T14:44:00.004+0900 I INDEX    [initandlisten] build index done.  scanned 0 total records. 0 secs  
+2017-02-23T14:44:00.005+0900 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.4  
+2017-02-23T14:44:00.006+0900 I NETWORK  [thread1] waiting for connections on port 27017  
 
 그리고
 
 또다른 터미널을 활용해서 mongo를 실행시키면 이렇게 !
 mongo를 실행하면
 
-2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM
-2017-02-23T14:44:00.004+0900 I INDEX    [initandlisten] build index done.  scanned 0 total records. 0 secs
-2017-02-23T14:44:00.005+0900 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.4
-2017-02-23T14:44:00.006+0900 I NETWORK  [thread1] waiting for connections on port 27017
-2017-02-23T14:44:47.363+0900 I NETWORK  [thread1] connection accepted from 127.0.0.1:60768 #1 (1 connection now open)
-2017-02-23T14:44:47.364+0900 I NETWORK  [conn1] received client metadata from 127.0.0.1:60768 conn1: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "3.4.2" }, os: { type: "Darwin", name: "Mac OS X", architecture: "x86_64", version: "16.4.0" } }
+2017-02-23T14:43:59.989+0900 I INDEX    [initandlisten] 	 building index using bulk method; build may temporarily use up to 500 megabytes of RAM  
+2017-02-23T14:44:00.004+0900 I INDEX    [initandlisten] build index done.  scanned 0 total records. 0 secs  
+2017-02-23T14:44:00.005+0900 I COMMAND  [initandlisten] setting featureCompatibilityVersion to 3.4  
+2017-02-23T14:44:00.006+0900 I NETWORK  [thread1] waiting for connections on port 27017  
+2017-02-23T14:44:47.363+0900 I NETWORK  [thread1] connection accepted from   127.0.0.1:60768 #1 (1 connection now open)  
+2017-02-23T14:44:47.364+0900 I NETWORK  [conn1] received client metadata from 127.0.0.1:60768 conn1: { application: { name: "MongoDB Shell" }, driver: { name: "MongoDB Internal Client", version: "3.4.2" }, os: { type: "Darwin", name: "Mac OS X", architecture: "x86_64", version: "16.4.0" } }  
 
 __F.2 기본 명령어
 ```java

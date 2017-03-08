@@ -20,26 +20,26 @@ Heroku 툴벳 설치
 >brew install heroku
 
 ```
-Lenui-MacBook-Pro:~ len$ node -v
-v6.9.2
-Lenui-MacBook-Pro:~ len$ npm -v
-3.10.9
-Lenui-MacBook-Pro:~ len$ git --version
-git version 2.10.1
-Lenui-MacBook-Pro:~ len$ brew -v
-Homebrew 1.1.10
-Homebrew/homebrew-core (git revision be30; last commit 2017-02-22)
-Lenui-MacBook-Pro:~ len$ brew install heroku
-Updating Homebrew...
-==> Auto-updated Homebrew!
-Updated 1 tap (homebrew/core).
-==> New Formulae
+Lenui-MacBook-Pro:~ len$ node -v  
+v6.9.2  
+Lenui-MacBook-Pro:~ len$ npm -v  
+3.10.9  
+Lenui-MacBook-Pro:~ len$ git --version  
+git version 2.10.1  
+Lenui-MacBook-Pro:~ len$ brew -v  
+Homebrew 1.1.10  
+Homebrew/homebrew-core (git revision be30; last commit 2017-02-22)  
+Lenui-MacBook-Pro:~ len$ brew install heroku  
+Updating Homebrew...  
+==> Auto-updated Homebrew!  
+Updated 1 tap (homebrew/core).  
+==> New Formulae  
 buildifier                 librealsense               shellshare
 docker-credential-helper   libtensorflow              uftp
 dvd-vr                     monitoring-plugins         uniutils
 gandi.cli                  mysql-utilities
 go@1.7                     pqiv
-==> Updated Formulae
+==> Updated Formulae  
 abcm2ps                                  lftp
 algol68g                                 libcouchbase
 amtterm                                  libdvbpsi
