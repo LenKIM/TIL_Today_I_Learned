@@ -11,29 +11,51 @@ __F.1 설치
   아래는 기록.
 
   Lenui-MacBook-Pro:~ len$ /usr/bin/ruby -e "$(curl -fsSL http://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 ==> This script will install:
+
 /usr/local/bin/brew
+
 /usr/local/share/doc/homebrew
+
 /usr/local/share/man/man1/brew.1
+
 /usr/local/share/zsh/site-functions/_brew
+
 /usr/local/etc/bash_completion.d/brew
+
 /usr/local/Homebrew
+
 ==> The following existing directories will be made group writable:
-/usr/local/share/doc
-==> The following existing directories will have their owner set to len:
-/usr/local/share/doc
-==> The following existing directories will have their group set to admin:
+
 /usr/local/share/doc
 
+==> The following existing directories will have their owner set to len:
+
+/usr/local/share/doc
+
+==> The following existing directories will have their group set to admin:
+
+/usr/local/share/doc
+
+
 Press RETURN to continue or any other key to abort
+
 ==> /usr/bin/sudo /bin/chmod u+rwx /usr/local/share/doc
 Password:
+
 ==> /usr/bin/sudo /bin/chmod g+rwx /usr/local/share/doc
+
 ==> /usr/bin/sudo /usr/sbin/chown len /usr/local/share/doc
+
 ==> /usr/bin/sudo /usr/bin/chgrp admin /usr/local/share/doc
+
 ==> /usr/bin/sudo /bin/mkdir -p /Users/len/Library/Caches/Homebrew
+
 ==> /usr/bin/sudo /bin/chmod g+rwx /Users/len/Library/Caches/Homebrew
+
 ==> /usr/bin/sudo /usr/sbin/chown len /Users/len/Library/Caches/Homebrew
+
 ==> Downloading and installing Homebrew...
 remote: Counting objects: 870, done.
 remote: Compressing objects: 100% (552/552), done.
@@ -63,6 +85,7 @@ Already up-to-date.
 ==> Installation successful!
 
 ==> Homebrew has enabled anonymous aggregate user behaviour analytics.
+
 Read the analytics documentation (and how to opt-out) here:
   https://git.io/brew-analytics
 
