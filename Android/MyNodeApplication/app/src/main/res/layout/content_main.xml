@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_main"
+        tools:context="com.yyy.xxx.mynodeapplication.MainActivity"
+        android:orientation="vertical"
+        >
+
+    <TextView
+            android:id="@+id/btn_send_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제목"
+            android:textSize="30dp"
+            />
+    <EditText
+            android:id="@+id/edit_send_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="제목으로 전송할 내용을 기입합니다"/>
+    <TextView
+            android:id="@+id/btn_send_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="작성자"
+            android:textSize="30dp"
+            />
+    <EditText
+            android:id="@+id/edit_send_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="작성자를 입력해주세요."
+            />
+    <TextView
+            android:id="@+id/btn_send_contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            android:textSize="30dp"
+            />
+    <EditText
+            android:id="@+id/edit_send_contents"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:hint="전송할 내용을 입력해주세요"
+            />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        <Button
+                android:id="@+id/send_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전송"
+                />
+        <Button
+                android:id="@+id/getAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="조회"/>
+        <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제"/>
+
+    </LinearLayout>
+    <EditText
+            android:id="@+id/delete_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="삭제하고자하는 ID를 입력해주세요."
+            />
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        <TextView
+                android:id="@+id/getAll_textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+    </ScrollView>
+</LinearLayout>
