@@ -56,7 +56,7 @@ Password:
 
 ==> /usr/bin/sudo /usr/sbin/chown len /Users/len/Library/Caches/Homebrew
 
-==> Downloading and installing Homebrew...
+==> Downloading and installing Homebrew... \br
 remote: Counting objects: 870, done.
 remote: Compressing objects: 100% (552/552), done.
 remote: Total 870 (delta 551), reused 479 (delta 295), pack-reused 0
