@@ -38,8 +38,7 @@ onStop()
 onDestroy()
  - 액티비티가 파괴될 때 호출된다. 시스템에 의해 강제로 종료되는 것인지 아니면 finish 메서드 호출에 의해 스스로 종료하는 것인지는 isFinishing 메서드로 조사할 수 있다.
 
-![enter image description here](https://www.google.co.kr/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwj0qqjagNjSAhXFXLwKHZKYD6wQjRwIBw&url=http%3A%2F%2Fblog.burt.pe.kr%2F%25EC%2595%2588%25EB%2593%259C%25EB%25A1%259C%25EC%259D%25B4%25EB%2593%259C-%25ED%2594%2584%25EB%259E%2598%25EA%25B7%25B8%25EB%25A8%25BC%25ED%258A%25B8%2F&psig=AFQjCNGT1daZqVtHFcNqnRE8kPVAg7D5uQ&ust=1489649964000464)
-
+![프래그먼트-생명주기](http://i.imgur.com/JTHgBdC.png)
 
 4. Intent란?
  Intent란 하나의 빈 봉투라고 생각 할 수 있습니다. 이 빈 봉투에 전달하고자 내용물을 담아 다른 액티비티에 보낼 수도 있고, 또는 안드로이드의 4대요소 중 ContentProvider와 BroadCastReciver등의 컴포넌트등을 이용 할 수 있게 만드는 요소입니다.
@@ -139,7 +138,7 @@ AIDL은 Android Interface description language의 약자입니다. 말그대로 
 
 AIDL은 Android에서 사용되는 IPC (Inter process communication), 안드로이드 구조를 이야기할때 Binder라고 일컬어지는 부분을 사용하기 위해서 정의합니다. Remote Service 라는 것은 같은 프로세스가 아니라 다른 프로세스에서 오는 함수 호출을 처리하는 Service이고 그것을 연결해주는데 Binder가 사용되고 있습니다. 그 Binder를 사용하는 코드를 자동으로 생성시켜주는 것이 AIDL이지요.
 
-18. 
+18.
 컨텐트 프로바이더와 컨텐트 리졸버 차이
 
 컨텐트 프로바이더를 사용하여 안드로이드 시스템의 각종 설정값이나 SD카드 내의 미디어 등에 접근하는 것이 가능합니다. 컨텐트 프로바이더에 접근하기 위해서는 해당 컨텐트 프로바이더의 주소가 필요합니다.
