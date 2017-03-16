@@ -138,7 +138,7 @@ AIDL은 Android Interface description language의 약자입니다. 말그대로 
 
 AIDL은 Android에서 사용되는 IPC (Inter process communication), 안드로이드 구조를 이야기할때 Binder라고 일컬어지는 부분을 사용하기 위해서 정의합니다. Remote Service 라는 것은 같은 프로세스가 아니라 다른 프로세스에서 오는 함수 호출을 처리하는 Service이고 그것을 연결해주는데 Binder가 사용되고 있습니다. 그 Binder를 사용하는 코드를 자동으로 생성시켜주는 것이 AIDL이지요.
 
-18.
+18. 
 컨텐트 프로바이더와 컨텐트 리졸버 차이
 
 컨텐트 프로바이더를 사용하여 안드로이드 시스템의 각종 설정값이나 SD카드 내의 미디어 등에 접근하는 것이 가능합니다. 컨텐트 프로바이더에 접근하기 위해서는 해당 컨텐트 프로바이더의 주소가 필요합니다.
@@ -147,4 +147,17 @@ AIDL은 Android에서 사용되는 IPC (Inter process communication), 안드로�
 
 컨텐트 리졸버는 액티비티 클래스 내의 getContentResolver()메소드를 통해 인스턴스를 받아올 수 있습니다. 일단 컨텐트 리졸버의 인스턴스를 받아온 후에는 query, insert 등의 메소드을 통해 데이터를 받거나 입력, 수정하고 싶은 컨텐트 프로바이더의 URI(Uniform Resource Identifier)를 넘겨주면 해당 컨텐트 프로바이더에 접근하여 요청한 작업을 수행할 수 있습니다.
 
-19.
+19. compileSdkVersion / minSdkVersion / targetSdkVersion
+
+minSdkVersion
+안드로이드 앱이 실행될 수 있는 최소한의 API 레벨을 의미
+
+targetSdkVersion
+안드로이드 앱의 타겟 API 레벨을 의미합니다. 만약 선언이 되어 있지 않다면 minSdkVersion과 동일한 값으로 간주됩니다. ‘타겟 API’의 개념은 해당 앱이 개발시에 테스트 되어진 API 레벨을 의미합니다. 당연히 targetSdkVersion은 minSdkVersion 보다 같거나 높을 수 밖에 없습니다. 하지만 targetSdkVersion이 높다고 하더라도 앱은 minSdkVersion에서도 인스톨 및 실행할 수 있습니다.
+
+compileSdkVersion
+Gradle에 어떤 안드로이드 SDK 버전으로 앱을 컴파일할지 알려줍니다. 즉, 지원할 수 있는 가장 높은 API 버전을 의미합니다.
+컴파일 시에만 적용되므로 runtime 동안에는 영향을 미치지 않습니다.
+항상 최신 버전의 SDK로 지정하는 것이 좋습니다.
+
+20.
