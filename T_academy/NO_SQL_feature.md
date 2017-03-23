@@ -101,7 +101,7 @@ NoSQL = Not Only SQL
     - Query data volume or IO per query VS total data volume
 
   **Aggregates**
-  - "dㅠ연한 스키마" 속성은 복잡하고 다양한 구조의 내부 요소를 가지고 있는 데이터 클래스를 구성 가능케함
+  - "유연한 스키마" 속성은 복잡하고 다양한 구조의 내부 요소를 가지고 있는 데이터 클래스를 구성 가능케함
       - 1:n 관계를 최소하여 결과적으로 JOIN연산을 줄임
       - 복잡하고 다양한 비지니스 요소를 담을 수 있음
 
