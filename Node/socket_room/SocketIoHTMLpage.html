@@ -12,6 +12,7 @@
       var socket = io.connect();
 
       socket.emit('join', room);
+
       socket.on('message', function (data) {
         $('<p>' + data + '</p>').appendTo('body');
       });
