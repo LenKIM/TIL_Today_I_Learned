@@ -1,8 +1,15 @@
-## 어떻게 디컴파일러하는가? ( MAC 기준 )
+추가)2017-04-24
+Realm에서 리버스엔지니어링에 관한 내용을 다뤘습니다.
 
+http://news.realm.io/kr/news/jon-reeve-reverse-engineering-is-not-just-for-hackers-android
+
+
+## 어떻게 디컴파일러하는가? ( MAC 기준 )
+과정
 1. adb path 설정
 2. adb를 통해 설치된 패키지를 찾는다.
 3. 쉘을 빠져나온 뒤 설치된 패키지를 .apk로 추출한다.
+4. 추출된 apk를 JD-GUI를 활용하여 클래스를 살펴본다.
 
 ```
 $ adb shell
@@ -17,8 +24,12 @@ $ exit
 
 # adb pull /data/[페키지 경로상의 이름 apk 까지만]
 ```
+***만약에 위와같이 adb pull이 안된다면
+ASTRO라는 파일탐색앱이 있다.
+여기서 백업 기능을 활용하여 apk를 손쉽게 추출할수 있다.
+이렇게 하면 APK를 추출 할 수 있다.***
 
-이렇게 하면 APK를 추출 할 수 있다.
+추출된 APK는 위에서 말한거와 같이 JD-GUI를 활용하여 압축을 풀어 확인합니다!
 
 ! 만약 PATH설정이 안되 있어서 ADB를 찾을 수 없다고 나온다고, sdk가 설치된 폴더의 경로를 찾은 뒤,
 `platform-tools` 에 있는 adb를 찾는다.
@@ -36,7 +47,7 @@ $ exit
 https://github.com/pxb1988/dex2jar dex2jar를 다운받은 후,
 
 이 같은 명령어를 통해 jar로 변환한다.
->$>./dex2jar.sh <apk압축을 푼 위치>/classes.de
+>$>./dex2jar.sh <apk압축을 푼 위치>/
 
 여기서 **주의할점!!!** APK파일의 권한을 부여해야 한다.
 `sudo chmod +xr /Users/xxx classes-dex2jar.jar`
