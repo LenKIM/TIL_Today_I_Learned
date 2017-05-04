@@ -62,7 +62,7 @@ public class CustomViewPager extends ViewPager {
         }
         public void setPagingDisabled() { //이 메소드를 이용해서 스크롤을 막아줍니다.
 
-            this.enabled = false;
+        this.enabled = false;
 
         }
     }
