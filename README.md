@@ -50,6 +50,9 @@ MBA 사업서신 작성을 위한 1분 강좌
 - T 아카데미 HelloMoney하면서 배운 지식 정리(진행중)
 
 ## 5. React
+ - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)(진행중)
+ - Pro-React 참고(완료)
+ - issue recording(진행 중)
 
 ## 6. Book
 - '내가 알고 있는 것이 진짜가 아니다.'  
@@ -60,4 +63,11 @@ MBA 사업서신 작성을 위한 1분 강좌
  - 알고리즘이 어렵다라는 내 머릿속 색안경을 탈피하기 위한 공간.
 
 ## 8. T아카데미
- 서버 전문가 양성 과정 
+ 서버 전문가 양성 과정(완료)
+ : 결과
+  [서버: https://github.com/LenKIM/PercentServer](https://github.com/LenKIM/PercentServer)
+  [안드로이드 고객용: https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
+  [안드로이드 상담가용](https://github.com/LenKIM/PercentConsultantApp)
+
+## 9. 딥러닝
+- 밑바닥부터 시작하는 딥러닝(진행중)
