@@ -131,7 +131,7 @@ getHandleInfoMessage(ticket) {
  시간을 비교하는 함수를 사용하지 못했을 때, 시간을 비교하기 위해서는 다음과 같은 라이브러리를 활용하지 않은 방식을 써야 한다.
 
  아래 블로그를 참조하자.
- ![여기](https://msdn.microsoft.com/ko-kr/library/ee532932(v=vs.94).aspx)
+ [여기](https://msdn.microsoft.com/ko-kr/library/ee532932(v=vs.94).aspx)
 
  하지만 moment와 같은 라이브러리를 활용하면, 위와 같은 복잡도는 사라진다.
 
@@ -139,4 +139,15 @@ getHandleInfoMessage(ticket) {
 
  해당 라이브러리의 주소는 [여기!](http://momentjs.com/)
 
- 
+
+
+## 2017-07-18 추가내용
+
+  > time.format('YYYY-MM-DD HH:mm:ss')
+
+여기서, YYYY MM DD HH:mm:ss 에 따라 시간의 포맷을 설정해주는데,
+
+IE 와 크룸의 차이가 나타났다.
+
+IE의 경우, 'YYYY-MM-DD, HH:MM:SS' 중간에 (꼼마)가 있으면 제대로된 파싱을 하지 못한다.
+그러나 크룸의 경우, (꼼마)가 있어도 제대로 시간 파싱을 실행한다!
