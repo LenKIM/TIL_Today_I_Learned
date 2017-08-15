@@ -1,8 +1,5 @@
 author = LenKIM
 
-This time, I will introduce how to use DOM XML Parser in android
-and, for studying english I write ENGLISH.
-
  first of all, you should create XML folder in andorid.
  like this!
 
