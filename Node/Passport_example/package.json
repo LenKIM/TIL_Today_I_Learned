@@ -1,0 +1,19 @@
+{
+  "name": "ViewExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-error-handler": "^1.1.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.6.6",
+    "serve-static": "^1.11.2"
+  }
+}

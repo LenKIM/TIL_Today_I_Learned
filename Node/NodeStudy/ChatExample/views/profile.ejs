@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		
+		<title>프로필 화면</title>
+		
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    	
+    	<style>
+        	body        { padding-top:80px; }
+    	</style>
+    
+	</head>
+	<body>
+		
+		<div class="container">			
+						
+			<div class="page-header text-center">
+		        <h1><span class="fa fa-book"></span> 사용자 프로필</h1>
+		        <a href="/logout" class="btn btn-default btn-sm">로그아웃</a>
+		    </div>
+			<br>
+		    <div class="row">
+		
+		        <div class="col-sm-6">
+		            <div class="well">
+		            
+		            	<% if (user.provider == undefined || user.provider == '') { %>
+			                <h3><span class="fa fa-user"></span> 로컬 프로필</h3>
+							<br>
+							<p>
+								<strong>이메일</strong>: <%= user.email %><br><br>
+		                		<strong>별명</strong>: <%= user.name %>
+			                </p>
+			            <% } else if (user.provider == 'facebook') { %>
+							<h3 class="text-primary"><span class="fa fa-facebook"></span> 페이스북 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.facebook.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.facebook.email %><br><br>
+		                        <strong>이름</strong>: <%= user.facebook.name %>
+		                    </p>
+		                <% } else if (user.provider == 'twitter') { %>
+							<h3 class="text-primary"><span class="fa fa-twitter"></span> 트위터 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.twitter.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.twitter.email %><br><br>
+		                        <strong>이름</strong>: <%= user.twitter.name %>
+		                    </p>
+		                <% } else if (user.provider == 'google') { %>
+							<h3 class="text-primary"><span class="fa fa-google"></span> 구글 프로필</h3>
+							<br>
+		                    <p>
+		                        <strong>아이디</strong>: <%= user.google.id %><br><br>
+		                        <strong>이메일</strong>: <%= user.google.email %><br><br>
+		                        <strong>이름</strong>: <%= user.google.name %>
+		                    </p>
+						<% } %>
+		                	
+						<br>
+		            </div>
+		        </div>
+		
+		    </div>
+			
+		</div>	
+			
+	</body>
+</html>

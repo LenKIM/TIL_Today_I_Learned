@@ -1,0 +1,27 @@
+{
+  "name": "PassportExample2",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "ejs": "^2.5.2",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-error-handler": "^1.1.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.6.6",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "serve-static": "^1.11.2",
+    "socket.io": "^1.7.3"
+  }
+}
