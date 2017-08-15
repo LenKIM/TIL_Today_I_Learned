@@ -1,73 +1,52 @@
-# TIL Today I Learned
+# TIL - Today I Learned
+하루에 하나씩 습득한 지식을 입력합니다.
 
-# 하루에 하나씩 습득한 지식을 입력합니다.
-
-## 1. 안드로이드
+## 안드로이드
 - 안드로이드를 공부하며 습득한 지식들을 기록합니다.  
 
-## 1-1. 안드로이드 이슈 및 요약
+  #### 1-1. 안드로이드 이슈 및 요약
+  참고하면 좋은 사이트.  
+  https://disqus.com/home/forum/androidhive/  
 
-참고하면 좋은 사이트.  
-https://disqus.com/home/forum/androidhive/  
-
-## 2. JavaScript
+## JavaScript
 - Node.js를 배우기 위한 기초 JavaScript 정리[완료]
 - 쉬운 자바스크립트를 누군가에게 설명하기.
 
-## 3. 10일 만에 끝내는 MBA
-- 첫 날_ 마케팅 (완료)
-- 둘째 날_ 윤리학 (완료)
-- 셋째 날_ 회계학
-- 넷째 날_ 조직행동론(완료)
-- 다섯째 날_ 계량분석  
-- 여섯째 날_ 재무관리
-- 일곱째 날_ 생산관리
-- 여덟째 날_ 경제학
-- 아홉째 날_ 전략
-- 열째 날 MBA 미니 코스
-
-> 부록
-
-경쟁 정보 수집 및 조사를 위한 10분 강좌  
-대중연설을 위한 10초 강좌  
-협상을 위한 10분 강좌  
-국제 경영을 위한 10분 강좌    
-기업법을 위한 20분 강좌  
-MBA 사업서신 작성을 위한 1분 강좌  
-부동산 투자를 위한 10분 강좌  
-리더십 코치 10분 강좌  
-재무계획 10분 강좌  
-
-## 4. Node.js  
+## Node.js  
 - 모던 웹으로 배우는 Node.js 공부 & 정리(완료).  
 - 인터넷 강의와 함께 진행하기(진행중).  
 - 기초 내용 정리하기(완료)  
-- Do it Node.js 프로그래밍(배송중)
+- Do it Node.js 프로그래밍(완료)
 - 간단 프로젝트하기.
   - 채팅 앱(완료)
   - 게시판만들기(완료)
   - 위치기반의 게시판만들기(완료)
 - T 아카데미 HelloMoney하면서 배운 지식 정리(진행중)
 
-## 5. React
- - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)(진행중)
+## React
+ - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)(완료)
  - Pro-React 참고(완료)
  - issue recording(진행 중)
 
-## 6. Book
+## Book
 - '내가 알고 있는 것이 진짜가 아니다.'  
-몸이 또는 손이 기억하게 해야한다! 주니어 개발자가 모든 프로그램을 만진다는 거는 사실 현실적으로 힘듬, 그러나 이론을 베이스로 한발짝 다가가기  
+몸이 또는 손이 기억하게 해야한다.
+주니어 개발자가 모든 프로그램을 만진다는 거는 사실 현실적으로 힘듬, 그러나 이론을 베이스로 한발짝 다가가기  
 - 개발 서적 읽고 간단한 리뷰작성하기.  
 
-## 7. 알고리즘
+## 알고리즘
  - 알고리즘이 어렵다라는 내 머릿속 색안경을 탈피하기 위한 공간.
 
-## 8. T아카데미
- 서버 전문가 양성 과정(완료)
+## T아카데미
+ 서버 전문가 양성 과정(완료)  
  : 결과
   [서버: https://github.com/LenKIM/PercentServer](https://github.com/LenKIM/PercentServer)
   [안드로이드 고객용: https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
-  [안드로이드 상담가용](https://github.com/LenKIM/PercentConsultantApp)
+  [안드로이드 상담가용 :  https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
 
-## 9. 딥러닝
+## 딥러닝
 - 밑바닥부터 시작하는 딥러닝(진행중)
+
+## FP(Functional_Thinking)
+- 함수형 사고 책 읽고 기본사고를 생각하기(진행)
+- 함수형프로그래밍스터디(진행)
