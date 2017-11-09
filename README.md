@@ -40,9 +40,9 @@
 ## T아카데미
  서버 전문가 양성 과정(완료)  
  : 결과
-  [서버: https://github.com/LenKIM/PercentServer](https://github.com/LenKIM/PercentServer)
-  [안드로이드 고객용: https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
-  [안드로이드 상담가용 :  https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
+  [서버: https://github.com/LenKIM/PercentServer](https://github.com/LenKIM/PercentServer)  
+  [안드로이드 고객용: https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
+  [안드로이드 상담가용 :  https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
 
 ## 딥러닝
 - 밑바닥부터 시작하는 딥러닝(완료)
