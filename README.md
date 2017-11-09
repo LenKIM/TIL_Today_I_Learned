@@ -14,19 +14,19 @@
 
 ## Node.js  
 - 모던 웹으로 배우는 Node.js 공부 & 정리(완료).  
-- 인터넷 강의와 함께 진행하기(진행중).  
+- 인터넷 강의와 함께 진행하기(완료).  
 - 기초 내용 정리하기(완료)  
 - Do it Node.js 프로그래밍(완료)
 - 간단 프로젝트하기.
   - 채팅 앱(완료)
   - 게시판만들기(완료)
   - 위치기반의 게시판만들기(완료)
-- T 아카데미 HelloMoney하면서 배운 지식 정리(진행중)
+- T 아카데미 HelloMoney하면서 배운 지식 정리(완료)
 
 ## React
- - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)(완료)
- - Pro-React 참고(완료)
- - issue recording(진행 중)
+ - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)
+ - Pro-React 참고
+ - issue recording
 
 ## Book
 - '내가 알고 있는 것이 진짜가 아니다.'  
@@ -45,8 +45,9 @@
   [안드로이드 상담가용 :  https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)
 
 ## 딥러닝
-- 밑바닥부터 시작하는 딥러닝(진행중)
+- 밑바닥부터 시작하는 딥러닝(완료)
+- 모두를 위한 딥러닝/머신러닝(진행중)
 
 ## FP(Functional_Thinking)
-- 함수형 사고 책 읽고 기본사고를 생각하기(진행)
-- 함수형프로그래밍스터디(진행)
+- 함수형 사고 책 읽고 기본사고를 생각하기(어려워..)
+- 함수형프로그래밍스터디(완료했으나 어려워..)
