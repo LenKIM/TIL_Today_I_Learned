@@ -1,8 +1,8 @@
  아래 글은 조대협님의 블로그에서 발췌하였습니다.
 
-##REST(Representational_safe_transfer)
+## REST(Representational_safe_transfer)
 
-#Rest의 기본
+# Rest의 기본
 
  *REST*의 기본 요소로 크게 **리소스, 메서도, 메서지** 3가지 요소로 구성
  예를 들어서 "이름이 Terry인 사용자를 생성한다." 라는 호출이 있을때
