@@ -462,7 +462,8 @@ main | value = 5(3(1))
     @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public static <T1, T2, R> Observable<R> zip(
-            ObservableSource<? extends T1> source1, ObservableSource<? extends T2> source2,
+            ObservableSource<? extends T1> source1,
+            ObservableSource<? extends T2> source2,
             BiFunction<? super T1, ? super T2, ? extends R> zipper) {
         ObjectHelper.requireNonNull(source1, "source1 is null");
         ObjectHelper.requireNonNull(source2, "source2 is null");
@@ -479,13 +480,537 @@ main | value = 5(3(1))
 		String[] coloredTriangles = {triangle(YELLOW), triangle(PUPPLE), triangle(SKY)};
 
 		Observable<String> source = Observable.zip(
-			Observable.fromArray(shapes)
-					.map(Shape::getSuffix), // 모양을 가져옵니다.
-			Observable.fromArray(coloredTriangles)
-					.map(Shape::getColor), // 색상을 가져옵니다.
+			Observable.fromArray(shapes).map(Shape::getSuffix), // 모양을 가져옵니다.
+			Observable.fromArray(coloredTriangles).map(Shape::getColor), // 색상을 가져옵니다.
 			(suffix, color) -> color + suffix);
-
 		source.subscribe(Log::i);
 		CommonUtils.exampleComplete();
 	}
+```
+
+2개의 ObservableSource 가 합쳐져서 return 되는 값이 zipArray로 나온다. 즉 합쳐져서 나온다는 말!
+
+**zip을 활용한 숫자 결합하는 함수를 만들어보기**
+
+```java
+
+public void zipNumbers() {
+        Observable<Integer> source = Observable.zip(
+                Observable.just(100, 200, 300),
+                Observable.just(10, 20, 30),
+                Observable.just(1, 2, 3),
+                (x, y, z) -> x + y + z);
+
+        source.subscribe(Log::i);
+    }
+
+```
+
+**interval()함수를 이용한 시간 결합**
+```
+
+public void timeInterval(){
+  Observable<String> source = Observable.zip(
+    Observable.just("RED", "BLUE", "GREEN"),
+    Observable.interval(300L, TimeUnit.MILLISECONDS),
+    (value, i) -> value
+  )
+}
+
+```
+
+   CommonUtils.sleep(1000);
+
+위와 같이 시간 함수와 같이 사용할 수 있는데, 여기서 주의할점은 이놈이 있는걸 보아하니 계산 스레드에서 zip의 계산을 수행한다는 점을 주의깊게 생각해야한다.
+
+전기 요금 계산 예제.... 코드가 생각해내기가 어려움.
+
+```java
+package com.yudong80.reactivejava.chapter04.combine;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+import java.text.DecimalFormat;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.yudong80.reactivejava.common.CommonUtils;
+import com.yudong80.reactivejava.common.Log;
+
+import io.reactivex.Observable;
+
+public class ElectricBills {
+	private int index = 0; //FIXME don't use it
+
+	public void electricBillV1() {
+		String[] data = {
+			"100",  //910 + 93.3 * 100 = 10,240원  
+			"300",  //1600 + 93.3 * 200 + 187.9 * 100 = 39,050원
+ 			"800",  //7300 + 93.3 * 200 + 187.9 * 200 + 280.65 * 200 = 175,800원
+		};
+
+		Observable<Integer> basePrice = Observable.fromArray(data)
+				.map(Integer::parseInt)
+				.map(val -> {
+					if (val <= 200) return 910;
+					if (val <= 400) return 1600;
+					return 7300;
+				});
+
+		Observable<Integer> usagePrice = Observable.fromArray(data)
+				.map(Integer::parseInt)
+				.map(val -> {
+					double series1 = min(200, val) * 93.3;
+					double series2 = min(200, max(val-200, 0)) * 187.9;
+					double series3 = max(0, max(val-400, 0)) * 280.65;
+					return (int)(series1 + series2 + series3);
+				});
+
+		Observable<Integer> source = Observable.zip(
+				basePrice,
+				usagePrice,
+				(v1, v2) -> v1 + v2);
+
+		//print the result
+		source.map(val -> new DecimalFormat("#,###").format(val))
+		.subscribe(val -> {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Usage: " + data[index] + " kWh => ");
+			sb.append("Price: " + val + "원");
+			Log.i(sb.toString());
+
+			index++; //FIXME side effect!!!!
+		});
+		CommonUtils.exampleComplete();
+	}
+
+	public void electricBillV2() {
+		String[] data = {
+			"100",  //910 + 93.3 * 100 = 10,240원  
+			"300",  //1600 + 93.3 * 200 + 187.9 * 100 = 39,050원
+			"800",  //7300 + 93.3 * 200 + 187.9 * 200 + 280.65 * 200 = 175,800원
+		};
+
+		Observable<Integer> basePrice = Observable.fromArray(data)
+				.map(Integer::parseInt)
+				.map(val -> {
+					if (val <= 200) return 910;
+					if (val <= 400) return 1600;
+					return 7300;
+				});
+
+		Observable<Integer> usagePrice = Observable.fromArray(data)
+				.map(Integer::parseInt)
+				.map(val -> {
+					double series1 = min(200, val) * 93.3;
+					double series2 = min(200, max(val-200, 0)) * 187.9;
+					double series3 = max(0, max(val-400, 0)) * 280.65;
+					return (int)(series1 + series2 + series3);
+				});
+
+		Observable<Pair<String, Integer>> source = Observable.zip(
+				basePrice,
+				usagePrice,
+				Observable.fromArray(data),
+				(v1, v2, i) -> Pair.of(i, v1+v2));
+
+		//print the result
+		source.map(val -> Pair.of(val.getLeft(),
+					new DecimalFormat("#,###").format(val.getValue())))
+		.subscribe(val -> {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Usage: " + val.getLeft() + " kWh => ");
+			sb.append("Price: " + val.getRight() + "원");
+			Log.i(sb.toString());
+		});
+		CommonUtils.exampleComplete();
+	}
+
+
+	public static void main(String[] args) {
+		ElectricBills demo = new ElectricBills();
+		demo.electricBillV1();
+		demo.electricBillV2();
+	}
+}
+```
+
+일단 무슨말인지는 알겠는데, 생각해내는게 문제일듯...
+
+#### combineLatest() 함수
+
+2개 이상의 Observable을 기반으로 Observable 각각의 값이 변경되었을 때 갱신해주는 함수.  
+마지막 인자로 combiner가 들어가는데 그것이 각 Observable을 결합하여 어떤 결과를 만들어주는 역할.  
+zip() 함수의 zipper 인자와 동일  
+
+![](http://reactivex.io/documentation/operators/images/combineLatest.png)
+
+첫번째 Observable에서만 데이터를 발행하거나 두 번쨰 Observable의 데이터 흐름만 있으면 구독자에게 어떤 데이터도 발행하지 않습니다. 하지만 두 Observable모두 값을 발행하면 그때는 결괏값이 나옵니다. 그 다음부터는 둘 중에 어떤 것이 갱신되던지 최신 결괏값을 보여줍니다. (이 붑ㄴ이 zip()함수와 다른 점입니다.)
+
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public static <T1, T2, R> Observable<R> combineLatest(
+            ObservableSource<? extends T1> source1,
+            ObservableSource<? extends T2> source2,
+            BiFunction<? super T1, ? super T2, ? extends R> combiner) {
+        ObjectHelper.requireNonNull(source1, "source1 is null");
+        ObjectHelper.requireNonNull(source2, "source2 is null");
+        return combineLatest(Functions.toFunction(combiner), bufferSize(), source1, source2);
+    }
+```
+
+```java
+package com.yudong80.reactivejava.chapter04.combine;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.observables.ConnectableObservable;
+
+import java.util.Scanner;
+
+public class ReactiveSum2 {
+
+    public static void main(String[] args) {
+        new ReactiveSum2().run();
+    }
+
+    private void run() {
+
+        ConnectableObservable<String> source = userInput();
+
+        Observable<Integer> a = source
+                .filter(str -> str.startsWith("a:"))
+                .map(str -> str.replace("a:", ""))
+                .map(Integer::parseInt);
+
+        Observable<Integer> b = source
+                .filter(str -> str.startsWith("b:"))
+                .map(str -> str.replace("b:", ""))
+                .map(Integer::parseInt);
+
+        Observable.combineLatest(
+                a.startWith(0),
+                b.startWith(0),
+                (x, y) -> x + y)
+                .subscribe(res -> System.out.println("Result : " + res));
+
+        source.connect();
+    }
+
+    private ConnectableObservable<String> userInput() {
+        return Observable.create((ObservableEmitter<String> emitter) -> {
+            Scanner sc = new Scanner(System.in);
+            while (true){
+                System.out.println("Input : ");
+                String line = sc.nextLine();
+                emitter.onNext(line);
+
+                if(line.indexOf("exit") >= 0){
+                    sc.close();
+                    break;
+                }
+            }
+        }).publish();
+    }
+
+}
+```
+#### Merge() 함수
+
+zip함수나 combineLatest함수와 비교하면 가장 단순한 결합 함수이다. 입력 Observable의 순서와 모든 Observable이 데이터를 발행하는지 등에 관여하지 않고 어느 것이든 업스트림에서 먼저 입력되는 데이터를 그대로 발행합니다.
+
+![](http://reactivex.io/documentation/operators/images/onErrorFlatMap.withMerge.png)
+```java
+
+@Override
+public void marbleDiagram() {
+	String[] data1 = {RED, GREEN}; //1, 3
+	String[] data2 = {YELLOW, SKY, PUPPLE}; //2, 4, 6
+
+	Observable<String> source1 = Observable.interval(0L, 100L, TimeUnit.MILLISECONDS)
+			.map(Long::intValue)
+			.map(idx -> data1[idx])
+			.take(data1.length);
+	Observable<String> source2 = Observable.interval(50L, TimeUnit.MILLISECONDS)
+			.map(Long::intValue)
+			.map(idx -> data2[idx])
+			.take(data2.length);
+
+	Observable<String> source = Observable.merge(source1, source2);
+	source.subscribe(Log::i);		
+	CommonUtils.sleep(1000);
+	CommonUtils.exampleComplete();
+}
+//원형
+@SuppressWarnings({ "unchecked", "rawtypes" })
+  @CheckReturnValue
+  @SchedulerSupport(SchedulerSupport.NONE)
+  public static <T> Observable<T> merge(ObservableSource<? extends T> source1, ObservableSource<? extends T> source2) {
+      ObjectHelper.requireNonNull(source1, "source1 is null");
+      ObjectHelper.requireNonNull(source2, "source2 is null");
+      return fromArray(source1, source2).flatMap((Function)Functions.identity(), false, 2);
+  }
+```
+
+#### concat() 함수
+ 2개 이상의 Observable을 이어 붙여주는 함수이다. 첫 번째 Observable에 onComplete이벤트가 발생해야 두번 째 Observable을 구독합니다. 스레드를 활용한 일반적인 코드로 이와 같은 내용을 구현하기 어려움.
+
+![](http://reactivex.io/documentation/operators/images/concat.png)
+
+ 첫 번째 Observable에 onComplete 이벤트가 발생하지 않게 하면 두 번쨰 Observable은 영원히 대기합니다. 이는 잠재적인 메모리 누수의 위험을 내포.
+ 따라서 입력 Observable이 반드시 완료(onComplete 이벤트)될 수 있게 해야합니다.
+
+ ```java
+ public void marbleDiagram() {
+		Action onCompleteAction = () -> Log.d("onComplete()");
+
+		String[] data1 = {"RED", "GREEN", "BLUE"};
+		String[] data2 = {"YELLOW", "SKY", "PUPPLE"};
+		Observable<String> source1 = Observable.fromArray(data1)
+				.doOnComplete(onCompleteAction);
+		Observable<String> source2 = Observable.interval(100L, TimeUnit.MILLISECONDS)
+				.map(Long::intValue)
+				.map(idx -> data2[idx])
+				.take(data2.length)
+				.doOnComplete(onCompleteAction);
+
+		Observable<String> source = Observable.concat(source1, source2)
+				.doOnComplete(onCompleteAction);
+		source.subscribe(Log::i);		
+		CommonUtils.sleep(1000);
+		CommonUtils.exampleComplete();
+	}
+ ```
+
+ concat()함수에서 결합할 수 있는 Observable의 갯수는 최대 4개입니다.
+
+### 4.조건연산자
+
+ 조건 연산자는 Observable의 흐름을 제어하는 역할을 수행합니다. 필터 연산자가 발생된 값을 채택하느냐 기각하느냐 여부에 초점을 맞춘다면, 조건 연산자는 지금까지의 흐름을 어떻게 제어(Conditioning)할 것인지에 초점을 맞춥니다.
+
+#### amb() 함수
+ 둘 중 어느 것이든 먼저 나오는 Observable 을 채택합니다.
+
+![](http://reactivex.io/documentation/operators/images/amb.png)
+
+```java
+public void marbleDiagram() {
+		String[] data1 = {RED, GREEN, BLUE};
+		String[] data2 = {rectangle(YELLOW), rectangle(SKY)};
+
+		List<Observable<String>> sources = Arrays.asList(
+				Observable.fromArray(data1)
+						  .doOnComplete(() -> Log.d("Observable #1 : onComplete()")),
+				Observable.fromArray(data2)
+						  .delay(100L, TimeUnit.MILLISECONDS)
+						  .doOnComplete(() -> Log.d("Observable #2 : onComplete()")));
+
+		Observable.amb(sources)
+				  .doOnComplete(() -> Log.d("Result : onComplete()"))
+				  .subscribe(Log::i);		
+		CommonUtils.sleep(1000);
+		CommonUtils.exampleComplete();
+	}
+
+  결과는
+main | value = 1
+main | value = 3
+main | value = 5
+main | debug = Observable #1 : onComplete()
+main | debug = Result : onComplete()
+
+-----------------------
+```
+
+#### takeUntil(other) 함수
+other Observable에서 데이터가 발행되기 전까지만 현재 Observable을 채택합니다.  
+takeUntil은 take()함수에 조건을 설정할 수 있다. 구체적으로 살펴보면 인자로 받은 Observable에서 어떤 값을 발행하면 현재 Observable의 데이터 발행을 중단하고 즉시 완료(onComplete)합니다.  
+즉, take()함수처럼 일정 개수만 값을 발행하되 완료 기준을 다른 Observable에서 값을 발행하는지로 판단하는 것입니다.  
+
+![](http://reactivex.io/documentation/operators/images/takeUntil.png)
+
+```java
+public void marbleDiagram() {
+		String[] data = {RED, YELLOW, GREEN, SKY, BLUE, PUPPLE};
+
+		Observable<String> source = Observable.fromArray(data)
+				.zipWith(Observable.interval(100L, TimeUnit.MILLISECONDS),
+						(val, notUsed) -> val)
+				.takeUntil(Observable.timer(500L, TimeUnit.MILLISECONDS));
+
+//red가 500L뒤에 발행되면서 정지된다.
+
+		source.subscribe(Log::i);
+		CommonUtils.sleep(1000);
+		CommonUtils.exampleComplete();
+	}
+
+// 원형
+@CheckReturnValue
+@SchedulerSupport(SchedulerSupport.NONE)
+public final <U> Observable<T> takeUntil(ObservableSource<U> other) {
+    ObjectHelper.requireNonNull(other, "other is null");
+    return RxJavaPlugins.onAssembly(new ObservableTakeUntil<T, U>(this, other));
+}
+```
+
+#### skipUntil(other) 함수
+ takeUntil(other)함수와는 반대로 other Observable에서 데이터가 발행될 때까지 동안 현재 Observable에서 발행하는 값을 무시합니다.
+
+![](http://reactivex.io/documentation/operators/images/skipUntil.png)
+
+takeUntil 함수와는 다르게 other Observable에서 화살표가 나올 때까지는 값을 발행하지 않고 건너뛰다가 other Observable에서 값을 발행하는 순간부터 원래 Observable에서 값을 정상적으로 발행하기 시작합니다.
+
+```java
+@Override
+	public void marbleDiagram() {
+		String[] data = {RED, YELLOW, GREEN, SKY, BLUE, PUPPLE};
+
+		Observable<String> source = Observable.fromArray(data)
+				.zipWith(Observable.interval(100L, TimeUnit.MILLISECONDS),
+						(val, notUsed) -> val)
+				.skipUntil(Observable.timer(500L, TimeUnit.MILLISECONDS));
+
+		source.subscribe(Log::i);
+		CommonUtils.sleep(1000);
+		CommonUtils.exampleComplete();
+	}
+
+
+결과
+RxComputationThreadPool-2 | value = 5
+RxComputationThreadPool-2 | value = 6
+```
+
+#### all() 함수
+Observable에 입력되는 값이 모두 특정 조건에 맞을 때만 true값을 발행. 만약 조건이 마지 않으면 바로 false합니다.
+
+다시, 주어진 조건에 100% 맞을 때만 true 값을 발행하고 조건에 맞지 않는 데이터가 발행되면 바로 false값을 발행합니다.
+
+![](http://reactivex.io/documentation/operators/images/all.png)
+
+모든 모양이 '원' 모양이어야만 true를 발행합니다.
+
+```java
+@Override
+	public void marbleDiagram() {
+		String[] data = {RED, YELLOW, GREEN, SKY};
+
+		Single<Boolean> source = Observable.fromArray(data)
+			.map(Shape::getShape)
+			.all(Shape.BALL::equals);
+			//.all(val -> Shape.BALL.equals(Shape.getShape(val)));
+		source.subscribe((Consumer<? super Boolean>) Log::i);
+	}
+```
+
+### 5. 수학 및 기타 연산자
+max(), sum()과 같은 수학 함수와 기타 분류에 해당하는 함수 살펴보기.
+
+#### 수학 함수
+RxJava2에는 RxJava2Extensions 라이브러리를 활용하여 간단한 수학 함수 및 집합 함수의 활용법을 살펴봅니다.
+
+`compile "com.github.akarnokd:rxjava2-extensions:0.17.5"`
+
+gradle에 추가.
+
+```java
+예제 추가
+public void marbleDiagram() {
+		Integer[] data = {1, 2, 3, 4};
+
+		//1. count
+		Single<Long> source = Observable.fromArray(data)
+				.count();
+		source.subscribe(count -> Log.i("count is " + count));
+
+		//2. max() & min()
+		Flowable.fromArray(data)
+			.to(MathFlowable::max)
+			.subscribe(max -> Log.i("max is " + max));
+
+		Flowable.fromArray(data)
+			.to(MathFlowable::min)
+			.subscribe(min -> Log.i("min is " + min));
+
+		//3. sum() & average
+		Flowable<Integer> flowable = Flowable.fromArray(data)
+				.to(MathFlowable::sumInt);
+		flowable.subscribe(sum -> Log.i("sum is " + sum));
+
+		Flowable<Double> flowable2 = Observable.fromArray(data)
+				.toFlowable(BackpressureStrategy.BUFFER)
+				.to(MathFlowable::averageDouble);
+		flowable2.subscribe(avg -> Log.i("average is " + avg));		
+	}
+
+main | value = count is 4
+main | value = max is 4
+main | value = min is 1
+main | value = sum is 10
+main | value = average is 2.5
+```
+#### delay() 함수
+ RxJava에서는 시간을 다루는 함수들이 많은데,  
+ 주기적으로 Observable애서 값을 발행해주는 interval()  
+ 일정 시간이 지난 후 값을 발행해주는 timer()  
+ Callable을 등록해두고 실행을 지연하는 defer()
+ 앞으로 7장에서 배울 Buffer(), debounce(), sample(), window() 존재
+
+ delay함수는 단순하게 인자로 전달받는 time과 시간 단위(ms, m 등)만큼 입력받은 Observable의 데이터 발행을 지연시켜주는 역할
+
+ ```Java
+
+ @Override
+ 	public void marbleDiagram() {
+ 		CommonUtils.exampleStart();
+
+ 		String[] data = {RED, ORANGE, YELLOW, GREEN, SKY};
+ 		Observable<String> source = Observable.fromArray(data)
+ 				.delay(100L, TimeUnit.MILLISECONDS);
+ 		source.subscribe(Log::it);
+ 		CommonUtils.sleep(1000);
+ 		CommonUtils.exampleComplete();
+ 	}
+
+ @CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.COMPUTATION)
+    public final Observable<T> delay(long delay, TimeUnit unit) {
+        return delay(delay, unit, Schedulers.computation(), false);
+    }
+ ```
+
+ 100ms 만큼 밀려서 발행된다.
+
+ #### timeInterval() 함수
+ 어떤 값을 발행했을 때 이전 값을 발행한 이후 얼마나 시간이 흘렀는지를 알려줍니다.
+
+![ ](http://reactivex.io/documentation/operators/images/timeInterval.c.png)
+
+```Java
+public void marbleDiagram() {
+		String[] data = {"RED", "GREEN", "ORANGE"};
+
+		CommonUtils.exampleStart();
+		Observable<Timed<String>> source = Observable.fromArray(data)
+			.delay(item -> {
+				CommonUtils.doSomething();
+				return Observable.just(item);
+			})
+			.timeInterval();
+
+		source.subscribe(Log::it);
+		CommonUtils.sleep(1000);
+	}
+
+@CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Observable<Timed<T>> timeInterval() {
+        return timeInterval(TimeUnit.MILLISECONDS, Schedulers.computation());
+    }
+
+main | 430 | value = Timed[time=59, unit=MILLISECONDS, value=RED]
+main | 510 | value = Timed[time=81, unit=MILLISECONDS, value=GREEN]
+main | 609 | value = Timed[time=99, unit=MILLISECONDS, value=ORANGE]
 ```
