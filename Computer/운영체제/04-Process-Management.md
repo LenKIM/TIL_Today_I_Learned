@@ -157,19 +157,26 @@
 
 Cf) Thread - thread는 사실상 하나의 프로세스이므로 프로세스 간 협력으로 보기는 어렵지만 동일한 process를 구성하는 thread 간에는 주소 공간을 공유하므로 협력 가능
 
-
-
 **CPU와 I/O burst의 연속!!**
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmm61hm0apj30zq0tads0.jpg)
+
+CPU와 연속적으로 쓰는 방법 - CPU burst
+I/O를 연속적으로 실행하는 것을 - I/O burst
+
+운영체제에 따라 동작 방식이 다르다.
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmm62bljgaj30za0tkqku.jpg)
 
 
 
 JOB의 종류가 섞여있다?
+Interactive한 잡은 I/O bound job !!  
+CPU만 아주 오랫동안 쓰는 걸 CPU job이라고 부른다!  
 
-Interactive한 잡은 I/O bound job !!
+**문제는 I/O bound job이 문제!!**  
+
+**CPU를 공평하게 주기보다는 효율적으로 주기 위해 스케줄링 절대단위로 필요하다.**
 
 ## 프로세스의 특성 분류
 
@@ -195,5 +202,5 @@ Interactive한 잡은 I/O bound job !!
   2. Running -> Ready(예: 할당시간만료로 timer interrupt)
   3. Blocked -> Ready(예: I/O 완료후 인터럽트)
   4. Terminate
-- 1, 4에서의 스케줄링은 nonpreemptive(=강제로 빼앗지 않고 자진 반납)
-- All other scheduling is preemptive(=강제로 빼앗음)
+- 1, 4에서의 스케줄링은 nonpreemptive(=강제로 빼앗지 않고 자진 반납) - 비선점
+- All other scheduling is preemptive(=강제로 빼앗음) - 선점
