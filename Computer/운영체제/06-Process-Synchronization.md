@@ -115,7 +115,7 @@ lock이 걸려있는가? 아닌가?를 확인해서 CS를 소프트웨어적으�
 - Semaphore **S**
 
   -  Integer variable
-  - 아래의 두 가지 atomic 연산에 의해서만 접근 가능
+  -  아래의 두 가지 atomic 연산에 의해서만 접근 가능
 
   **P는 세미포어를 획득하는 과정**  
   자원이 있으면 뺐고
@@ -181,3 +181,124 @@ Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한�
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv7t82nfdj310u0s2k9o.jpg)
 
 **Starvation이 일어날 수 있는 원인이 되는 것!**
+
+
+
+
+
+## Process Synchronization 과 관련된 3가지 문제(고전적문제)
+
+
+
+### Bounded-Buffer Problem(Producer-Consumer promblem)
+
+생산자 소비자 문제와 유사. 생성자-소비자를 세미포어를 통해 푼다.
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwgmnjq2uj314u0uikhp.jpg)
+
+- 생산자는 회색의 칸을 주황색으로 만드는 역할
+
+세마포어 변수를 3개를 가졌음. mutext는 lock을 걸기 위해서.
+공유버퍼의 수는 N개. 
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwhf1f5k5j31bm12m1kx.jpg)
+
+**생산자 부분만 살펴보면...**  
+만약 empty 버퍼가 있다면, P(mutex)를 통해 락을 건다. 버퍼에 x를 넣은 뒤에 락을 푼다. 그 뒤 V(full)을 통해 자원을 반납한다.
+
+
+
+### Readers-Writers Problem
+
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmwhjnsfsij31e01247wh.jpg)
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwhn3zfn5j31i01707wh.jpg)
+
+Reader에서 P(mutex)는 readcount에 대한 락을 거는 것!
+
+
+
+### Dining-Philosophers Problem
+
+두 가지의 일이 있다.
+
+1. 생각하는 일
+2. 밥먹는 일
+
+공유자원이기 때문에 발생하는 문제.
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmwi175k2nj31j216c7wh.jpg)
+
+
+
+여기서 아주 위험한 부분이 존재한다.  
+\- Deadlock의 가능성이 있다.  
+\- 모든 철학자가 동시에 배가 고파져 왼쪽 젓가락을 집어버린 경우
+
+
+
+**해결방안**  
+\- 4명의 철학자만이 테이블에 동시에 앉을 수 있도록 한다.  
+\- 젓가락을 두 개 모두 집을 수 있을 때만 젓가락을 집을 수 있게 한다.  
+\- 비대칭 (짝수[홀수]철학자는 왼쪽[오른쪽]젓가락부터 집도록)
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmwihpzfl9j31kw18cnpd.jpg)
+
+### 세마포어 다음에 Monitor
+
+process synchronization을 해결하기 위한 Monitor 코드 활용한다.
+
+
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwiqfvdrrj31fu16aqps.jpg)
+
+
+
+**Monitor**는 동시 수행중인 프로세스 사이에서 abstract data type의 안전한 공유를 보장하기 위해 high-level synchronization construct.
+
+*내부의 프로시저를 통해서만 데이터를 접근할 수 있도록 설정하는 것. 이렇게 설정되면 내부에 lock을 걸 필요가 없습니다. 이것이 세미포어와의 큰 차이점이자 장점*
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwjigxm2ej30iy0l2449.jpg)
+
+
+
+**모니터 안에서 액티브한 프로세스가 오직 하나만가 존재!**
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwj3p1ux1j310w0tcdpr.jpg)
+
+
+
+락을 걸 필요는 없지만, 자원이 몃개있는가 등의 상태를 파악하기 위해서 wait(), signal()등의 함수가 존재한다.
+
+- 모니터 내에서는 한번에 하나의 프로세스만이 활동 가능
+
+- 프로그래머가 동기화 제약 조건을 명시적으로 코딩할 필요없음
+
+- 프로세스가 모니터 안에서 기다릴수 있도록 하기 위해 **condition variable** 사용
+
+  `condition x,y`
+
+- Condition variable은 wait와 signal 연산에 의해서만 접근 가능
+  ​
+  `X.wait();`  
+  x.wait()을 invoke한 프로세스는 다른 프로세스가 x.signal()을 invoke하기 전까지 suspend된다.
+
+  ​
+
+  `X.signal();`  
+  x.signal()은 정확하게 하나의 suspend된 프로세스를 resume한다. suspend된 프로세스가 없으면 아무일도 일어나지 않는다.
+
+
+
+monitor는 락을 걸필요가 없다. 실행시키기위해서는 내부의 코드를 활성화 시켜야한다.
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmwj1veu5aj31040seqna.jpg)
+
+
+
+프로세스 동기화를 Concurrency Control(병행 제어)이라고도 한다.
+
+
+
+**식사하는 철학자 문제에서 모니터를 넣었을 때 어떻게 변화겠는가?**
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmwjvyqoc1j314i0tq7wh.jpg)
+
