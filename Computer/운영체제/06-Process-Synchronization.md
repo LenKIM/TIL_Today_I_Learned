@@ -247,8 +247,6 @@ Reader에서 P(mutex)는 readcount에 대한 락을 거는 것!
 
 process synchronization을 해결하기 위한 Monitor 코드 활용한다.
 
-
-
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwiqfvdrrj31fu16aqps.jpg)
 
 
