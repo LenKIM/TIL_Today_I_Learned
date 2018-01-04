@@ -124,7 +124,7 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 이렇게 좋은 알고리즘에 2가지 문제가 있다.
 
 - Starvation(기하현상)
-  \- 선점형으로 SJP를 진행할 경우 긴 지연시간을 가진 프로세스는 계속해서 해결하지 못할 수 있다.
+  \- 선점형으로 SJP를 진행할 경우 긴 지연시간을 가진 프로세스는 계속해서 해결하지 못할 수 있다.  
 
 - 다음 CPU Burst Time의 시점을 알 수 없습니다. 그러나 추칭(estimate)만이 가능합니다. 어떻게? 과거의 CPU burst time을 이용해서 추정합니다.(주로 exponential averaging)  
   ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmofo3b3tfj312y0u619w.jpg)
@@ -265,3 +265,4 @@ Multiple-Processor Scheduling?
   : **실제 시스템**에 알고리즘을 **구현**하여 실제 작업(**workload**)에 대해서 성능을 **측정** 비교
 - Simulation(모의 실험)  
   : 알고리즘을 **모의프로그램**으로 작성 후 **trace**(input)를 입력으로 하여 결과 비교
+

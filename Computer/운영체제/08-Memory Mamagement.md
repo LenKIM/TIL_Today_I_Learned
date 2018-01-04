@@ -1,14 +1,12 @@
 ## Memory Mamagement
 
-
-
 ### 논리적 vs 물리적 주소
 
 **Logical address(=virtual address)**
 
 - 프로세스마다 독립적으로 가지는 주소 공간
 - 각 프로세스마다 0번지부터 시작
-- CPu가 보는 주소는 logical address 임
+- CPU가 보는 주소는 logical address 임
 
 **Physical address**
 
@@ -297,3 +295,140 @@ TLB에 있을경우 직접적 접근 만약 없으면 page table에 접근한 �
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn3l6d1dcfj31kw10r7wh.jpg)
 
+
+
+페이지가 많다고 과연 시간이 오래걸린다고 표현할 수 있을까?
+위 계산식을 보면, TLB를 쓴다고 해도 결과적으로 28ns만 소요한다. 그러므로 오래걸린다고 표현할 수 없다. (오버헤드가 많이 걸리는 것이 아니다.)
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4hetniemj310m0rmgvi.jpg)
+
+
+
+V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 하는데, 페이지 특성상 위에서부터 접근하게 되는데, 6,7번은 없지만, 주소체계에서는 만들어지고 대신 사용이 안된다.
+
+
+
+**V I 의 의미는? 0번 페이지가 2번주소에 올라와있다.**   
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4hjg9xh8j311y0uck8x.jpg)
+
+
+
+**Protection의 의미는 어떤 연산에 대한 접근권한을 나타내는 것이다. 프로그램의 코드 부분을 담고있는 코드도 있을테고, 스택부분을 담고있는 코드도 있을 것이다. 연산의 권한을 표시하기 위한 비트이다.**
+
+### Inverted Page Table
+
+기본의 table은 많은 용량을 차지하고 있는 것이 문제다.**(공간 오버헤드가 많아서 생긴 것이 Inverted Page Table)**
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4hmu0alnj311a0tetoz.jpg)
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn4hnncnhcj314e0umwp6.jpg)
+
+
+
+시스템안에 페이지가 딱 하나 존재한다. System wide하게 존재한다.  
+주소변환을 하려면 페이지 엔트리를 들어가서 확인.  
+그러나 Inverted Page는 문제가 있다.  
+
+**페이지 프레임만큼 엔트리가 있어서, 내용이 반대로 적재되어 있다.**  
+
+페이지테이블에 대한 공간을 줄이고자 Inverted page를 사용하지만, 검색이라는 시간이 걸리기 때문에 오버헤드가 크기 때문에, 효율적이다라고 말할 수 없다.
+
+
+
+논리적인 페이지 주소뿐만아니라, 
+
+
+
+**그레서** 병렬로 탐색할 수 있도록 associative register를 활용한다.
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn4hxyjvtlj31240t0nei.jpg)
+
+
+
+### Shared Page
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4hzjkv9mj311o0u0dqm.jpg)
+
+
+
+공유할 수 있는 코드는 Copy해서 같이 올림(재진입코드)
+
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fn4i0nfn0ij312q0oy7j0.jpg)
+
+ 그러나 Shared Page의 제역으로는 동일한 위치에 logical address space를 가지고 있어야 합니다.  
+
+
+
+## Segmentation
+
+- 프로그램은 의미 단위인 여러 개의 segment로 구성  
+  \- 작게는 프로그램을 구성하는 함수 하나하나를 세그먼트로 정의  
+  \- 크게는 프로그램 전체를 하나의 세그먼트로 정의 가능  
+  \- 일반적으로는 code, data, stack 부분이 하나씩의 세그먼트로 정의됨  
+- Segment는 다음과 같은 logical unit들임  
+  \- Main() / function / global variables / stack / symbole table, arrays
+
+
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4ipqy6rvj31220ow4hh.jpg)
+
+
+
+세그멘테이션은 의미단위로 자르기 때문에, limit를 가지고 있다.  
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4iuxyhxtj31020sqjzz.jpg)
+
+
+
+세그먼테이션이 페이징기법과 유사해보이지만 확실히 다른 것이다.  
+페이징은 동일한 크기이지만 세그멘테이션의 경우, 크기가 균일하지 않기 때문에 다르다. Segment table의 엔트리 개수가 일정하지 않다.  
+물리적인 메모리의 어디에 올라가있는가?  
+얼마나 떨어져있는가 d로 찾는다.  
+세그먼테이션은 크기가 균일하지 않기 때문에, 길이가 얼마인지 엔트리에 같이 담아둔다. limit 와 base 가 이를 말해준다.  
+
+
+**STBR과 STLR은 위 두개와 다른 것!!**  
+**테이블의 시작 위치 테이블의 엔트리 전체 개수가 몃개인지를 담고 있다.**
+
+32bit라고 하면 offset부분은 미리 결정되어야 하고, 최대 길이는 
+
+
+
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4iyluwioj313m0twwx1.jpg)
+
+의미단위로 쪼개기 때문에 업무 효율은 page보다 더 높다.
+
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4j8g1dnyj30zs0tiqdl.jpg)
+
+Page의 경우 백만개 그럴정도로 많지만, segment는 위와같이 5개 굉장히 의미단위로 처리한다.  
+
+세그먼트의 크기가 균일하지 않기 때문에 중간중간 hole이 생기는데, 더 큰 세크먼드는 못들어가서 page와 동일하게 allocation의 문제가 생긴다.  
+**페이지는 개수가 대단히 많다. 그러나 segement는 갯수가 몃개 없다.**  
+
+테이블의 대한 낭비가 심한건 paging
+
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn4jdk6xz9j315y12s17a.jpg)
+
+
+
+
+
+### Segmentaion with Paging
+
+세그먼트 하나가 여러개의 page로 나눠진다.  
+각 프로그램이 가진 논리주소는 page 주소와 offset으로 구성된다.  
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fn4jkemiv4j31ay14uavs.jpg)
+
+세그먼트 하나가 여러개의 페이지로 구성되기 때문에  
+
+무엇이 장점인가? Allocation 문제가 해결된다.  그러나 공유나 보안은 세그먼트테이블 레벨에서 한다. 
+
+**segment length는 page table의 길이를 알고 있을것, page-table base는 페이지 테이블의 시작위치를 알려준다.**   
+**d => page의 offset을 나타낸다!!!!**  
+
+
+
+## 물리적 메모리 관리. 주소변환에서 운영체제의 역할은 무엇일까??
+
+**없다. 모두가 하드웨어가 해줘야한다.**  왜 그래야 될까? 어떤 프로세스 하나가 cpu를 잡고 실행하면서 메모리의 접근을 하는데, 운영체제의 도움을 하나도 받지  않는다. 주소변환은 무조건 하드웨어적으로 이루어지는 일이다!  
+
+**그럼 운영체제가 끼어드는 일은 언제? I/O장치가 실행될 때!**
