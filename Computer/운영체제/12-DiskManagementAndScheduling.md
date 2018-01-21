@@ -12,8 +12,6 @@
 
 1차원 배열에서 몃번째 정보를 달라라고 요청하면 디스크 컨트롤러는 어떠한 원판에 어떤 트랙에 어떠한 조각에 위치시키겠는가를 결정.
 
-
-
 Logical block과 Secoter가 매핑되어 있다.  
 
 **포맷팅이랑 디스크를 컨트롤러가 읽고 쓸 수 있도록 섹터들로 나누는 과정이다.** 각각의 섹터는 logical block을 저장하기도 하지만 부가적으로 header와 trailer가 저장된다. 이 두개는 sectort number, ECC(Error-Correcting Code)등의 정보가 저장되며 Controller가 직접 접근 및 운영한다. ECC는 마치 핑거프린트와 같이 축약된 정보를 담고 있다.
