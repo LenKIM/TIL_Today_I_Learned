@@ -61,8 +61,6 @@ data안에 PCB로 저장한다.
 CPU의 프로세스가 DISK 큐 뒤로 돌아가고 블록상태로 유지된다.
 두드리면 CPU의 인터럽트를 호출하고, 하던일을 잠깐 멈춘 뒤, Ready queue에 넣고 기다린다.
 
-
-
 운영체제 커널에 자료구조로 큐를 만들어놓고, 각각의 I/O와 CPU에 관리를 수행합니다. 아래 그림 참조
 
 ![](https://ws4.sinaimg.cn/large/006tNc79gy1fme3ptsi0vj31480u8k97.jpg)
