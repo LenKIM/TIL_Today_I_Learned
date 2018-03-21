@@ -171,7 +171,7 @@ I/O를 연속적으로 실행하는 것을 - I/O burst
 
 
 JOB의 종류가 섞여있다?
-Interactive한 잡은 I/O bound job !!  
+Interactive한 잡은 I/O bound job!  
 CPU만 아주 오랫동안 쓰는 걸 CPU job이라고 부른다!  
 
 **문제는 I/O bound job이 문제!!**  

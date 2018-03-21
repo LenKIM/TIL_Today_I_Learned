@@ -77,13 +77,13 @@ CPU라는 것은 자기의 주소공간만 본다아! 그래서 문제가 안생
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmv6gqm6qvj312c0rktrx.jpg)
 
-소프트웨어적으로 turn을 확인해서 critical section에  넣고 나올때 상대방 turn으로 변경시켜서 동작한다. 그러나 이러한 문제점은 Process 문제가 발생한다. 아무도 없는 Critical section이 없을때도 동작한다. 즉 충족시켜주는 못한다. 
+소프트웨어적으로 turn을 확인해서 critical section에 넣고 나올때 상대방 turn으로 변경시켜서 동작한다.  
+
+그러나 이러한 문제점은 Progress 문제가 발생한다. 아무도 없는 Critical section이 없을때도 동작한다. 즉 충족시켜주는 못한다. 
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv6i2oz24j312g0t6kcc.jpg)
 
 프로세스 안에 들어가기 위한 플래그를 설정하여, 들어가고자하는 의중을 표시하는 것.
-
-
 
 결국 CS에 들어간 후에 flag를 변경한다. 이는 알고리즘1과 유사하다.
 

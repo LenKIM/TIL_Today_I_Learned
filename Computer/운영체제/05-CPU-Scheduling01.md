@@ -126,7 +126,9 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 - Starvation(기하현상)
   \- 선점형으로 SJP를 진행할 경우 긴 지연시간을 가진 프로세스는 계속해서 해결하지 못할 수 있다.  
 
-- 다음 CPU Burst Time의 시점을 알 수 없습니다. 그러나 추칭(estimate)만이 가능합니다. 어떻게? 과거의 CPU burst time을 이용해서 추정합니다.(주로 exponential averaging)  
+- 다음 CPU Burst Time의 시점을 알 수 없습니다.  
+  그러나 추칭(estimate)만이 가능합니다.  
+  어떻게? 과거의 CPU burst time을 이용해서 추정합니다.(주로 exponential averaging)  
   ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmofo3b3tfj312y0u619w.jpg)
 
   ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmofqv1wfgj317c0wytn7.jpg)
@@ -151,8 +153,8 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 
 - 각 프로세스는 동일한 크기의 할당 시간(Time quantum)을 가짐  
   (일반적으로 10-100 milliseconds)
-- 할당 시간이 지나면 프로세스는 선점(preempted)당하고 ready queue의 제일 뒤에 가서 다시 줄을 선다.
-- n개의 프로세스가 ready queue에 있고 할당 시간이 q time unit인 경우 각 프로세스는 최대 q time unit단위로 CPU시간의 1/n을 얻는다.
+- 할당 시간이 지나면 프로세스는 선점(preempted)당하고 ready queue의 제일 뒤에 가서 다시 줄을 선다. 
+- n개의 프로세스가 Ready queue에 있고 할당 시간이 q time unit인 경우 각 프로세스는 최대 q time unit단위로 CPU시간의 1/n을 얻는다.
   **=> 어떤 프로세스도 (n-1)q time unit 이상 기다리지 않는다.**
 - Performance  
   \- q large => FCFS  
@@ -220,22 +222,47 @@ CPU가 긴 IO는 아래로 내려간다.
 
 #CPU가 여러개일 경우의 Multiple-Processor Scheduling
 
-Multiple-Processor Scheduling?
+**Multiple-Processor Scheduling ?**
 
 - CPU가 여러 개인 경우 스케줄링은 더욱 복잡해짐
-- Homogeneous processor인 경우
+
+- Homogeneous processor(동일 기능 프로세서)인 경우
   - Queue에 한줄로 세워서 각 프로세서가 알아서 꺼내가게 할 수 있다.
   - 반드시 특정 프로세서에서 수행되어야 하는 프로세스가 있는 경우에는 문제가 더 복잡해짐
+
 - Load sharing
   - 특정 CPU만 놀고 다른 CPU는 놀면 안되기 때문에 Load sharing이 필요!
   - 일부 프로세서에 job을 올리지 않도록 부하에 적절히 공유하는 메커니즘 필요
   - 별개의 큐를 두는 방법 vs 공동 큐를 사용하는 방법
-- Symmtric Multiprocessing(SMP)
+    ​
+
+- Symmtric Multiprocessing(SMP) - 대칭 다중처리
   - 모든 CPU가 대등한 관계를 말함
   - 각 프로세서가 각자 알아서 스켸줄링 결정
-- Asymmetirc multiprocessing
+  - 공통의 Ready Queue를 갖거나, 각자 고유(Private)의 Ready Queue를 가질 수 있다.
+    ​
+
+- Asymmetirc multiprocessing - 비대칭 다중처리
   - CPU가 여러개 있는데, 그 중 하나가 전체적인 컨트롤을 담당하는 것!
+  - 자료 공유의 필요성이 감소시키므로 단순하다.
   - 하나의 프로세서가 시스템 데이터의 접근과 공유를 책짐지고 나머지 프로세서는 거기에 따름
+
+- 프로그램 친화성(Processor affinity) : 프로세스의 프로세서 이주 정도
+
+  - 프로세스가 수행될 때는 프로세서(CPU)의 캐시에 올라가므로, 프로세서를 이주하는 것은 상당한 비용이 드는 작업이다.
+  - **약한 친화성(soft affinity)** : 가급적 동일 프로세서에서 수행하려 하나, 이주할 수도 있다.
+  - **강한 친화성(hard affinity)** : 시스템 호출을 사용하여, 어떤 프로세스는 처리기 사이를 이주하지 않는다고 명시할 수 있다.
+
+- **NUMA(Non-Uniform Memory Access)** 구조인 경우, 프로세서 친화성을 더욱 잘 고려할 필요가 있다.
+  ![](https://ws2.sinaimg.cn/large/006tNc79gy1fpkapcbb5wj30me0c0dgv.jpg)
+
+- SMP 시스템에서 여러 프로세서를 최대한 활용하려면 부하를 모든 처리기에 균등하게 배분하는 것이 중요하다.
+
+- 하나의 공통 준비완료 큐를 사용하면 부하 균등화가 용이하다.
+
+- 반면에, SMP를 지원하는 현대 운영체제에서는 각 프로세서가 **개별적인 준비완료 큐**를 가지고 있다.
+
+  ​
 
 
 
@@ -245,13 +272,20 @@ Multiple-Processor Scheduling?
   : Hard real-time task는 정해진 시간안에 반드시 끝내도록 스켸줄링해야 함
 - Soft real-time computing  
   : Soft real time task는 일반 프로세스에 비해 높은 prioirty를 갖도록 해야 함.
+  ​
 
 ## Thread Scheduling
 
+-  사용자 수준과 커널 수준 스레드로 구분
+- 다대일, 다대다 모델에서, 스레드 라이브러리(thread library)는 사용자 수준스레드를 LWP에서 동작하도록 스케줄한다.
+  - 이 경우, 스케줄링 경쟁이 프로세스 내에서 발생하기 때문에, 프로세스-경쟁 범위 (Process-contention scope: PCS) 라 부른다.
+  - (라이브러리에서 수행되므로, 사실 커널은 사용자 수준 스레드의 존재를 알지 못한다.)
+    ​
 - Local Scheduling  
   : User level thread의 경우 사용자 수준의 thread libreay에 의해 어떤 thread를 스켸줄할지 결정
 - Global Scheduling  
   : Kernel level thread의 경우 일반 프로세스와 마찬 가지로 커널의 단기 스케줄러가 어떤 thread를 스케줄할지 결정  
+  ​
 
 
 

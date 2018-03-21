@@ -1,12 +1,8 @@
 ## 프로세스
 
-
-
 ### 프로세스의 개념
 
 "Process is a program in execution"
-
-
 
 ##### 프로세스의 문맥(context)
 
@@ -41,14 +37,19 @@ data안에 PCB로 저장한다.
 
 - Running
   - CPU를 잡고 instruction을 수행중인 상태
+    ​
 - Ready
   - CPU를 기다리는 상태(메모리 등 다른 조건을 모두 만족하고)
+    ​
 - Blocked(wait, sleep)
   - CPU를 주어도 당장  instruction을 수행할 수 없는 상태
   - Process 자신이 요청한 event(예: I/O)가 즉시 만족되지 않아 이를 기다리는 상태
   - (예) 디스크에서 file을 읽어와야 하는 경우
+    ​
 - New : 프로세스가 생성중인 상태
+  ​
 - Terminated : 수행(execution)이 끝난 상태
+  ​
 
 ![](https://ws4.sinaimg.cn/large/006tNc79gy1fme3f04wvcj314m0s2dtn.jpg)
 
@@ -56,12 +57,14 @@ data안에 PCB로 저장한다.
 
 
 
-타이머가 발생하면 CPU에서 돌고있는 프로세스는 Ready queue의 뒤로 들어가게 되고 다음 process가 동작하게 됩니다.
+타이머가 발생하면 CPU에서 돌고있는 프로세스는 Ready queue의 뒤로 들어가게 되고 다음 process가 동작하게 됩니다.  
 
-CPU의 프로세스가 DISK 큐 뒤로 돌아가고 블록상태로 유지된다.
-두드리면 CPU의 인터럽트를 호출하고, 하던일을 잠깐 멈춘 뒤, Ready queue에 넣고 기다린다.
+CPU의 프로세스가 DISK 큐 뒤로 돌아가고 블록상태로 유지된다.  
+두드리면 CPU의 인터럽트를 호출하고, 하던일을 잠깐 멈춘 뒤, Ready queue에 넣고 기다린다.  
 
-운영체제 커널에 자료구조로 큐를 만들어놓고, 각각의 I/O와 CPU에 관리를 수행합니다. 아래 그림 참조
+운영체제 커널에 자료구조로 큐를 만들어놓고, 각각의 I/O와 CPU에 관리를 수행합니다.  
+
+**아래 그림 참조**
 
 ![](https://ws4.sinaimg.cn/large/006tNc79gy1fme3ptsi0vj31480u8k97.jpg)
 
@@ -72,8 +75,6 @@ CPU의 프로세스가 DISK 큐 뒤로 돌아가고 블록상태로 유지된다
 ![](https://ws1.sinaimg.cn/large/006tNc79gy1fme3rbs4osj313u0u81bz.jpg)
 
 정확한 CPU 우선순위 값 유지.
-
-
 
 ![](https://ws1.sinaimg.cn/large/006tNc79gy1fme3tz2lptj310c0tyarp.jpg)
 
@@ -208,8 +209,6 @@ monitor = kernel
 ----
 
 ## 2번째 강의
-
-
 
 프로세스 내부의 CPU수행단위를 Thread라고 부른다.
 
