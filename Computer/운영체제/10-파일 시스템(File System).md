@@ -101,7 +101,7 @@ read(fb...) 는 PCB에 저장된 배열을 확인해서 open file table에서 �
 
 ### Allocation of File Data in Disk
 
-디스크에다가 파일을 저장하는 방법은 다음과 같이 3가지가 있다.
+#### 디스크에다가 파일을 저장하는 방법은 다음과 같이 3가지가 있다.
 
 - Contiguous Allocation
 - Linked Allocation

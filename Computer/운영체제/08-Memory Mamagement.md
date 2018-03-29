@@ -22,6 +22,36 @@ Symbolic Address -> Logical Address -> Physical address
 
 symblic이 무엇일까? 프로그래머입장에서 실제 주소가 아니라 코드를 통해 메모리를 사용하는데, 이 때 코드가 어떻게 보면 symbolic 이라고 말할 수 있다.  
 
+
+
+## BACKGROUND
+
+- 전형적인 명령어 실행 과정:
+
+  1) 기억장치로부터 한 명령어를 가져온다 : fetch  
+  2)명령어를 해독한다. decoding  
+  3) 기억장치로부터 피연산자를 가져와서 명령어를 실행한다. 계산 결과를 다시 기억장치에 저장한다. (execute, store)  
+
+- 사용자 프로그램의 실행 과정
+
+  ![](https://ws2.sinaimg.cn/large/006tNc79gy1fpkifl578dj30no0fwq5i.jpg)
+
+  - 연결 편집기(Linkage Editor)
+    - 재배치 가능한 주소를 절대 주소로 바인딩(Binding)시킨다.
+  - 기억장치 주소 공간에서 명령어와 데이터의 바인딩의 종류 : 바인딩 시점에 따라
+    - 컴파일 시간(compile time) 바인딩
+      \- 컴파일 시간에 기억장치 내에 들어갈 위치를 알아 바인딩하는 것으로 절대 코드를 생성한다.  
+      \- 재배치 가능한 주소로 바인딩  
+      \- MS-DOS의 command.com 파일
+    - 적제 시간(load time) 바인딩  
+      \- 프로그램이 주기억장치로 적재되는 시간에 이뤄짐  
+      \- 이 경우 시작주소가 변경되면 사용자 코드를 언제나 다시 적재하면 된다.  
+    - 실행시간(execution time) 바인딩  
+      \- 실행 시점에 바인딩이 이뤄짐  
+      \- 절대주소로 바인딩
+
+  [참고하면 좋은 자료](http://contents.kocw.or.kr/document/lec/2011_2/chungbuk/LeeJongyun_09.pdf)
+
 ### 주소 바인딩(Address Binding)
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn3hfm5fqrj313w0u2x4p.jpg)
@@ -35,18 +65,16 @@ symblic이 무엇일까? 프로그래머입장에서 실제 주소가 아니라 
 
 - Load time binding  
   물리적주소 500번부터 올리겠다라는 것  
-  \- Loader의 책임하에 물리적 메모리 주소 부여  
-  \- 컴파일러가 재배가능코드(relocatable code)를 생성한 경우 가능
+  \- **Loader**의 책임하에 물리적 메모리 주소 부여  
+  \- 컴파일러가 재배치가능코드(relocatable code)를 생성한 경우 가능
 
-- Execution time binding(=Run time binding)  
-  실행도중에 주소가 바뀔수 있다라는 것을 말합니다.  
+- **Execution time binding(=Run time binding)**  
+  실행도중에 주소가 바뀔수 있다 라는 것을 말합니다.  
   \- 수행이 시작된 이후에도 프로세스의 메모리 상 위치를 옮길 수 있음  
   \- CPU가 주소를 참조할 때마다 binding을 점검(address mapping table)  
   \- 하드웨어적인 지원이 필요.  (base and limit register MMU)
 
 지금의 컴퓨터는 Run time binding을 사용한다.
-
-
 
 CPU가 바라보고있는 것인 Logical  address를 보고 있다. 잘 생각보면 그렇다.  
 
@@ -86,6 +114,23 @@ Hardware Support for Address Translation
 
 지금의 컴퓨터는 Dynamic loading과 유사하지만, 엄연히 OS의 페이징기법에 의해서 OS에 의해서 변하기 때문에 다른 것이다. 프로그래머가 직접 Dynamic Loading을 할 수 있는 코딩을 한다. 이를 라이브러리릍 통해서 동작시킴  
 
+#### Dynamic Linking
+
+- Linking을 실행 시간(execution time)까지 미루는 기법
+
+- **Static linking**
+
+  \- 라이브러리가 프로그램의 실행 파일 코드에 포함됨  
+  \- 실행 파일의 크기가 커짐  
+  \- 동일한 라이브러리를 각각의 프로세스가 메모리에 올리므로 메모리 낭비(printf 함수의 라이브러리 코드)
+
+- **Dynamic linking**
+
+  \- 라이브러리가 실행시 연결(link)됨  
+  \- 라이브러리 호출 부분에 라이브러리 루틴의 위치를 찾기 위한 stub이라는 작은 코드를 둠  
+  \- 라이브러리가 이미 메모리에 있으면 그 루틴의 주소로 가고 없으면 디스크에서 읽어옴  
+  \- 운영체제의 도움이 필요.
+
 #### Overlays
 
 - 메모리에 프로세스의 부분 중 실제 필요한 정보만을 올림
@@ -95,6 +140,12 @@ Hardware Support for Address Translation
   \- "Manual overlay"  
   \- 프로그래밍이 매우 복잡  
   \- 라이브러리가 아니라 직접 수작업
+-  자주 사용되는 부분은 메모리에 상주시키고, 그렇지 않은부분은 오버레이 영역으로 정의하여 필요에 따라 적재한다.
+-  또한오버레이영역은시스템버퍼와같이다른용도로도사용된다.
+- 상주 부분에는 오버레이 구동기(overlay driver)로 포함된다.
+- 중첩(overlay) 구조를 위해 특별한 재배치 또는 연결프로그램이 필요하다.
+- 중첩기법의경우OS가할일은거의없고,반면에
+- 프로그래머가 해야 할 일은 많다.
 
 #### Swapping
 
@@ -123,36 +174,19 @@ Hardware Support for Address Translation
 
 본연의 swapping은 이것이 맞지만, 현대는 페이징 기법에 의해서 일부 페이지만 쫒겨나는것을 swapping이라고도 표현한다. 그러나 원칙적으로는 프로그램의 구성요소 모든 부분이 쫒겨나는 것을 말한다.
 
-#### Dynamic Linking
-
-- Linking을 실행 시간(execution time)까지 미루는 기법
-
-- **Static linking**
-
-  \- 라이브러리가 프로그램의 실행 파일 코드에 포함됨  
-  \- 실행 파일의 크기가 커짐  
-  \- 동일한 라이브러리를 각각의 프로세스가 메모리에 올리므로 메모리 낭비(printf 함수의 라이브러리 코드)
-
-- **Dynamic linking**
-
-  \- 라 이브러리가 실행시 연결(link)됨  
-  \- 라이브러리 호출 부분에 라이브러리 루틴의 위치를 찾기 위한 stub이라는 작은 코드를 둠  
-  \- 라이브러리가 이미 메모리에 있으면 그 루틴의 주소로 가고 없으면 디스크에서 읽어옴  
-  \- 운영체제의 도움이 필요.
 
 
-
-##### 물리적인 메모리를 어떻게 관리할 것인가??
+## 물리적인 메모리를 어떻게 관리할 것인가??
 
 ### Allocation of Physical Memory
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fn3inuc3v1j313k0t81dg.jpg)
 
-- 연속할당  
+- 연속할당(Contiguous allocation)  
   : 앞에서 주소를 설명해서 보여줬던 그림이 연속할당에 의한 메모리 관리 기법  
   \- Fixed partition allocation  
   \- Variable partition allocation  
-- 불연속할당  
+- 불연속할당(Noncontiguous allocation)  
   : 프로그램을 구성하는 주소 공간을 잘게 쪼개서 일부는 저쪽에, 일부는 이쪽에 올리는 것을 불연속할당이라고 한다.  
   \- Paging  
   \- Segmentation  
@@ -172,10 +206,10 @@ Hardware Support for Address Translation
 
 
 낭비되는 메모리 조각이 위에서 발생했다.  
-외부조각
+**외부조각**
 : 이 프로그램을 메모리에 올릴려고 하는데, 올릴려는 공간이 너무 작아 들어갈 수 없는 경우
 
-내부조각  
+**내부조각**  
 : 프로그램 B를 넣었지만 남는 부분을 내부조각이라고 부른다.
 
 그러나 상황에 따라 조각을 부르는 이름이 달라질 수 있다.  
@@ -200,6 +234,10 @@ Hardware Support for Address Translation
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn3j5h0somj313g0t04by.jpg)
 
+**단편화압축 (Compaction)**
+단편화 영역을 한 쪽으로 옮겨 커다란 가용 공간을 만드는 작업
+쓰레기 수집(Gabage Collection)이라고 부릅니다.
+쓰레기 수집하는 시간에는 시스템은 다른 작업을 할 수 없습니다.
 
 
 ## 가변분할 방식 3가지(Paging /Segmentation / Paged Segmentation)
@@ -289,16 +327,22 @@ TLB에 있을경우 직접적 접근 만약 없으면 page table에 접근한 �
 
 그럼 왜 2단계 페이지 테이블을 쓰는거지?
 
- 왜? 1단계 paging의 일부분은 사용하지 않는다. 그렇기 때문에 2단계 Paing table을 사용할 경우, 사용하지 않는 공간에 대해서는 null을 포인터만 가리키고 사용되는 부분을 더 효율적으로 쓸 수 있다.
+ 왜?  
+1단계 paging의 일부분은 사용하지 않는다.  
+그렇기 때문에 2단계 Paing table을 사용할 경우, 사용하지 않는 공간에 대해서는 null을 포인터만 가리키고 사용되는 부분을 더 효율적으로 쓸 수 있다.
+
+사용되지 않는 부분은 NULL로 표현하기때문에, 더 효율적으로 쓸 수 있다.
 
 
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn3l6d1dcfj31kw10r7wh.jpg)
 
-
-
 페이지가 많다고 과연 시간이 오래걸린다고 표현할 수 있을까?
 위 계산식을 보면, TLB를 쓴다고 해도 결과적으로 28ns만 소요한다. 그러므로 오래걸린다고 표현할 수 없다. (오버헤드가 많이 걸리는 것이 아니다.)
+
+페이지 테이블에서는 보호 기능도 제공하는데, 테이블의 각 항목에는 주소변환정보 뿐만 아니라 메모리 보호를 위한 보호비트와 유효-무효를 두고 있다. 
+
+**보호 비트는 각 페이지에 대한 접근 권한의 내용을 담고 있다. 한 프로세스의 주소 공간은 다른 프로세스에 의해 접근될 수 없으므로 '누구'에 해당하는 접근 권한을 설정할 필요는 없으며, 각 페이지에 대해' 어떠한'접근을 허용하느냐에 대한 정보가 보호 비트에 저장된다.**
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4hetniemj310m0rmgvi.jpg)
 
@@ -337,11 +381,18 @@ V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 �
 
 논리적인 페이지 주소뿐만아니라, 
 
-
-
 **그레서** 병렬로 탐색할 수 있도록 associative register를 활용한다.
 
+
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn4hxyjvtlj31240t0nei.jpg)
+
+
+
+**일반적으로 p만큼 떨어진 곳의 프레임 번호를 찾았다면 역 페이지 테이블은 전체 테이블을 탐색해서 찾은 테이블까지의 인덱스를 프레임 번호라고 결정하는 것을 말한다.**
+
+**일반 페이지 테이블과 반대**
+
+**이렇게 활용하는 것에 장점은 메모리공간을 작게 사용가능하다. 그러나 주소변환 시간이 더 오래 걸릴 것이다.**
 
 
 
@@ -352,6 +403,7 @@ V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 �
 
 
 공유할 수 있는 코드는 Copy해서 같이 올림(재진입코드)
+
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fn4i0nfn0ij312q0oy7j0.jpg)
 
@@ -372,7 +424,9 @@ V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 �
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4ipqy6rvj31220ow4hh.jpg)
 
+< Segment-number, offset > 으로 구성됨을 기억하자.
 
+**그리고 STBR와 STLR의 정의를 기억하기.**
 
 세그멘테이션은 의미단위로 자르기 때문에, limit를 가지고 있다.  
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn4iuxyhxtj31020sqjzz.jpg)
@@ -380,8 +434,10 @@ V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 �
 
 
 세그먼테이션이 페이징기법과 유사해보이지만 확실히 다른 것이다.  
-페이징은 동일한 크기이지만 세그멘테이션의 경우, 크기가 균일하지 않기 때문에 다르다. Segment table의 엔트리 개수가 일정하지 않다.  
+페이징은 동일한 크기이지만 세그멘테이션의 경우, 크기가 균일하지 않기 때문에 다르다.   
+Segment table의 엔트리 개수가 일정하지 않다.  
 물리적인 메모리의 어디에 올라가있는가?  
+
 얼마나 떨어져있는가 d로 찾는다.  
 세그먼테이션은 크기가 균일하지 않기 때문에, 길이가 얼마인지 엔트리에 같이 담아둔다. limit 와 base 가 이를 말해준다.  
 
@@ -390,8 +446,6 @@ V와 I 비트로 사용되지 않는 영역에도 엔트리가 만들어져야 �
 **테이블의 시작 위치 테이블의 엔트리 전체 개수가 몃개인지를 담고 있다.**
 
 32bit라고 하면 offset부분은 미리 결정되어야 하고, 최대 길이는 
-
-
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fn4iyluwioj313m0twwx1.jpg)
 
