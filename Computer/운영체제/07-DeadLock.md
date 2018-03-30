@@ -16,7 +16,7 @@
   - Request, Allocate, use, Release
 - Deallock Example 1
   - 시스템에 2개의 tape drive가 있다.
-  - 프로세스 P1과 P2각각이 하나의 tape drive를 보유한 채 다른 하나를 기다리고 있다.
+  - 프로세스 P1과 P2 각각이 하나의 tape drive를 보유한 채 다른 하나를 기다리고 있다.
 - Deallock Example 2
   - Binary semaphores A and B
 
@@ -34,8 +34,6 @@
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fn2d65uy89j30zw0m87cg.jpg)
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fn2dbn6xszj310k0s6toe.jpg)
-
-
 
 - 그래프에 cycle이 없으면 deadlock이 아니다.
 - 그래프에 cycle이 있으면 (그럴수도, 아닐수도)

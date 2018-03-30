@@ -73,7 +73,7 @@ Logical formatting을 파일 시스템을 만드는 것이라고 한다.
 **어떤 알고리즘이 좋은 알고리즘이냐?**
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fndsjblqa2j30zy0m4gxx.jpg)
 
-파일을 어떻게 할당하는가에 따라 디스크 스케쥴링의 성능을 좌우한다.
+파일을 어떻게 할당하는가에 따라 디스크 스케줄링의 성능을 좌우한다.
 
 ### Swap-Space Management
 

@@ -1,10 +1,8 @@
 # CPU Scheduling
 
+**스케줄링 알고리즘을 크게 2개로 나누면**
 
-
-**스케쥴링 알고리즘을 크게 2개로 나누면**
-
-(=강제로 빼앗지 않는 방법)비선점형
+(=강제로 빼앗지 않는 방법) 비선점형
 Nonpreemptive
 
 (=강제로 빼앗는 방법) 선점형
@@ -47,8 +45,6 @@ preemptive
 
 
 
-
-
 **스케쥴링 알고리즘을 크게 2개로 나누면**
 
 (=강제로 빼앗지 않는 방법)비선점형
@@ -83,16 +79,16 @@ preemptive
 
 CPU를 사용하고자하는 시간이 CPU burst가 짫은 I/O에게 CPU를 준다.
 
-- 각 프로세스의 다음번 CPU burst time을 가지고 스케줄링에 활용
+- 각 프로세스의 다음 번 CPU burst time을 가지고 스케줄링에 활용
 
 - CPU burst time이 가장 짧은 프로세스를 제일 먼저 스케줄
 
 - Two schemes:
   \- Nonpreemptive  
-  : 일단 CPU를 잡으면 이번 CPU burst가 완료될 때까지 CPU를 선점당하지 않음
+  ​      : 일단 CPU를 잡으면 이번 CPU burst가 완료될 때까지 CPU를 선점당하지 않음  
 
   \- Preemptive  
-  : 현재 수행중인 프로세스의 남은 burst time보다 더 짧은 CPU burst time을 가지는 새로운 프로세스가 도착하면 CPU를 빼앗김  
+  ​     : 현재 수행중인 프로세스의 남은 burst time보다 더 짧은 CPU burst time을 가지는 새로운 프로세스가 도착하면 CPU를 빼앗김  
   \- 이 방법을 Shortes-Remaining-Time-First(SRTF)이라고도 부름
 
 - SJF is optimal
@@ -110,8 +106,6 @@ CPU를 사용하고자하는 시간이 CPU burst가 짫은 I/O에게 CPU를 준�
 
 P1이 무혈입성한 뒤, 짫은 것부터 시작하게 된다.
 
-
-
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmofeb7q3rj31480w6k62.jpg)
 
 
@@ -123,12 +117,13 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 
 이렇게 좋은 알고리즘에 2가지 문제가 있다.
 
-- Starvation(기하현상)
+- Starvation(기아현상)
   \- 선점형으로 SJP를 진행할 경우 긴 지연시간을 가진 프로세스는 계속해서 해결하지 못할 수 있다.  
 
 - 다음 CPU Burst Time의 시점을 알 수 없습니다.  
   그러나 추칭(estimate)만이 가능합니다.  
-  어떻게? 과거의 CPU burst time을 이용해서 추정합니다.(주로 exponential averaging)  
+  어떻게?  
+  **과거의 CPU burst time을 이용해서 추정합니다.(주로 exponential averaging)**  
   ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmofo3b3tfj312y0u619w.jpg)
 
   ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmofqv1wfgj317c0wytn7.jpg)
@@ -138,27 +133,27 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 ### 03 Priority Scheduling
 
 - 우선순위가 가장 높은 프로세스에게 우선권을 주겠다.
-- 이것두 Preemptive와 nonpreemptive로 나누어 진다.
+- 이것도 Preemptive와 nonpreemptive로 나누어 진다.
 - A priority number(integer) is associated with each process
-- highest priority를 가진 프로세스에게 CPU할당
-  (smallest integer = hiighest priority)
-- SJF는 일종의 priority scheduling이다.
-  \- priority = predicted next CPU burst time
+- Highest priority를 가진 프로세스에게 CPU할당
+  (Smallest integer = Highest priority)
+- SJF는 일종의 Priority Scheduling이다.
+  \- Priority = Predicted Next CPU Burst time
 - Problem
-  \- Starvation(기아 현상) : low priority processes may never execute
+  \- Starvation(기아 현상) : Low Priority Processes May Never Execute
 - Soultion
   \- Aging(노화) : as time progresses increase the priority of the process
 
 ### 04 Round Robin(RR)
 
-- 각 프로세스는 동일한 크기의 할당 시간(Time quantum)을 가짐  
-  (일반적으로 10-100 milliseconds)
+- 각 프로세스는 동일한 크기의 할당 시간(Time Quantum)을 가짐  
+  (일반적으로 10-100 milliseconds)  
 - 할당 시간이 지나면 프로세스는 선점(preempted)당하고 ready queue의 제일 뒤에 가서 다시 줄을 선다. 
-- n개의 프로세스가 Ready queue에 있고 할당 시간이 q time unit인 경우 각 프로세스는 최대 q time unit단위로 CPU시간의 1/n을 얻는다.
+- N개의 프로세스가 Ready Queue에 있고 할당 시간이 Q time unit인 경우 각 프로세스는 최대 q time unit단위로 CPU시간의 1/N을 얻는다.
   **=> 어떤 프로세스도 (n-1)q time unit 이상 기다리지 않는다.**
 - Performance  
-  \- q large => FCFS  
-  \- q small => context switch 빈번 발생
+  \- Q large => FCFS  
+  \- Q small => context switch 빈번 발생
 - **RR방식의 장점은 응답시간이 굉장히 빨라지는 특징이 있다.**
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmog5g4h9uj315c0weh2j.jpg)
@@ -172,15 +167,13 @@ P1이 2.0까지 진행되다가 P2가 시작되고 P2버스트타임보다 짫�
 **Round Robin의 장점은?**  
 Turnaround time보다 response time이 굉장히 좋다라는 것!
 
-
-
 **빈번하게 발생하는 I/O와 오래사용하는 CPU의 프로세스등이 다양하기 때문에 CPU 스케줄링이 필요하다.**
 
 ### 05 Multilevel Queue
 
 - Ready queue를 여러 개로 분할
   \- **foreground**(interactive)  
-  \- **background**(batch - no human interaction)  
+  \- **background**(Batch - No Human Interaction)  
 - 각 큐는 독립적인 스케줄링 알고리즘을 가짐
   \- **foreground** - RR  
   사람과 인러럽트하는 거기 때문에 라운드로빈  
@@ -269,9 +262,9 @@ CPU가 긴 IO는 아래로 내려간다.
 ## Real-Time Scheduling
 
 - Hard real-time systems  
-  : Hard real-time task는 정해진 시간안에 반드시 끝내도록 스켸줄링해야 함
+  : Hard real-time task는 정해진 시간안에 반드시 끝내도록 스케줄링해야 함
 - Soft real-time computing  
-  : Soft real time task는 일반 프로세스에 비해 높은 prioirty를 갖도록 해야 함.
+  : Soft real time task는 일반 프로세스에 비해 높은 Prioirty를 갖도록 해야 함.
   ​
 
 ## Thread Scheduling
@@ -282,7 +275,7 @@ CPU가 긴 IO는 아래로 내려간다.
   - (라이브러리에서 수행되므로, 사실 커널은 사용자 수준 스레드의 존재를 알지 못한다.)
     ​
 - Local Scheduling  
-  : User level thread의 경우 사용자 수준의 thread libreay에 의해 어떤 thread를 스켸줄할지 결정
+  : User level thread의 경우 사용자 수준의 thread libreay에 의해 어떤 thread를 스켸줄할지 결정  
 - Global Scheduling  
   : Kernel level thread의 경우 일반 프로세스와 마찬 가지로 커널의 단기 스케줄러가 어떤 thread를 스케줄할지 결정  
   ​

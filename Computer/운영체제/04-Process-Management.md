@@ -109,25 +109,18 @@
 
 부모프로세스는 잠들어 버리는데, 언제까지? 자식프로세스를 위한 코드가 다 실행되고 나서 다시 깨어난다.
 
-
-
 ## exit() 시스템 콜
 
 - 프로그램의 종료
 
   ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmm56bbl0bj30yc0gytk3.jpg)
 
-  ​
 
 
 
 ## 정리
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmm59d1jy7j313s0oen5n.jpg)
-
-
-
-
 
 ## 프로세스 간 협력
 
@@ -153,26 +146,23 @@
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmm5ezdw2tj30yk0u6e1q.jpg)
 
-
-
-Cf) Thread - thread는 사실상 하나의 프로세스이므로 프로세스 간 협력으로 보기는 어렵지만 동일한 process를 구성하는 thread 간에는 주소 공간을 공유하므로 협력 가능
+**Cf)** Thread - thread는 사실상 하나의 프로세스이므로 프로세스 간 협력으로 보기는 어렵지만 동일한 process를 구성하는 thread 간에는 주소 공간을 공유하므로 협력 가능
 
 **CPU와 I/O burst의 연속!!**
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmm61hm0apj30zq0tads0.jpg)
 
-CPU와 연속적으로 쓰는 방법 - CPU burst
-I/O를 연속적으로 실행하는 것을 - I/O burst
+CPU를 일련의 명령어로 연속적으로 사용하는 것 - CPU burst
+I/O를 연속적으로 실행하는 것 - I/O burst
 
-운영체제에 따라 동작 방식이 다르다.
+#### 운영체제에 따라 동작 방식이 다르다.
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmm62bljgaj30za0tkqku.jpg)
 
+#### JOB의 종류가 섞여있다? 무슨 말?
 
-
-JOB의 종류가 섞여있다?
-Interactive한 잡은 I/O bound job!  
-CPU만 아주 오랫동안 쓰는 걸 CPU job이라고 부른다!  
+INTERACTIVE한 JOB은 I/O bound job!  
+CPU만 아주 오랫동안 쓰는 걸 CPU bound JOB이라고 부른다!  
 
 **문제는 I/O bound job이 문제!!**  
 
@@ -182,7 +172,7 @@ CPU만 아주 오랫동안 쓰는 걸 CPU job이라고 부른다!
 
 - 프로세스는 그 특성에 따라 다음 두 가지로 나눔
   - I/O - bound process
-    - CPU를 잡고 계산하는 시간보다 I/O에 많은 시간이 필요한 job
+    - CPU를 잡고 계산하는 시간보다 I/O에 많은 시간이 필요한 JOB
     - Many short CPU bursts
   - CPU - bound process
     - 계산 위주의 job
@@ -199,7 +189,7 @@ CPU만 아주 오랫동안 쓰는 걸 CPU job이라고 부른다!
   - 이 과정을 context switch(문맥 교환)라고 한다.
 - CPU 스켸줄링이 필요한 경우는 프로세스에게 다음과 같은 상태 변화가 있는 경우이다.
   1. Running -> Blocked(예 : I/O 요청하는 시스템 콜)
-  2. Running -> Ready(예: 할당시간만료로 timer interrupt)
+  2. Running -> Ready(예: 할당시간만료로 Timer Interrupt)
   3. Blocked -> Ready(예: I/O 완료후 인터럽트)
   4. Terminate
 - 1, 4에서의 스케줄링은 nonpreemptive(=강제로 빼앗지 않고 자진 반납) - 비선점

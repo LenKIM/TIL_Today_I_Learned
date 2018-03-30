@@ -27,28 +27,27 @@
 
 문맥은 위와 같이 크게 3개에 따라 분류할 수 있다.
 
-data안에 PCB로 저장한다.
+프로세스의 DATA 영역 안에 PCB로 저장한다.
 
-프로세스 하나 실행할 때마다 PCB를 얼마나? 메모리를 얼마나? 줘야할지 관리한다.
+**프로세스 하나 실행할 때마다 PCB를 얼마나? 메모리를 얼마나? 줘야할지 관리한다.**
 
 
 
 **프로세스는 상태(state)가 변경되며 수행된다.**
 
-- Running
+- **Running**
   - CPU를 잡고 instruction을 수행중인 상태
     ​
-- Ready
+- **Ready**
   - CPU를 기다리는 상태(메모리 등 다른 조건을 모두 만족하고)
     ​
-- Blocked(wait, sleep)
+- **Blocked(WAIT, SLEEP)**
   - CPU를 주어도 당장  instruction을 수행할 수 없는 상태
   - Process 자신이 요청한 event(예: I/O)가 즉시 만족되지 않아 이를 기다리는 상태
   - (예) 디스크에서 file을 읽어와야 하는 경우
     ​
-- New : 프로세스가 생성중인 상태
-  ​
-- Terminated : 수행(execution)이 끝난 상태
+- **New** : 프로세스가 생성중인 상태
+- **Terminated** : 수행(execution)이 끝난 상태
   ​
 
 ![](https://ws4.sinaimg.cn/large/006tNc79gy1fme3f04wvcj314m0s2dtn.jpg)
@@ -59,8 +58,8 @@ data안에 PCB로 저장한다.
 
 타이머가 발생하면 CPU에서 돌고있는 프로세스는 Ready queue의 뒤로 들어가게 되고 다음 process가 동작하게 됩니다.  
 
-CPU의 프로세스가 DISK 큐 뒤로 돌아가고 블록상태로 유지된다.  
-두드리면 CPU의 인터럽트를 호출하고, 하던일을 잠깐 멈춘 뒤, Ready queue에 넣고 기다린다.  
+CPU의 프로세스가 DISK 큐 뒤로 들어가고 블록상태로 유지된다.  
+두드리면 CPU의 인터럽트를 호출하고, 하던 일을 잠깐 멈춘 뒤, Ready queue에 넣고 기다린다.  
 
 운영체제 커널에 자료구조로 큐를 만들어놓고, 각각의 I/O와 CPU에 관리를 수행합니다.  
 
@@ -106,8 +105,6 @@ Process A에서 Process B 로 넘어가는 과정을 문맥 교환(Context switc
 
 
 종료되면 빠져나간다.
-
-만약에 인터럽트에 걸리면 ??? 다음 시간에 알려줄게요~
 
 또는 자식 프로세스를 만들 수 있다.
 
@@ -164,7 +161,7 @@ Process A에서 Process B 로 넘어가는 과정을 문맥 교환(Context switc
 - Ready Queue에 존재하는 프로세스 중 어떤 프로세스를 running 시킬지 결정.
 - 프로세스에 CPU를 할당(scheduler dispatch)
 - 프로세스의 상태
-- ready -> running -> waiting -> ready
+- ready => running => waiting => ready
 
 #### 중기스케줄러(Medium-term scheduler or Swapper)
 
@@ -173,12 +170,12 @@ Process A에서 Process B 로 넘어가는 과정을 문맥 교환(Context switc
 - degree of Multiprogramming 제어
 - 현 시스템에서 메모리에 너무 많은 프로그램이 동시에 올라가는 것을 조절하는 스케줄러.
 - 프로세스의 상태
-- ready -> suspended
+- ready => suspended
 - Process state - suspended
 
 Suspended(stopped) : 외부적인 이유로 프로세스의 수행이 정지된 상태로 메모리에서 내려간 상태를 의미한다. 프로세스 전부 디스크로 swap out된다. blocked 상태는 다른 I/O 작업을 기다리는 상태이기 때문에 스스로 ready state로 돌아갈 수 있지만 이 상태는 외부적인 이유로 suspending되었기 때문에 스스로 돌아갈 수 없다.
 
-##### Suspended (Stopped)상태?
+##### Suspended (Stopped) 상태?
 
 - 외부적인  이유로 프로세스의 수행이 정지된 상태
 - 프로세스는 통째로 디스크에 swap out된다.
@@ -198,47 +195,37 @@ monitor = kernel
 
 
 
-서스펜드라는것은 메모리를 모두 읽어버리는 것!
+#### Suspend 라는것은 메모리를 모두 읽어버리는 것!
 
-왜? 서스펜드가 생겼는가?
+왜? 서스펜드가 생겼는가? 에 대해 생각해보자.
 
-
-
-
-
-----
+메모리에 너무 많은 프로세스가 올라올 경우, 메모리는 보조기억장치로 프로세스를 쫒아낸다.  
+이 때 ready상태의 프로세스 또는 Blocked 상태의 프로세스가 Swap Out Swap In 될 수 있다.
+**꼭 기억하기!!**
 
 ## 2번째 강의
 
-프로세스 내부의 CPU수행단위를 Thread라고 부른다.
+#### 프로세스 내부의 CPU수행단위를 Thread라고 부른다.
 
-
-
-"A thread (or lightweight process) is a basic unit of CPU utilization" 
-
-
+### "A thread (or lightweight process) is a basic unit of CPU utilization" 
 
 - Thread가 독립적으로 가지는 것
   - Program counter
   - Register set
   - stack space
     ​
-- Thread가 동료 thread와 공유하는 부분(=task)
-  - Code section
-  - data section
-  - OS resources
+- Thread가 동료 thread와 공유하는 부분(=TASK)
+  - Code Section
+  - Data Section
+  - OS Resources
     ​
-- 전통적인 개념의 heavyweight process는 하나의 thread를 가지고 있는 task로 볼 수 있다.
+- 전통적인 개념의 HeavyWeight Process는 하나의 thread를 가지고 있는 Task로 볼 수 있다.
 
 
 
 ![](https://ws3.sinaimg.cn/large/006tNc79gy1fmgao5ti63j31380taqfx.jpg)
 
-
-
-프로세스가 하나 주어지면 하나의 스택이 만들어지고, 
-
-프로그램 카운터를 여러개 두고 스택안에 만들어 진다.
+##### 프로세스가 하나 주어지면 하나의 스택이 만들어지고, 프로그램 카운터를 여러개 두고 스택안에 만들어 진다.
 
 메모리 주소공간을 공유하고 프로세스상태도 하나이기 때문에 공유한다.
 PCB안에 공통으로 쓰는 것은 공유한다. 
@@ -252,8 +239,6 @@ PCB안에 공통으로 쓰는 것은 공유한다.
 - 스레드를 사용하면 병렬성을 높일 수 있다.
 
 ![](https://ws1.sinaimg.cn/large/006tNc79gy1fmgb2e23vej314m0tcqie.jpg)
-
-
 
 ### 싱글스레드와 멀티스레드의 차이점
 
@@ -280,7 +265,7 @@ PCB안에 공통으로 쓰는 것은 공유한다.
    컨테스트 스위치가 일어날때,프로세스가 전환될 때 오버헤드가 심하다.
    그러나 프로세스 내부에서 CPU간의 스위치가 일어날 경우 대단히 간단하다. Solaris의 경우에는 두 가지 overhead가 각각 30배, 5배 더 든다고 한다. 결론은 가능하면 같은 일을하는 거라면 프로세스보다 스레드를 만드는 것이 좋다.
 
-4. CPU가 여러개일 때의 장점
+4. **CPU가 여러개일 때의 장점**
    각각의 스레드가 병렬적으로 다른 스레드에서.
 
 ![](https://ws2.sinaimg.cn/large/006tNc79gy1fmgb5ux2qfj311o0scnfl.jpg)

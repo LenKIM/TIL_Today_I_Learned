@@ -1,6 +1,6 @@
 ## 데이터 접근(intro)
 
-컴퓨터 시스템 안에서 어떻게 데이터가 접근하는가???
+#### 컴퓨터 시스템 안에서 어떻게 데이터가 접근하는가?
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmv53dz1wxj30zw0tsk47.jpg)
 
@@ -49,9 +49,9 @@ CPU라는 것은 자기의 주소공간만 본다아! 그래서 문제가 안생
 
 #### The Critical-Section Problem 임계구역
 
-- n개의 프로세스가 공유 데이터를 동시에 사용하기를 원하는 경우
-- 각 프로세서는 code segment에는 공유 데이터를 접근하는 코드인 critical section이 존재
-- 임계 구역안에 들어가있으면, 공유 메모리에 못들어가게 막는다!
+- N개의 프로세스가 공유 데이터를 동시에 사용하기를 원하는 경우
+- 각 프로세서는 Code Segment에는 공유 데이터를 접근하는 코드인 Critical Section이 존재
+- 임계 구역 안에 들어가있으면, 공유 메모리에 못들어가게 막는다!
 
 
 
@@ -83,6 +83,8 @@ CPU라는 것은 자기의 주소공간만 본다아! 그래서 문제가 안생
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv6i2oz24j312g0t6kcc.jpg)
 
+#### 교착상태가 발생한다. 
+
 프로세스 안에 들어가기 위한 플래그를 설정하여, 들어가고자하는 의중을 표시하는 것.
 
 결국 CS에 들어간 후에 flag를 변경한다. 이는 알고리즘1과 유사하다.
@@ -91,7 +93,7 @@ CPU라는 것은 자기의 주소공간만 본다아! 그래서 문제가 안생
 
 
 
-모든 경우의 수를 다 따져서 들어가있지 않으면 들어가는.....  둘다 들어가려고 하는 경우에만 turn을 따져서 동작하게 하고,
+모든 경우의 수를 다 따져서 들어가있지 않으면 들어가는 둘 다 들어가려고 하는 경우에만 turn을 따져서 동작하게 하고,
 
 그러나 이 방법도 문제가 있는데... 바로 **Busy Waiting!(= spin lock)**  
 **(계속 CPU와 memory를 쓰면서 wait)하는 것!**  
@@ -102,7 +104,7 @@ Busy Waiting을 해결하기 위해 아래와 같이 작업한다.
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv6whje46j31fs17y1kx.jpg)
 
-lock이 걸려있는가? 아닌가?를 확인해서 CS를 소프트웨어적으로 동작시킵니다.
+##### 간략한 동작 설명 : Lock이 걸려있는가? 아닌가? 을 확인해서 CS를 소프트웨어적으로 동작시킵니다.
 
 
 
@@ -126,13 +128,15 @@ lock이 걸려있는가? 아닌가?를 확인해서 CS를 소프트웨어적으�
 
 **atomic 연산을 가정한다.**
 
-그러나 이러한 연산에도 busy-wait 문제가 발생한다.
+### 그러나 이러한 연산에도 busy-wait 문제가 발생한다.
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmv79yy59lj31300p4h1d.jpg)
 
 세마포어를 활용해서 쉽게 Critical Section문제를 해결할 수 있다.   
 **busy-wait(=spin lock)**
-**Block & Wakeup방식의 구현(=sleep lock)**
+
+### Block & Wakeup방식의 구현(=sleep lock)
+
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmv7d41s9mj312y0tsndn.jpg)
 
 
@@ -144,16 +148,14 @@ lock이 걸려있는가? 아닌가?를 확인해서 CS를 소프트웨어적으�
 
 
 구체적으로 어떻게 구현되는지 살펴봅시다.  
-자원을 여분이 있다면 획득하고 Block()  
-자원의 여분이 없다면 wakeup(P) 방식으로 동작시킨다.
+자원을 여분이 있다면 획득하고 **block**  
+자원의 여분이 없다면 **wakeup**(P) 방식으로 동작시킨다.
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv7g5a72cj311c0r8tpm.jpg)
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmv7k2y4flj30yw0i2qdd.jpg)
 
-
-
-Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한다! 어느 정도 Critical section의 길이에 따라 다르다.
+**Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한다! 어느 정도 Critical section의 길이에 따라 다르다.**
 
 
 
@@ -164,8 +166,6 @@ Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한�
 **그러나 세미포어를 쓰다보면 원치않는 결과를 낼 수 있다.**
 
 ## Deadlock and Starvation
-
-
 
 프로세스 2개 사이에서 둘이서 하나씩 쥐고 놓지 않는 상태(Deadlock)  
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmv7pyjm3zj311q0rcanq.jpg)
@@ -182,13 +182,7 @@ Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한�
 
 **Starvation이 일어날 수 있는 원인이 되는 것!**
 
-
-
-
-
 ## Process Synchronization 과 관련된 3가지 문제(고전적문제)
-
-
 
 ### Bounded-Buffer Problem(Producer-Consumer promblem)
 
@@ -198,13 +192,14 @@ Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한�
 
 - 생산자는 회색의 칸을 주황색으로 만드는 역할
 
-세마포어 변수를 3개를 가졌음. mutext는 lock을 걸기 위해서.
-공유버퍼의 수는 N개. 
+세마포어 변수를 3개를 가졌음. Mutext는 Lock을 걸기 위해서.
+공유버퍼의 수는 N개.
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwhf1f5k5j31bm12m1kx.jpg)
 
 **생산자 부분만 살펴보면...**  
-만약 empty 버퍼가 있다면, P(mutex)를 통해 락을 건다. 버퍼에 x를 넣은 뒤에 락을 푼다. 그 뒤 V(full)을 통해 자원을 반납한다.
+만약 empty 버퍼가 있다면, P(mutex)를 통해 락을 건다.  
+버퍼에 x를 넣은 뒤에 락을 푼다. 그 뒤 V(full)을 통해 자원을 반납한다.
 
 
 
@@ -214,7 +209,7 @@ Block/wakeup이 더 좋지만, 사실 block/wakeup도 오버헤드가 존재한�
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwhn3zfn5j31i01707wh.jpg)
 
-Reader에서 P(mutex)는 readcount에 대한 락을 거는 것!
+Reader에서 P(mutex)는 ReadCount에 대한 락을 거는 것!
 
 
 
@@ -257,8 +252,6 @@ process synchronization을 해결하기 위한 Monitor 코드 활용한다.
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcgy1fmwjigxm2ej30iy0l2449.jpg)
 
-
-
 **모니터 안에서 액티브한 프로세스가 오직 하나만가 존재!**
 
 ![](https://ws4.sinaimg.cn/large/006tKfTcgy1fmwj3p1ux1j310w0tcdpr.jpg)
@@ -276,11 +269,8 @@ process synchronization을 해결하기 위한 Monitor 코드 활용한다.
   `condition x,y`
 
 - Condition variable은 wait와 signal 연산에 의해서만 접근 가능
-  ​
   `X.wait();`  
   x.wait()을 invoke한 프로세스는 다른 프로세스가 x.signal()을 invoke하기 전까지 suspend된다.
-
-  ​
 
   `X.signal();`  
   x.signal()은 정확하게 하나의 suspend된 프로세스를 resume한다. suspend된 프로세스가 없으면 아무일도 일어나지 않는다.
@@ -291,12 +281,7 @@ monitor는 락을 걸필요가 없다. 실행시키기위해서는 내부의 코
 
 ![](https://ws1.sinaimg.cn/large/006tKfTcgy1fmwj1veu5aj31040seqna.jpg)
 
-
-
 프로세스 동기화를 Concurrency Control(병행 제어)이라고도 한다.
-
-
 
 **식사하는 철학자 문제에서 모니터를 넣었을 때 어떻게 변화겠는가?**
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fmwjvyqoc1j314i0tq7wh.jpg)
-

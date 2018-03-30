@@ -67,7 +67,7 @@
 FIFO = 먼저 들어온걸 쫒아내면 됨.
 
 3페이제에서 4페이지로 늘리면 성능일 좋아질것이라 생각하지만, 아니다!  
-이런 기이한 현상을 FIFO Anomaly(=Belay's Anomaly) => more frames=> less page faults
+이런 기이한 현상을 FIFO Anomaly(=**Belay's Anomaly**) => more frames=> less page faults
 
 
 
