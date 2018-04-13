@@ -10,9 +10,9 @@
 1. 도커란?
 >Docker is a container based virtualization framework. Unlike traditional virtualization Docker is fast, lightweight and easy to use. Docker allows you to create containers holding all the dependencies for an application. Each container is kept isolated from any other, and nothing gets shared.
 
->Docker는 가상화 프레임워크인데, 컨테이너 기반 가상화를 사용한다. 일반적인 가상화 방식은 호스트 OS와 게스트 OS가 따로 있고, 게스트 OS부터 분리해 독립된 운영환경을 제공하지만, Docker는 이와 달리, 컨테이너 기반 가상화는 호스트 OS를 그대로 공유하고, 유저 스페이스에서 가상화를 제공한다.
+Docker는 가상화 프레임워크인데, 컨테이너 기반 가상화를 사용한다. 일반적인 가상화 방식은 호스트 OS와 게스트 OS가 따로 있고, 게스트 OS부터 분리해 독립된 운영환경을 제공하지만, Docker는 이와 달리, 컨테이너 기반 가상화는 호스트 OS를 그대로 공유하고, 유저 스페이스에서 가상화를 제공한다.
 
-주요 개념은 이 곳 사이트를 참조하자! [여기!](http://documents.docker.co.kr/)
+주요 개념은 이 곳 사이트를 참조하자! [Documents](http://documents.docker.co.kr/)
 
 2. 도커를 왜 사용하는가?
 
@@ -31,46 +31,46 @@
   하루가 빠르게 업그레이드 되서 그런가보다...
 
   아이콘이 귀엽다!
-  ![스크린샷 2017-04-07 오전 12.23.40](http://i.imgur.com/ewO2aKS.png)
+  ![스크린샷 2017-04-07 오전 12.23.40](http://i.imgur.com/ewO2aKS.png)
 
 다 설치하고 나면 이런 화면을 볼 수 있다!
 
-  ![스크린샷 2017-04-07 오전 12.24.23](http://i.imgur.com/vJXrtL4.png)
+  ![스크린샷 2017-04-07 오전 12.24.23](http://i.imgur.com/vJXrtL4.png)
 
 
 4. 도커 사용해 가상화 이용해보기!
 
-![스크린샷 2017-04-07 오전 12.28.14](http://i.imgur.com/pswTOvs.png)
+![스크린샷 2017-04-07 오전 12.28.14](http://i.imgur.com/pswTOvs.png)
 
 **일단 버전부터 체크하고...**
 
-![스크린샷 2017-04-07 오전 12.30.58](http://i.imgur.com/0ItCIZ2.png)
+![스크린샷 2017-04-07 오전 12.30.58](http://i.imgur.com/0ItCIZ2.png)
 
 ``docker run hello-world``
  : 요건 도커가 잘 진행되는지 증명하는 것이란다.
- ![스크린샷 2017-04-07 오전 12.37.41](http://i.imgur.com/ZM4hn1g.png)
-![스크린샷 2017-04-07 오전 12.32.00](http://i.imgur.com/AhYS9Mx.png)
+ ![스크린샷 2017-04-07 오전 12.37.41](http://i.imgur.com/ZM4hn1g.png)
+![스크린샷 2017-04-07 오전 12.32.00](http://i.imgur.com/AhYS9Mx.png)
 
 hello-world로 run 시키고 나서
 
 ``docker -ps -a``하면 해당 Run 한 상태를 볼 수 있다.
 
-![스크린샷 2017-04-07 오전 12.36.13](http://i.imgur.com/IOeYyd4.png)
+![스크린샷 2017-04-07 오전 12.36.13](http://i.imgur.com/IOeYyd4.png)
 
-![스크린샷 2017-04-07 오전 12.38.48](http://i.imgur.com/hozJIly.png)
+![스크린샷 2017-04-07 오전 12.38.48](http://i.imgur.com/hozJIly.png)
 
 영어 해석은 알아서... 도움 필요하면 직접 물어보세요 저한테.
 
 **도커에서 이미지를 찾고 실행시키기( Find and run the whalesay image)**
 
-![스크린샷 2017-04-07 오전 12.43.22](http://i.imgur.com/eZqdxKg.png)
+![스크린샷 2017-04-07 오전 12.43.22](http://i.imgur.com/eZqdxKg.png)
 절대 해석이 귀찮아서 이러는거 아니예요...
 
-![스크린샷 2017-04-07 오전 12.45.08](http://i.imgur.com/5ecAg6t.png)
+![스크린샷 2017-04-07 오전 12.45.08](http://i.imgur.com/5ecAg6t.png)
 
 여기서 내가 ``docker images``하면 지금까지 설치한 이미지들이 나온다!
 
-![스크린샷 2017-04-07 오전 12.46.24](http://i.imgur.com/LCtcUPl.png)
+![스크린샷 2017-04-07 오전 12.46.24](http://i.imgur.com/LCtcUPl.png)
 
 여기서 한번 whalesay를 실행시켜보쟈!
 `docker run docker/whalesay cowsay boo-boo`
@@ -85,7 +85,7 @@ hello-world로 run 시키고 나서
 다음 `FROM docker/whalesay:latest`
 여기서 FROM은 참조되어지는 이미지를 뜻한다.
 
-![스크린샷 2017-04-07 오전 12.59.42](http://i.imgur.com/INqX0Aw.png)
+![스크린샷 2017-04-07 오전 12.59.42](http://i.imgur.com/INqX0Aw.png)
 나노에디터안에서 어떻게 할것인가를 명시한다.
 
 이렇게 명시한 뒤, 해당 디렉토리에서 `docker build`를 사용하자.
@@ -101,9 +101,9 @@ Successfully built c2c3152907b5
 여기서 -t는 태그를 말하는데, 나중에 쉽게 쓰기위한 작업이다.
 그리고 끝에 .을 사용하는 것을 잊지말자.
 
-![스크린샷 2017-04-07 오전 1.04.48](http://i.imgur.com/fp2zpn7.png)
+![스크린샷 2017-04-07 오전 1.04.48](http://i.imgur.com/fp2zpn7.png)
 
-![스크린샷 2017-04-07 오전 1.05.20](http://i.imgur.com/4Smq2d3.png)
+![스크린샷 2017-04-07 오전 1.05.20](http://i.imgur.com/4Smq2d3.png)
 
 `docker run docker-whale`
 이렇게 하면 내가 만든 이미지가 올라간 것!
@@ -115,14 +115,14 @@ Successfully built c2c3152907b5
  `docker run -it ubuntu bash` 요렇게하면 끝...
 
  이건 신세계다..
- ![스크린샷 2017-04-07 오전 1.12.18](http://i.imgur.com/sNia8nS.png)
+ ![스크린샷 2017-04-07 오전 1.12.18](http://i.imgur.com/sNia8nS.png)
 
  여럿 기능들은 [여기](https://docs.docker.com/docker-for-mac/) 참고하면 좋겠다!
 
 삭제하고 싶다면!!
-![스크린샷 2017-04-07 오전 1.14.32](http://i.imgur.com/S6qyGda.png)
+![스크린샷 2017-04-07 오전 1.14.32](http://i.imgur.com/S6qyGda.png)
 
-![스크린샷 2017-04-07 오전 1.21.18](http://i.imgur.com/pv3rUdn.png)
+![스크린샷 2017-04-07 오전 1.21.18](http://i.imgur.com/pv3rUdn.png)
 
 5. 각종 DB의 설치 및 실행.(docker run -it ubuntu bash)
 
