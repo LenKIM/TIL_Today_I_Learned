@@ -16,17 +16,13 @@
             android:id="@+id/btn_broadcast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="send broadcast"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            />
+            android:text="send broadcast(some action)" />
 
     <Button
             android:id="@+id/btn_connection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="send broadcast"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            />
+            android:text="send broadcast(len)"
+
+        />
 </LinearLayout>

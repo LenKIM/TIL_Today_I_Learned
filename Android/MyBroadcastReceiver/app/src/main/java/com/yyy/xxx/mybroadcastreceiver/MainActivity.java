@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.inject(this);
 
         mReceiver = new ConnectionReceiver();
-        mIntentFilter = new IntentFilter("len");
-//        mIntentFilter.addAction("len");
+        mIntentFilter = new IntentFilter("SOME_ACTION");
+        mIntentFilter.addAction("LEN");
     }
 
     @Override
@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
+    super.onDestroy();
         unregisterReceiver(mReceiver);
     }
 

@@ -8,9 +8,6 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
-/**
- * Created by len on 2017. 2. 22..
- */
 
 public class ConnectionReceiver extends BroadcastReceiver {
 
@@ -23,8 +20,7 @@ public class ConnectionReceiver extends BroadcastReceiver {
 
         if (action.equals("SOME_ACTION")) {
             Toast.makeText(context, "Get Action from Main Activity", Toast.LENGTH_SHORT).show();
-        }
-        else if (action.equals("LEN")) {
+        } else if (action.equals("LEN")) {
             {
                 ConnectivityManager cm =
                         (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -25,7 +25,6 @@
                 <action android:name="com.yyy.xxx.mybroadcastreceiver.SOME_ACTION" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
