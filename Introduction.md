@@ -1,4 +1,6 @@
-## 안드로이드
+# Java
+
+### Android
 
 - 안드로이드를 공부하며 습득한 지식들을 기록합니다.  
 
@@ -9,12 +11,16 @@
 
   - 복습이 필요해-
 
-## JavaScript
+### 
 
-- Node.js를 배우기 위한 기초 JavaScript 정리.
+
+
+# JavaScript
+
+- Node.js를 배우기 위한 기초 JavaScript 정리
 - 쉬운 자바스크립트를 누군가에게 설명하기
 
-### - Node.js
+### Node.js
 
 - 모던 웹으로 배우는 Node.js 공부 & 정리.
 - 인터넷 강의와 함께 진행하기.
@@ -26,13 +32,20 @@
   - 위치기반의 게시판만들기.
 - T 아카데미 HelloMoney하면서 배운 지식 정리.
 
-### - React
+### React
 
 - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)
-- Pro-React 참고
+- Pro-React Book
+- [노마드 코더 기본 튜트리얼(진행중)](https://academy.nomadcoders.co/p/reactjs-fundamentals)
 - ISSUE RECOADING
 
-## T아카데미
+### Angular.js
+
+- recording Issue
+
+## 기타
+
+### T아카데미
 
  서버 전문가 양성 과정(완료)  
  : 결과  
@@ -40,31 +53,21 @@
   안드로이드 고객용:[ https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
   안드로이드 상담가용 : [https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
 
-
-
 ## Book
 
-- '내가 알고 있는 것이 진짜가 아니다.'  
-  몸이 또는 손이 기억하게 해야한다.
-  주니어 개발자가 모든 프로그램을 만진다는 거는 사실 현실적으로 힘듬, 그러나 이론을 베이스로 한발짝 다가가기.
-- 개발 서적 읽고 간단한 리뷰작성하기.  
-
-
+- 
 
 ## 딥러닝
 
 - 밑바닥부터 시작하는 딥러닝
+
 - 모두를 위한 딥러닝/머신러닝
-  ​
+
+  
 
 ## FP(Functional_Thinking)
 
 - 함수형 사고 책 읽고 기본사고를 생각하기(어려워..)
 - 함수형프로그래밍스터디(완료했으나 어려워..)
-- RxJAVA 프로그래밍(유동환, 박정준) 읽고 요약하기[리뷰 남음]
-
-
-
-## Google Study Jam
-
-## CSS
+- RxJAVA 프로그래밍(유동환, 박정준) 읽고 요약하기
+- 
