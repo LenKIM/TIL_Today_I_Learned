@@ -9,12 +9,16 @@
 "사용자"는 생성되는 리소스, "생성한다."라는 행위는 메소드
 그리고 '이름이 Terry인 사용자'는 메세지가 된다.
 
+```c
 HTTP POST , http://myweb/users/
 {
   "users": {
     "name" : "terry"
   }
 }
+```
+
+
 #HTTP 메서드
  POST -> 의미 : Create - Idempotent : No
  GET  -> 의미 : Select - Idempotent : Yes
