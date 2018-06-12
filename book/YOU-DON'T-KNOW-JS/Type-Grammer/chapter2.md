@@ -230,3 +230,125 @@ if(!Number.isInteger){
 }
 ```
 
+### 32비트(부호있는) 정수
+
+`a | 0` 과 같이 쓰면 '숫자 값 -> 32비트 부호 있는 정수 로 강제변환.
+
+ 즉, 정수의 안전 범위가 대락 53비트에 이르지만, 32비트 숫자에만 가능한 연산을 만들기 위해 `a | 0' 와 같은 방법을 쓴다고 합니다!
+
+
+
+### 특수 값
+
+타입별로 자바스크립트 개발자들이 조심해서 사용해야 할 특수한 값
+
+
+
+#### 값 아닌 값
+
+Undefined 타입의 값은 undefined밖에 없다. null 타입도 값은 null뿐이다. 그래서 이 둘은 타임과 값이 항상 같다.
+
+Undefined와 null의 의미를 어떻게 '정의'하여 쓰든지, null은 식별자가 아닌 특별한 키워드이므로 null이라는 변수에 뭔가 할당할 수는 없다. 
+
+
+
+#### void 연산자
+
+```javascript
+function doSomething(){
+    //참고: 'APP.ready'는 이 어플에서 제공한 값
+    if(!APP.ready){
+        //나중에 다시 해보자!
+        return void setTimeout(doSomething, 100);
+    }
+    var result;
+    return result;
+}
+
+if(doSomething()){
+    //다음 작업 바로 실행
+}
+```
+
+setTimeout()함수는 숫자 값을 반환하는데, void를 쓰면 if문에서 긍정 오류가 일어나지 않게 할 수 있다.
+
+##### void 연산자는 (어떤 표현식으로부터) 값이 존재하는 곳에서 그 값이 undefined가 되어야 좋을 경우에만 사용하자!!!!
+
+#### 특수 문자
+
+`NaN`
+
+```javascript
+var a = 2 /"foo"; //NaN
+typeof a === "number"; //true
+```
+
+**NaN은 글자 그대로 '숫자 아님' 보다는 '유효하지 않는 숫자' / '실패한 숫자' / '몹쓸 숫자'**
+
+```javascript
+var a = 2
+undefined
+typeof a === "number"
+true
+var a = NaN
+undefined
+typeof a === "number"
+true
+typeof a === NaN
+false
+```
+
+정확하게 NaN을 판별하려면 isNaN() 함수를 활용!
+
+ES6 부터는 Number.isNaN() 등장!
+
+```javascript
+if(!Number.isNaN){
+    Number.isNaN = function(n){
+        return (
+        typeof n === "number" &&
+        window.isNaN(n)
+        );
+    };
+}
+
+var a = 2 
+var b = 'foo'
+Number.isNaN(a); // true
+Number.isNaN(b); // false
+```
+
+### 영(0)
+
+왜 -0 이 존재?
+
+값의 크기로 어떤 정보와 그 값의 부호로 또 다른 정보를 동시에 나타내야 하는 어플이 존재하기 때문에????
+
++0, -0 개념이 없다면 어떤 변숫값이 0에 도달하여 부호가 바뀌는 순간, 그 직전까지 이 변수의 이동방향은 무엇인지 알 수가 없으므로 부호가 다른 두 0은 유용하다. 즉, 잠재적인 정보 소실을 방지하기 위해 0의 부호를 보존한 셈.
+
+```javascript
+function isNegZero(n){
+    n = Number(n);
+    return (n === 0)&& (1 / n === -Infinity);
+}
+
+isNegZero(-0); //true
+isNegZero(0 / -3); //true
+isNegZero(0); //false
+```
+
+
+
+
+
+### 정리
+
+자바스크립트 배열은 모든 타입의 값들을 숫자로 인덱싱한 집합이다. 문자열은 일종의 '유사배열'이지만, 나름 특성이 있기 떄문에 배열로 다루고자 할 때에는 조심하는 것이 좋다. 자바스크립트 숫자는 '정수'와  '부동 소수점 숫자'모두 포함한다.
+
+원시타입에는 몃몃 특수 값이 있다.
+
+null 타입은 null이란 값 하나뿐이고,마찬가지로 undefined타입도 값은 undefined 분이다.
+
+undefined는 할당 된 값이 없다면 모든 변수/프로퍼티의 디폴트 값이다. void 연산자는 어떤 값이라도 undefined로 만들어 버린다.
+
+숫자에는 naN, +Infinity, -Infinity, -0 와 같은 특수 값이 있다.
