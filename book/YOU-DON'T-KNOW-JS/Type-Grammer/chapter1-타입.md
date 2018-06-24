@@ -97,7 +97,7 @@ typeof b;
 
 typeof 안전 가드는 전역 변수를 사용하지 않을 때에는 유용한데, 일부 개발자들은 이런 설계 방식이 그다지 바람직하지 않다고 말한다. 이를테면 다른 개발자가 여러분이 작성한 유틸리티 함수를 자신의 모듈/프로그램에 카피앤페이스트하여 사용하는데, 가져다 쓰는 프로그램에 유틸리티의 특정 변숫값이 정의되어 있는지 체크해야 하는 상황을 가져해 보자.
 
-```
+```javascript
 function doSomethingCool(){
     var helper =
     	(typeof FeatureXYZ !== "undefined")?
@@ -112,8 +112,35 @@ function doSomethingCool(){
 
 
 
+```javascript
+//IIFE(즉시 호출 함수 표현식)
+(function(){
+    function FeatureXYZ(){/*... 나의 XYZ 기능 ...*/ }
+    
+    // 'doSOmethingCool()'를 포함
+    function doSomethingCool(){
+        var helper = 
+            (typeof FeatureXYZ !== "undefined") ?
+                FeatureXYZ :
+                function(){/*... 나의 XYZ 기능 ...*/ }
+            var val = helper();
+            //...
+            }
+        doSomethingCool();
+})();
+```
 
-
+또는 의존성 주입 설계 패턴에서는
+```javascript
+function doSomethingCool(FeatureXYZ){
+    var helper = FeatureXYZ ||
+      function() {/*... 나의 XYZ 기능 ...*/};
+    var val = helper();
+    //...
+    }
+    
+```
+ 
 ### WRAP UP
 
 자바스크립트에는 7가지 내장 타입이 있으며, typeof 연산자로 타입명을 알아낸다.
