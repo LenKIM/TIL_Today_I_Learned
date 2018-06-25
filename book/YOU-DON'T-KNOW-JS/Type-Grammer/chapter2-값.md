@@ -318,7 +318,25 @@ Number.isNaN(a); // true
 Number.isNaN(b); // false
 ```
 
+### 무한대
+
+```javascript
+var a = 1 / 0;
+```
+
+```javascript
+var a = 1 / 0; //Infinity
+var a = -1 / 0; // -Infinity
+```
+
++Infinity 와  -Infinity가 존재함.
+
 ### 영(0)
+
+```javascript
+var a = 0 / -3; // -0
+var b = 0 * -3; // -0
+```
 
 왜 -0 이 존재?
 
@@ -339,7 +357,29 @@ isNegZero(0); //false
 
 
 
+### 값 vs 레퍼런스
 
+자바스크립트는 포인터라는 개념 자체가 없고 참조하는 방법도 조금 다르다. 우선 어떤 변수가 다른 변수를 참조할 수 없다. 그냥 안된다.
+
+더구나 자바스크립트에는 값 또는 레퍼런스의 할당 및 전달을 제어하는 구문 암시(Syntactic Hint)가 전혀 없다. 대신, 값의 타입만으로 값-복사, 레퍼런스-복사 둘 중 한쪽이 결정된다.
+
+```javascript
+var a = 2;
+var b = a;
+b++;
+a; //2
+b; //3
+
+var c = [1,2,3];
+var d = c;
+d.push(4);
+c; // [1,2,3,4]
+d; // [1,2,3,4]
+```
+
+null, undefined, string, number, boolean 그리고 ES6의 symbol 같은 단순 값(스칼라 원시 값)은 언제나 값-복사 방식으로 할당/전달된다.
+
+객체나 함수 등 합성 값은 할당/전달시 반드시 레퍼런스 사본을 생성한다.
 
 ### 정리
 

@@ -388,3 +388,22 @@ b == null; // true
 
 `if(a === undefined || a === null) 이나 if( a== null) 같은 것!!!`
 
+
+
+### 말도 안되는... 불편한 진실.
+
+```javascript
+[] == ![] //true
+2 == [2] //true
+"" == [null] // true
+0 == "\n" //true
+
+"0" == false; // true
+false == 0; // true
+false == ""; //true
+false == []; //true
+"" == 0; //true
+"" == []; //true
+0 == []; //true
+```
+
