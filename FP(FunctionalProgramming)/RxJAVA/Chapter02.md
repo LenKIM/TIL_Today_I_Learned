@@ -110,7 +110,7 @@ Observable은 세 가지의 알림을 구독자에게 전달.
 
   - 인자가 없는 subscribe()함수는 onNext와 onComplete이벤트를 무시하고 onError이벤트가 발생했을 때만 OnerrorNotImplementedException 을 던짐
   - 인자가 1개 있는 오버로딩은 OnNext 이벤트를 처리한다.
-  - 인자 2개인 함수는 onNext와 onError이벤트를 처리
+  - 인자가 2개인 함수는 onNext와 onError이벤트를 처리
   - 인자가 3개인 함수는 onNext, onError, onComplete 이벤트를 모두 처리
 
 앞 함수 원형은 모두 Disposable 인터페이스의 객체를 리턴합니다.
@@ -171,7 +171,7 @@ List<String> names = new ArrayList<>();
 ```
 
 ##### 6. fromCallable()
- 기존 자바에서 지공하는 비동기 클래스나 인터페이스의 연동을 할 때 사용
+ 기존 자바에서 제공하는 비동기 클래스나 인터페이스의 연동을 할 때 사용
 
  자바 5에서 추가된 동시성 API Callable인터페이스.
  ```java
@@ -212,8 +212,9 @@ Publisher<String> publisher = (Subscriber<? super String> s) -> {
         source.subscribe(System.out::println);
 ```
 
-###### Single 클래스
-오직 1개의 데이터만 발생하도록 한정하는 것을 말합니다. Obserable클래스는 데이터를 무한하게 발행 할 수 있지만 싱글은 오직 1개. 보통 결과가 유일한 서버 API를 호출할 떄 유용하게 사용할 수 있다.
+### Single 클래스
+
+오직 1개의 데이터만 발생하도록 한정하는 것을 말합니다. Observable클래스는 데이터를 무한하게 발행 할 수 있지만 싱글은 오직 1개. 보통 결과가 유일한 서버 API를 호출할 떄 유용하게 사용할 수 있다.
 
 ```java
         //1. 기존 Obserable에서 Single 객체로 변환하기
@@ -244,31 +245,40 @@ Publisher<String> publisher = (Subscriber<? super String> s) -> {
                 .subscribe(System.out::println);
 ```
 
-###### Maybe 클래스
-maybe 클래스는 처음 도입된 Obserable의 또 다른 특수 형태.
+### Maybe 클래스
+
+maybe 클래스는 처음 도입된 Observable의 또 다른 특수 형태.
 
 Single 클래스는 1개 완료, Maybe 클래스는 0혹은 1개완료 할 수도 있습니다.
 
+
+
+# #
+
 ###### 뜨거운 Obserable
 
-Obserable에는 뜨거운 것과 차가운 것이 있다.
+Observable에는 뜨거운 것과 차가운 것이 있습니다.
 
-차가운 Obserable은 마치 냉장고에 들어있는 냉동식품과 같다. Obserable을 선언하고 just(), fromIterable() 함수를 호출해도 옵서버가 subscribe()함수를 호출하여 구독하지 않으면 데이터를 발행하지 않습니다. 다른 말로 게으른 접근법.
+**차가운 Observable**은 마치 냉장고에 들어있는 냉동식품과 같다. Observable을 선언하고 just(), fromIterable() 함수를 호출해도 옵서버가 subscribe()함수를 호출하여 구독하지 않으면 데이터를 발행하지 않습니다. **다른 말로 게으른 접근법.**
 
-뜨거운 Observable은 구독자가 존재 여부와 관계없이 데이터를 발행하는 Observable입니다. 따라서 여러 구독자를 고려 할 수 있다. 단, 구독자로서는 Observable에서 발행하는 데이터를 처음부터 모두 수신할 것으로 보장할 수 없다. 즉, 차가운 Observable은 구독하면 준비된 데이터를 처음부터 발행합니다. 하지만 뜨거운 Observable은 구독한 시점부터 Observable에서 발행한 값을 받습니다.
+**뜨거운 Observable**은 구독자가 존재 여부와 관계없이 데이터를 발행하는 Observable입니다. 따라서 여러 구독자를 고려 할 수 있다. 단, 구독자로서는 Observable에서 발행하는 데이터를 처음부터 모두 수신할 것으로 보장할 수 없다. 즉, 차가운 Observable은 구독하면 준비된 데이터를 처음부터 발행합니다. 하지만 뜨거운 Observable은 구독한 시점부터 Observable에서 발행한 값을 받습니다.
 
-차가운 Observable의 예는 웹 요청, 데이터베이스 쿼리와 파일 읽기 등입니다. 보통 내가 원하는 URL이나 데이터를 지정하면 그때부터 서버나 데이터베이스 서버에 요청을 보내고 결과를 받아옵니다.
+
+
+차가운 Observable의 예는 웹 요청, 데이터베이스 쿼리와 파일 읽기 등입니다. 보통 내가 원하는 URL이나 데이터를 지정하면 그때부터 서버나 데이터베이스 서버에 요청을 보내고 결과를 받아옵니다. 지금까지 우리가 다룬 Observable은 모두 차가운 Observable입니다. 앞으로도 별도의 언급이 없으면 차가운 Observable이라고 생각하면 됩니다.
+
 
 뜨거운 Observable의 예는 마우스 이벤트, 키보드 이벤트, 시스템 이벤트, 센서 데이터와 주식 가격등이 있습니다.
-
 뜨거운 Observable에는 주의 할 점이 있습니다. 바로 배압(back pressure)을 고려.
 
 배압은 Observable에서 데이터를 발행하는 속도와 구독자가 처리하는 속도의 차이가 클 때 발생합니다. Flowable이라는 특화 클래스에서 배압을 처리합니다.
 
-#### 2.5 Subject 클래스
- Subject클래스는 차가운 Observable을 뜨거운 Observable로 바꿔준다고 소개했습니다. Subject 클래스의 특성은 Observable의 속성과 구독자의 속성이 모두 있다는 점입니다. Observable 처럼 데이터를 발행할 수도 있고 구독자처럼 발행된 데이터를 바로 처리할 수도 있습니다.
+차가운 Observable을 뜨거운 Observable 객체로 변환하는 방법은 Subject 객체를만들거나 ConnectableObservable 클래스를 활용하는 것!
 
- - AsyncSubject
+#### 2.5 Subject 클래스
+ Subject클래스는 차가운 Observable을 뜨거운 Observable로 바꿔준다고 소개했습니다. Subject 클래스의 특성은 **Observable의 속성과 구독자의 속성이 모두 있다는 점입니다.** Observable 처럼 데이터를 발행할 수도 있고 구독자처럼 발행된 데이터를 바로 처리할 수도 있습니다.
+
+ - **AsyncSubject**
  Observable에서 발행한 마지막 데이터를 얻어올 수 있는 Subject클래스. 완료되기 전 마지막 데이터에만 관심이 있으며 이전 데이터는 무시.
 
 ![ ](https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/S.AsyncSubject.png)
@@ -289,19 +299,19 @@ AsyncSubject<String> subject = AsyncSubject.create();
 Subscriber #1 => 5  
 Subscriber #2 => 5  
 
- - BehaviorSubject
+ - **BehaviorSubject**
 (구독자가) 구독을 하면 가장 최근 값 혹은 기본값을 넘겨주는 클래스입니다. 예를 들어 온도 센서에서 값을 받아온다면 가장 최근의 온도 값을 받아오는 동작을 구현 할 수 있습니다. 또한 온도를 처음 얻을 때는 초깃값(예를 들면 0)을 반환하기도 합니다.  
 
 ![](https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/S.BehaviorSubject.png)
 
 ```java
-        BehaviorSubject<String> subject = BehaviorSubject.createDefault("6");
-        subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
-        subject.onNext("1");
-        subject.onNext("3");
-        subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
-        subject.onNext("5");
-        subject.onComplete();
+BehaviorSubject<String> subject = BehaviorSubject.createDefault("6");
+subject.subscribe(data -> System.out.println("Subscriber #1 => " + data));
+subject.onNext("1");
+subject.onNext("3");
+subject.subscribe(data -> System.out.println("Subscriber #2 => " + data));
+subject.onNext("5");
+subject.onComplete();
 ```
 
 Subscriber #1 => 6  
@@ -311,7 +321,7 @@ Subscriber #2 => 3
 Subscriber #1 => 5  
 Subscriber #2 => 5  
 
- - PublishSubject
+ - **PublishSubject**
  가장 평범한 Subject 클래스입니다. 구독자가 subscribe()함수를 호출하면 값을 발행하기 시작합니다.AsyncSubject클래스 처럼 마지막 값만 발행하거나 BehaviorSubject클래스처럼 발행한 값이 없을 때 기본값을 대신 발행하지도 않습니다. 오직 해당 시간에 발생한 데이터를 그대로 구독자에게 전달받습니다.
 
 ![](https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/S.PublishSubject.png)
@@ -331,7 +341,7 @@ Subscriber #1 => 3
 Subscriber #1 => 5  
 Subscriber #2 => 5  
 
- - ReplaySubject
+ - **ReplaySubject**
  가장 특이하고 사용할 때 주의해야 하는 클래스. Subject클래스의 목적은 뜨거운 Observable을 활용하는 것인데 차가운 Observable처럼 동작하기 때문이다. ReplaySubject클래스는 구독자가 새로 생기면 항상 데이터의 처음부터 끝까지 발행하는 것을 보장해줍니다. 마지 테이프로 전체 내용을 녹음 해두었다가 새로운 사람이 들어오면 정해진 음악을 들려주는 것과 가습니다. 그러므로 모든 데이터 내용을 저장해두는 과정 중 메모리 누수가 발생할 가능성을 염두에 두고 사용할 때 주의해야 합니다.
 
 ![ ](https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/S.ReplaySubject.png)
@@ -362,15 +372,19 @@ Subscriber #2 => 5
 ![ ](http://reactivex.io/documentation/operators/images/publishConnect.png)
 
 ```Java
-String[] dt = {"1","3","5"};
-Observable<String> balls = Observable.interval(100L, TimeUnit.MILLISECONDS)
-        .map(Long::intValue)
-        .map(i -> dt[i])
-        .take(dt.length);
+String[] dt = {"1", "3", "5"};
+        Observable<String> balls = Observable.interval(100L, TimeUnit.MILLISECONDS)
+                .map(Long::intValue)
+                .map(i -> dt[i])
+                .take(dt.length);
 
-ConnectableObservable<String> source = balls.publish();
-source.subscribe(data -> System.out.println("Subscriber #1 => " + data));
-source.subscribe(data -> System.out.println("Subscriber #2 => " + data));
-source.connect();
-source.subscribe(data -> System.out.println("Subscriber #3 => " + data));
+        ConnectableObservable<String> source = balls.publish();
+        source.subscribe(tester);
+        source.subscribe(data -> System.out.println("Subscriber #1 => " + data));
+        source.subscribe(data -> System.out.println("Subscriber #2 => " + data));
+        source.connect();
+        Thread.sleep(250);
+
+        source.subscribe(data -> System.out.println("Subscriber #3 => " + data));
+        Thread.sleep(100);
 ```

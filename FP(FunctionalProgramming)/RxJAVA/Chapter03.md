@@ -10,30 +10,18 @@ __3.5 마치며
 ```
 
 #### 리액티브 연산자 분류
-1. 생성(Creating) 연산자
- - Observable, Single 클래스 등으로 데이터의 흐름을 만들어내는 함수. 2장에서 배웠던 create(), just(), fromArray() 등의 함수와 4장에서 소개할 interval(), range(), timer(), defer()등이 있습니다.
-2.  변환(Transforming) 연산자
- - 어떤 입력을 받아서 원하는 출력 결과를 내는 전통적인 의미의 함수입니다. map(), flatMap()등의 함수.
-3. 필터(Filter) 연산자
- - 입력 데이터 중에서 원하는 데이터만 걸러냅니다. filter(), first(), take()등의 함수
 
-4. 합성(Combining)연산자
-- 생성, 변환, 필터 연산자가 주로 단일 Observable을 다룬다면 합성 연산자는 여러 Observable을 조합하는 역할을 합니다. 한 개의 Observable뿐만 아니라 여러 갱의 Observable을 생성하고 조합해보는 것이 RxJava 프로그래밍
-
-5. 오류처리(Error Handling)연산자
-- onErrorReturn(), onErrorResumeNext()와 retry()등이 있으면 7장에서 다룸
-
-6. 유틸리티(Utility)연산자
-- 주로 연산자로는 subscribeOn()과 observeOn()등이 있으며 비동기 프로그래밍을 지원
-
-7. 조건(Conditional)연산자
-- Observable의 흐름을 제어하는 역할
-
-8. 수학과 집합형(Mathematical and Aggregate)연산자
-- 수학함수와 연관있는 연산자
-
-9. 배압(Back pressure)연산자
-- 배압이슈에 대응하는 연산자
+| 연산자                                          | 설명                                                         |
+| ----------------------------------------------- | ------------------------------------------------------------ |
+| 생성(Creating) 연산자                           | Observable, Single 클래스 등으로 데이터의 흐름을 만들어내는 함수. 2장에서 배웠던 create(), just(), fromArray() 등의 함수와 4장에서 소개할 interval(), range(), timer(), defer()등이 있습니다. |
+| 변환(Transforming) 연산자                       | 어떤 입력을 받아서 원하는 출력 결과를 내는 전통적인 의미의 함수입니다. map(), flatMap()등의 함수. |
+| 필터(Filter) 연산자                             | 입력 데이터 중에서 원하는 데이터만 걸러냅니다. filter(), first(), take()등의 함수 |
+| 합성(Combining)연산자                           | 생성, 변환, 필터 연산자가 주로 단일 Observable을 다룬다면 합성 연산자는 여러 Observable을 조합하는 역할을 합니다. 한 개의 Observable뿐만 아니라 여러 갱의 Observable을 생성하고 조합해보는 것이 RxJava 프로그래밍 |
+| 오류처리(Error Handling)연산자                  | onErrorReturn(), onErrorResumeNext()와 retry()등             |
+| 유틸리티(Utility)연산자                         | 주로 연산자로는 subscribeOn()과 observeOn()등이 있으며 비동기 프로그래밍을 지원 |
+| 조건(Conditional)연산자                         | Observable의 흐름을 제어하는 역할                            |
+| 수학과 집합형(Mathematical and Aggregate)연산자 | 수학함수와 연관있는 연산자                                   |
+| 배압(Back pressure)연산자                       | 배압이슈에 대응하는 연산자                                   |
 
 
 ### Map() 함수
@@ -109,6 +97,14 @@ Scanner sc = new Scanner(System.in);
         source2.subscribe(System.out::println);
 
 //        Step 03: flatMap()함수를 좀 더 활용하기
+		Observable<String> source = Observable.just(dan)
+            .flatMap(num -> Observable.range(1,9)
+            .map(row -> num + " * " + row + " = " + dan*row));
+
+//        Step 03-2: flatMap()함수를 좀 더 활용하기
+		Observable<String> source = Observable.just(dan)
+            .flatMap(num -> Observable.range(1,9),
+                     (gugu, i) -> gugu + " * " + i + " = " + gugu*i);
 
 ```
 
@@ -194,21 +190,26 @@ String[] balls = {"1", "3", "5"};
 3. TV 매출의 합을 구함
 
 ```Java
-//        1. 데이터 입력
-//        왼쪽에는 상품 이름, 오른쪽에는 매출액
+//      1. 데이터 입력 => 왼쪽에는 상품 이름, 오른쪽에는 매출액
         List<Pair<String, Integer>> sales = new ArrayList<>();
-
         sales.add(Pair.of("TV", 2500));
         sales.add(Pair.of("Camera", 300));
         sales.add(Pair.of("TV", 1600));
         sales.add(Pair.of("Phone", 800));
 
         Maybe<Integer> tvSales = Observable.fromIterable(sales)
-//                2. 매출 데이터 중 TV 매출을 필터링함
+            
+//      2. 매출 데이터 중 TV 매출을 필터링함
         .filter(sale -> "TV".equals(sale.getLeft()))
         .map(sale -> sale.getRight())
 
-        // 3. TV매출의 합
+//      3. TV매출의 합
         .reduce((sale1, sale2) -> sale1 + sale2);
         tvSales.subscribe(tot -> System.out.println("TV sales: $" + tot));
 ```
+
+
+
+
+
+[](https://github.com/LenKIM/TIL_Today_I_Learned/tree/master/FP(FunctionalProgramming)/RxJAVA)
