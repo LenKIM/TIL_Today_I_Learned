@@ -207,9 +207,3 @@ String[] balls = {"1", "3", "5"};
         .reduce((sale1, sale2) -> sale1 + sale2);
         tvSales.subscribe(tot -> System.out.println("TV sales: $" + tot));
 ```
-
-
-
-
-
-[](https://github.com/LenKIM/TIL_Today_I_Learned/tree/master/FP(FunctionalProgramming)/RxJAVA)
