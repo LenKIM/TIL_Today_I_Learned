@@ -182,3 +182,52 @@ Hosts 타켓팅하는 그룹을 작성
 vars : 
 
 remote_user: root
+
+
+
+인벤토리가 그룹이라고 생각하고, 
+
+Role이라는것은?  특정 동작들을 수행하는 모듈
+
+Playbook?
+
+
+
+변수들에 대해서는 학습이 필요함.
+
+apt= 앤시블 자체적으로 있는 변수. => documentary 보고 찾아야 함.
+
+
+
+언제나 재사용 가능하게 만드는 것이 Key Point
+
+플레이북안에 tasks와 template
+
+Role이 큰 개념이라면 Task 작은 범위?
+
+
+
+Template 
+
+파이썬 JInja? 
+
+인벤토리의 모든 범위에서 실행된다? Hosts: all
+
+Become: true <= sudo 실행.
+
+
+
+Role과 Task 차이?
+순서대로.
+
+
+
+설정을 먼저? 작성을 먼저?
+
+Playbook이 먼저.
+
+
+
+VM Control도 가능할 듯.
+
+Swap  물리메모리의 1.5배 정도
