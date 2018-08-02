@@ -32,7 +32,7 @@ map(),filter(),flatMap()함수 를 배웠음
 
 **observeOn** 은 Observable에 subscribe에서 생성한 데이터 흐름이 여기저기 함수를 거치며 처리될 때 동작이 어느 스레드에서 일어나는지 지정  
 
-뉴스레드를 만들었기 때문에 위에 뉴스레드-1에서 Original데이터 발행하고, observeOn에서도 뉴스레드했기 때문에 뉴스레드2에서 발행된 토큰들이 온다.
+new Thread를 만들었기 때문에 위에 뉴스레드-1에서 Original데이터 발행하고, observeOn에서도 new Thread했기 때문에 new Thread2 발행된 토큰들이 온다.
 
 ```Java
 public void observeOnRemoved() {
