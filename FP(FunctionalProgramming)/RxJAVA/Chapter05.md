@@ -1,7 +1,7 @@
 ### 스케줄러
 
-Observable, Single, ConnectableObservable 클래스로 만드러이즌 데이터 흐름과,  
-map(),filter(),flatMap()함수 를 배웠음
+Observable, Single, ConnectableObservable 클래스로 만들어준 데이터 흐름과,  
+map(), filter(), flatMap()함수 를 배웠음
 
 이번 장에는 RxJAVA의 핵심요소로써 비동기 프로그래밍의 꽃!
 스케줄러에 대해서 알아볼까나
@@ -59,19 +59,24 @@ RxNewThreadScheduler-3 | Origianl data = 3-P
 RxNewThreadScheduler-3 | value = (flipped)3-P
 ```
 
-이렇게 보면 스케쥴러가 뭔지 감이 좀 잡히는거 같기도 하고?
+1. 스케줄러는 RxJAVA코드는 어느 스레드에서 실행할지 지정할 수 있다.
+2. subscribeOn()함수와 observeOn() 함수를 모두 지정하면 Observable에서 데이터 흐름이 발생하는 스레드와 처리된 결과를 구독자에게 발생하는 스레드를 분리할 수 있다.
+3. subscribeOn() 함수만 호출하면 Observable의 모든 흐름이 동일한 스레드에서 실행된다.
+4. 스케줄러를 별도로 지정하지 않으면 현재(main) 스레드에서 동작을 실행한다.
 
-스켸줄러의 종류에는 총 5가지 있다. 자세한건 책을 보면되지만
-간략히
+### 스켸줄러의 종류에는 총 5가지 있다.  
 
-뉴 스레드 스케줄러  newThread()
-싱글 스레드 스케줄러 single()
-계산 스케줄러 computation()
-IO 스케줄러 io()
-트램펄린 스케줄러 trampoline()
-메인 스레드 스케줄러 지원x
+**간략히**  
 
-#### 뉴 스케줄러
+뉴 스레드 스케줄러 =>  newThread()  
+싱글 스레드 스케줄러 => single()  
+계산 스케줄러 => computation()  
+IO 스케줄러 => io()  
+트램펄린 스케줄러 => trampoline()  
+메인 스레드 스케줄러 지원 X  
+테스트 스케줄러 지원 X  
+
+#### 뉴 스케줄러 스케줄러
 새로운 스레드를 생성, 새로운 스레드를 만들어 어떤 동작을 실행하고 싶을 때 Scheduler.newThread()를 인자로 넣어주면 됨.
 그럼 뉴 스레드 스케줄러는 요청을 받을 때마다 새로운 스레드를 생성합니다.
 
@@ -79,8 +84,8 @@ RxJAVA의 스케줄러는 subscribeOn()함수와 observeOn()함수에 나눠서 
 
 다시한번 위 두개의 차이를 말해보면
 
-subscribeOn()은 subscribe함수가 호출되어 구독 될때 실행되는 스레드.
-observeOn()은 나온 결과를 어디 스레드에서 발행할 것인가를 담당.
+*subscribeOn()은 subscribe함수가 호출되어 구독 될때 실행되는 스레드.*  
+*observeOn()은 나온 결과를 어디 스레드에서 발행할 것인가를 담당.*  
 
 ```java
 public void basic() {
@@ -127,11 +132,30 @@ RxNewThreadScheduler-2 | value = <<3>>
 RxNewThreadScheduler-2 | value = <<5>>
 ```
 
-뉴스레드에 대한 이해 완료!
+#### 계산 스케줄러
 
-#### 계산 스켸줄러
+interval() 함수 활용할 때 원형을 살펴보면
 
-interval() 함수 활용할 때 원형을 살펴보면 computation 라는 스레드에서 동작하도록 되어있었는데, 해당 스레드가 계산 스레드이다.
+```java
+@CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.COMPUTATION)
+    public static Observable<Long> interval(long period, TimeUnit unit) {
+        return interval(period, period, unit, Schedulers.computation());
+    }
+```
+
+ computation 라는 스레드에서 동작하도록 되어있었는데, 해당 스레드가 계산 스레드이다.
+
+```java
+@CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.CUSTOM)
+    public static Observable<Long> interval(long period, TimeUnit unit, Scheduler scheduler) {
+        return interval(period, period, unit, scheduler);
+    }
+```
+
+CUSTOM의 경우 알아서 선택해서 할 수 있음.
+
 
 계산 스케줄러는 CPU에 대응하는 계산용 스케줄러로, '계산'작업을 할 때는 대기 시간 없이 빠르게 결과를 도출하는 것이 중요하다. 내부적으로 스레드 풀을 생성하며 스레드 개수는 기본적으로 프로세서 개수와 동일합니다.
 
@@ -174,12 +198,16 @@ public void basic() {
 
 그리고 여기에서 zipWith()을 중요성 계속해서 강조하고 있다! 나도 활용하기위해 노력하자.
 
+데이터와 시간을 합성해서 발행한다.
+
 #### IO 스케줄러
 
  계산 스케줄러와는 다르게 네트워크상의 요청을 처리하거나 각종 입,출력 작업을 실행하기 위한 스케줄러.  
  계산 스케줄러와 다른 점은 기본으로 생성되는 스레드 개수가 다르다는 것. 즉, 계산 스케줄러는 CPU개수 만큼 스레드를 생성하지만 IO스케줄러는 필요할 때마다 스레드를 계속 생성. 입,출력 작업은 비동기로 실행되지만 결과를 얻기까지 대기 시간이 길다.
 
- 두 스케줄러를 비교하면 계산 스케줄러러는 일반적인 계산 작업, IO 스케줄러는 네트워크상의 요청, 파일 입출력, DB쿼리 등
+ 두 스케줄러를 비교하면  
+계산 스케줄러러는 일반적인 계산 작업  
+IO 스케줄러는 네트워크상의 요청, 파일 입출력, DB쿼리 등  
 
  ```
  public void basic() {
@@ -197,7 +225,7 @@ public void basic() {
 	}
  ```
 
- 나는 맥이라 c파일이 없어서 볼수 없지만 차이점을 약간 이해할 수 있을거 같다.
+ 나는 맥이라 c파일이 없어서 볼수 없지만 차이점을 약간 이해할 수 있을거 같다.  
 
 #### 트램펄린 스케줄러
 
@@ -241,9 +269,9 @@ public void basic() {
 		Observable<String> chars = Observable.range(0, 5)
 				.map(CommonUtils::numberToAlphabet);		
 
-		numbers.subscribeOn(Schedulers.single())
+	*** numbers.subscribeOn(Schedulers.single()) ***
 				.subscribe(Log::i);
-		chars.subscribeOn(Schedulers.single())
+	***	chars.subscribeOn(Schedulers.single()) ***
 				.subscribe(Log::i);		
 		CommonUtils.sleep(500);
 		CommonUtils.exampleComplete();
@@ -297,7 +325,7 @@ public void run() {
 
  서버와 통신하는 네트워크 프로그래밍을 할 떄 마주치는 콜백 지옥을 RxJAVA는 어떻게 해결하는지 살펴봅시다.
 
- ```
+ ```java
  private static final String FIRST_URL = "https://api.github.com/zen";
     private static final String GITHUB_ROOT = "https://raw.githubusercontent.com/yudong80/reactivejava/master/";
     private static final String SECOND_URL = GITHUB_ROOT + "/samples/callback_hell";
@@ -383,6 +411,7 @@ public void usingZip() {
 		Observable.zip(first, second,
 				(a, b) -> ("\n>>" + a + "\n>>" + b))
 			.subscribe(Log::it);
+    
 		CommonUtils.sleep(5000);
 	}
 ```
@@ -392,16 +421,17 @@ zip을 활용해서 동시성 네트워크를 호출하는 Observable를 결합�
 
 ### observeOn() 함수의 활용
 
-이전에 observeOn 와 subscribeOn의 차이를 설명했다.
+이전에 observeOn 와 subscribeOn의 차이를 설명했다.  
 
-다시 해보면 subscribeOn은 subscribe를 호출할 때 데이터 흐름을 발행하는 스레드를 지정.
-observeOn은 처리된 결과를 구독자에게 전달하는 스레드를 지정합니다.
+**다시 해보면 subscribeOn은 subscribe를 호출할 때 데이터 흐름을 발행하는 스레드를 지정.**  
+**observeOn은 처리된 결과를 구독자에게 전달하는 스레드를 지정합니다.**  
 
-여기서 차이점은 subscribeOn함수는 처음 지정한 스레드를 고정시키므로 다시 subscribeOn()함수를 호출해도 무시합니다. 하지만 observeOn() 함수는 다릅니다. 스레드가 변화 됩니다.
+여기서 차이점은 subscribeOn함수는 처음 지정한 스레드를 고정시키므로 다시 subscribeOn()함수를 호출해도 무시합니다.   하지만 observeOn() 함수는 다릅니다. 스레드가 변화 됩니다.  
 
 ![](http://reactivex.io/documentation/operators/images/schedulers.png)
 
-사실 책이 더 잘 나와있다. 위의 마블그램보다! 책을 사랏!!!
+
+
 실습 OpenWheatherMap 연동 책을 참조.
 
 ```java
@@ -454,11 +484,23 @@ public class OpenWeatherMapV1 {
 public void run() {
 		CommonUtils.exampleStart();
 
+    
+	    //어떻게 호출을 한번만 하게 할 수 있을까? 이부분을 
+    	Observable<String> source = Observable.just(URL + API_KEY)
+				.map(OkHttpHelper::getWithLog)
+				.subscribeOn(Schedulers.io());
+    
+		Observable<String> temperature = source.map(this::parseTemperature);
+		Observable<String> city = source.map(this::parseCityName);
+		Observable<String> country = source.map(this::parseCountry); 
+    
+		// 이렇게 수정 가능함.    
 		Observable<String> source = Observable.just(URL + API_KEY)
 				.map(OkHttpHelper::getWithLog)
 				.subscribeOn(Schedulers.io())
 				.share()
 				.observeOn(Schedulers.newThread());
+    
 
 		source.map(this::parseTemperature).subscribe(Log::it);
 		source.map(this::parseCityName).subscribe(Log::it);
@@ -498,4 +540,30 @@ public void run() {
     }
 ```
 
-이렇게 되있다!
+publish() 를 살펴보면
+
+```java
+ /**
+     * Returns a {@link ConnectableObservable}, which is a variety of ObservableSource that waits until its
+     * {@link ConnectableObservable#connect connect} method is called before it begins emitting items to those
+     * {@link Observer}s that have subscribed to it.
+     * <p>
+     * <img width="640" height="510" src="https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/publishConnect.png" alt="">
+     * <dl>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>{@code publish} does not operate by default on a particular {@link Scheduler}.</dd>
+     * </dl>
+     *
+     * @return a {@link ConnectableObservable} that upon connection causes the source ObservableSource to emit items
+     *         to its {@link Observer}s
+     * @see <a href="http://reactivex.io/documentation/operators/publish.html">ReactiveX operators documentation: Publish</a>
+     */
+    @CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final ConnectableObservable<T> publish() {
+        return ObservablePublish.create(this);
+    }
+```
+
+ConnectableObservable 클래스 사용. 차가운 Observable을 뜨거운 Observable 로 변환
+
