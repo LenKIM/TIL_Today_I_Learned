@@ -3,4 +3,4 @@
 
 이미 알고 있는 지식이나 배웠으나 이해가 안되는 부분을 작성합니다.
 
-[Introduction](https://github.com/LenKIM/TIL_Today_I_Learned/blob/master/Introduction.md)
+[Introduction 바로가기](https://github.com/LenKIM/TIL_Today_I_Learned/blob/master/Introduction.md)

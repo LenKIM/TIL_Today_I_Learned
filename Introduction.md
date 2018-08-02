@@ -9,16 +9,9 @@
     참고하면 좋은 사이트.  
     https://disqus.com/home/forum/androidhive/  
 
-  - 복습이 필요해-
-
-### 
-
-
+  - 복습이 필요해
 
 # JavaScript
-
-- Node.js를 배우기 위한 기초 JavaScript 정리
-- 쉬운 자바스크립트를 누군가에게 설명하기
 
 ### Node.js
 
@@ -36,7 +29,7 @@
 
 - Veloport 기초 튜트리얼(https://velopert.com/reactjs-tutorials)
 - Pro-React Book
-- [노마드 코더 기본 튜트리얼(진행중)](https://academy.nomadcoders.co/p/reactjs-fundamentals)
+- 노마드 코더 기본 튜트리얼
 - ISSUE RECOADING
 
 ### Angular.js
@@ -48,14 +41,11 @@
 ### T아카데미
 
  서버 전문가 양성 과정(완료)  
- : 결과  
   서버: [https://github.com/LenKIM/PercentServer](https://github.com/LenKIM/PercentServer)  
   안드로이드 고객용:[ https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
   안드로이드 상담가용 : [https://github.com/LenKIM/PercentConsultantApp](https://github.com/LenKIM/PercentConsultantApp)  
 
 ## Book
-
-- 
 
 ## 딥러닝
 
@@ -63,11 +53,9 @@
 
 - 모두를 위한 딥러닝/머신러닝
 
-  
 
 ## FP(Functional_Thinking)
 
 - 함수형 사고 책 읽고 기본사고를 생각하기(어려워..)
 - 함수형프로그래밍스터디(완료했으나 어려워..)
 - RxJAVA 프로그래밍(유동환, 박정준) 읽고 요약하기
-- 
