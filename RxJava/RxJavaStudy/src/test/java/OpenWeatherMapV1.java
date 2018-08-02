@@ -1,13 +1,13 @@
-import com.yudong80.reactivejava.common.CommonUtils;
-import com.yudong80.reactivejava.common.Log;
-import com.yudong80.reactivejava.common.OkHttpHelper;
+import common.CommonUtils;
+import common.Log;
+import common.OkHttpHelper;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.yudong80.reactivejava.common.CommonUtils.API_KEY;
+import static common.CommonUtils.API_KEY;
 
 
 public class OpenWeatherMapV1 {
