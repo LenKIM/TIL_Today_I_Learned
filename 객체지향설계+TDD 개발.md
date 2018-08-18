@@ -1,6 +1,6 @@
 # 객체지향설계 + TDD 개발
 
-Cardoc 객체지향 개발을 하기 위한 회고 작성
+객체지향 개발을 하기 위한 회고 작성
 
 ```python
 # -*- coding: utf-8 -*-
@@ -540,4 +540,3 @@ PartsExport(config, car_brand, csv_file_path).export()
 ```
 
 TDD를 활용한 개발이 처음이거나와 테스트 코드의 중요성을 알 수 있었던 기회였습니다.  
-해당 리펙토링을 같이 진행해주신 계현님 감사합니다.
