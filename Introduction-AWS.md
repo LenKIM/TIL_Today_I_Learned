@@ -1,13 +1,59 @@
-EBS
+# AWS
+
+
+
+## 용어설명
+
+
+
+### EC2 - Elastic Compute Cloud 독립적인 컴퓨터.
+
+ Linux, Window 운영체제 제공 /
+
+---
+
+### S3
+
+Simple Storage Service
+간단하게 파일서버라고 생각,
+무제한 저장
+스케일은 아마존 인프라가 담당
+
+---
+
+### RDS
+
+Relational Datebase Service
+Mysql, Oracle, SQL Server 지원
+백업, 리플리케이션을 아마존 인프라가 자동으로 지원
+
+---
+
+### ELB
+
+Elastic Load Balancing
+EC2로 유입되는 트래픽을 여러대의 EC2로 분산
+장애가 발생한 EC2를 감지해서 자동으로 배제
+Auto Scaling기능을 이용해서 EC2를 자동으로 생성,삭제
+
+CLI Command Line Interface의 약자로 명령어를 이용해서 서비스를 제어한다.
+명령어에 익숙하지 않은 사용자는 지래 겁먹기가 쉬운데 시스템을 장악하려면 명령어를 두려워하면 안된다.
+
+---
+
+### EC2 (Elastic Compute Cloud)
+
+쉽게 말하면 한대의 컴터를 임대해주는 것을 말함.
+
+---
+
+### EBS
+
 (Elastic Block Store) 일종의 하드디스트.
 
 EBS 와 EC2는 독립적인 존재임!!!
 
 IOPS 초당 인/아웃풋의 속도를 가늠하는 것.
-
-배운다
-외운다
-써먹는다.
 
 EBS를 생성하고 EC2에 붙여야함.
 df /df -h를 통해서 용량 확인가능
@@ -28,10 +74,12 @@ Amazon Machine Images EC2인스턴스를 그대로 저장해서 재사용할수�
 
 private / public / Marketplace로 나눔.
 
-
 AMIs란?? 인스턴스를 만들고 특히 이는 키를 잃어버렸을때 사용가능
 
-ELB -> Elastic Load Balancing
+---
+
+### ELB -> Elastic Load Balancing
+
 Elastic Load Balancing의 약자로 시스템에 가해지는 부하를
 여러대의 시스템으로 분산해서 규모있는 시스템을 만들 수 있도록 해주는 단일 진입점
 
@@ -42,15 +90,19 @@ Elastic Load Balancing의 약자로 시스템에 가해지는 부하를
 이를 Load Balancning이라고 한다.
 
  ELB의 특징으로는
-  - 트래픽 분산
-  - 자동 확장
-  - 인스턴스의 상태를 자동 감지해서 오류가 있는 시스템은 배제
-  - 사용자 세션을 특정 인스터스에 고정
-  - SSL 암호화 지원
-  - IPv4, IPv6 지원
-  - CloudWatch를 통해서 모니터링
 
- Auto Scaling
+- 트래픽 분산
+- 자동 확장
+- 인스턴스의 상태를 자동 감지해서 오류가 있는 시스템은 배제
+- 사용자 세션을 특정 인스터스에 고정
+- SSL 암호화 지원
+- IPv4, IPv6 지원
+- CloudWatch를 통해서 모니터링
+
+---
+
+###  Auto Scaling
+
  EC2인스턴스의 큐모를 자동으로 확대/축소
  인스턴스의 구모를 변화시키는 다양한 조건
  처리량 증가에 빠르게 대응할 수 있다.
@@ -58,24 +110,32 @@ Elastic Load Balancing의 약자로 시스템에 가해지는 부하를
  이미 만들어진 이미지를 이용해서 인스턴스를 자동으로 생성
 
  Auto SCaling의 타입
- - 부하에 따라 자동으로 규모 변경
- - 현재의 규모 유지
- - 시간에 따라 변경
+
+- 부하에 따라 자동으로 규모 변경
+- 현재의 규모 유지
+- 시간에 따라 변경
 
  Auto Scaling의 절차
 
- 1. launch configuration설정
-  - AMI
-  - instance type
- 2. Auto Scaling Group 생성
-  - ELB
-  - 최소/최대 인스턴스의 수량
-  - 가용성 존
- 3. 정책(Policy) 생성
-  - 인스턴스의 추가/제거의 방법과 수량
-  - cooldown
- 4. Cloud Wath에서 Alarm을 생성하고 정책과 연결
+1. launch configuration설정
 
+- AMI
+- instance type
+
+2. Auto Scaling Group 생성
+
+- ELB
+- 최소/최대 인스턴스의 수량
+- 가용성 존
+
+3. 정책(Policy) 생성
+
+- 인스턴스의 추가/제거의 방법과 수량
+- cooldown
+
+4. Cloud Wath에서 Alarm을 생성하고 정책과 연결
+
+---
 
 S3 (Simple Storage Service)
 파일 서버의 역할을 하는 서비스.
@@ -90,14 +150,17 @@ REST,SOAP인터페이스를 제공한다.
 버전관리 기능을 통해서 사용자에 의한 실수로 복원이 가능하다.
 정보의 중요도에 따라서 보호 수준을 차등 할 수 있고, 이에 따라서 비용을 절감 할 수 있다.
 
-##객체
+---
+
+## 객체
+
  Object AWS는 S3에 저장된 데이터 하나하나를 객체라고 명명.
 
-##버킷
+## 버킷
+
  객체가 파일이라면 버킷은 연관된 객체들을 그룹핑한 최상위 디렉토리라고 할 수 있다.
 
 S3 콘솔 사용법
-
 
 RDS란?
 Relational Database Service의 약자로 아마존 웹서비스에서 제공하는 데이터베이스 전용서비스
@@ -106,6 +169,7 @@ MySQL, Oracle, SQL Server 전용서비스
 설치, 운영, 백업, 모두 인프라에 위임.
 
 특징
+
 1. 다중 AZ복제 (가용성 존)
 2. 읽기 복제.
 3. 백업자동화
@@ -116,7 +180,12 @@ MySQL, Oracle, SQL Server 전용서비스
 
 Work Banck 다운로드 후 AWS RDS를 MySQL Work Banch로 연결 완료!
 
-
 End point 가 URL
 
 Reflica에서 부터 시작.
+
+
+
+배운다
+외운다
+써먹는다.
