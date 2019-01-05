@@ -19,6 +19,3 @@ Gradle Version 4.1 => 4.6
 Android Plugin Version 3.0.1 => 3.2.1
 
 으로 변환 후 sync gradle을 하면 잘 됨!
-
-
-
