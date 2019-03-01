@@ -1,6 +1,8 @@
 # Java
 
-### Android
+# Kotlin
+
+# Android
 
 - 안드로이드를 공부하며 습득한 지식들을 기록합니다.  
 
