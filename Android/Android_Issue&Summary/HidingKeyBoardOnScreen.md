@@ -11,3 +11,4 @@ private void hideSoftKeyboard() {
         imm.hideSoftInputFromWindow(edit_Search.getWindowToken(), 0);
     }
 ```
+
