@@ -6,7 +6,7 @@
 간단하게 말해 단일 객체(Single Instance)든 객체들의 집합(Group of Instance)이든 같은 방법으로 취급하는 것이다. 다시 말해, 개별적인 객체들과 객체들의 집합간의 처리 방법의 차이가 없을 경우 사용하면 됩니다. 여기서 컴포지트의 의미는 일부 또는 그룹을 표현하는 객체들의 트리 구조로 구성한다는 것.
 
 
-![enter image description here](https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%9D%BC:Composite_UML_class_diagram_(fixed).svg)
+![](https://ws2.sinaimg.cn/large/006tNc79gy1g20aq4y116j318g0spn02.jpg)
 
 2. 활용?
 예를 들어 파일 시스템을 간단하게 구현한다면?
@@ -171,5 +171,5 @@ cf)ViewGroup안에 View를 어떻게 찾을까?
    }
 ```
 
-비트 연산자와 바이트를 적절히 활용해 최소의리소스로 동작하도록 활용했다.
+비트 연산자와 바이트를 적절히 활용해 최소의 리소스로 동작하도록 활용했다.
 배울 점인 듯...
