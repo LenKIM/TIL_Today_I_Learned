@@ -15,7 +15,7 @@ Vim안에 여러 플러그들을 사용하면 도움을 준다?
 
 3. Never use the -m <msg> / --message=<msg> flag to git commit.  
 
-It gives you a poor mindset right off the bat as you will feel that you have to fit your commit message into the terminal command, and makes the commit feel more like a one-off argument than a page in history:  
+It gives you a poor mindset right off the bat as you will feel that you have to fit your commit message into the terminal command, and makes the commit feel more like a one-off argument than a page in history:
 
 A more useful commit message might be:  
 

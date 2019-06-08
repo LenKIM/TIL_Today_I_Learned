@@ -3,5 +3,6 @@ React/react-contact/
 Node/socket_chatting/
 Node/HelloExpress/
 
-
+.DS_Store
+*/*.DS_Store
 Computer/
